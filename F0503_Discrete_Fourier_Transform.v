@@ -14,13 +14,12 @@
 (* 2021-05-07 20:39 *)
 From Coq Require Import Reals ssreflect.
 Require Import PL.Imp.
-
 Require Import Coq.Lists.List.
 
+(** Definition of complex numbers based on real numbers defined in coq's standard library.*)
 Definition C := (R * R)%type.
 
-(** *** Arithmetic operations *)
-
+(** Arithmetic operations *)
 Definition Cplus (x y : C) : C := (Rplus (fst x) (fst y), Rplus (snd x) (snd y)).
 Definition Copp (x : C) : C := (Ropp(fst x), Ropp( -snd x)).
 Definition Cminus (x y : C) : C := Cplus x (Copp y).
@@ -41,23 +40,7 @@ Infix "/" := Cdiv : C_scope.
 
 Notation "(x, y)" := C : C_scope.
 
-Notation "[ ]" := nil (format "[ ]") : list_scope.
-Notation "[ x ]" := (cons x nil) : list_scope.
-Notation "[ x ; y ; .. ; z ]" := (cons x (cons y .. (cons z nil) ..)) : list_scope.
-Infix "::" := cons (at level 60, right associativity) : list_scope.
-Infix "++" := app (right associativity, at level 60) : list_scope.
-
-Fixpoint EvenList (l:list C) : list C := 
-  match l with
-     | nil => nil
-     | (x :: l' )%list=> x :: OddList l'
-end
-with OddList (l:list C) : list C := 
-  match l with
-     | nil => nil
-     | (_ :: l' )%list=> EvenList l'
-    end.
-
+(** A convenient expression of  e^ix based on Euler's formula.*)
 Definition exp_complex (x : R) : C :=
   (cos x, sin x).
 
@@ -78,36 +61,94 @@ Proof.
   reflexivity.
 Qed.
 
-Definition lenX_pow_2_n_1 (X : list C) : Prop :=
-  exists N, Datatypes.length X = Init.Nat.pow 2 N.
-(* equal of nat *)
+Notation "[ ]" := nil (format "[ ]") : list_scope.
+Notation "[ x ]" := (cons x nil) : list_scope.
+Notation "[ x ; y ; .. ; z ]" := (cons x (cons y .. (cons z nil) ..)) : list_scope.
+Infix "::" := cons (at level 60, right associativity) : list_scope.
+Infix "++" := app (right associativity, at level 60) : list_scope.
 
-Definition lenX_pow_2_n_2 (X : list C) : Prop :=
-  exists N, Z.of_nat (Datatypes.length X) = Z.pow 2 N.
-(* equal of Z *)
 
-(* This is Fourier transform *)
+(** The function below computes the kth element of Discrete Fourier Transform of a list of complex numbers 
+by DEFINITION, not FFT. *)
 Fixpoint Fourier (X : list C) (n : R) (k : Z) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
     | (x :: X')%list => x * (exp_complex (-2 * PI * n * (IZR k) / (INR len ))) + (Fourier X' (n + 1) k len)
   end.
 
-(* This is the even term of the Fourier transform *)
+
+(**  Now define the algorithm of FFT. First define some useful functions.*)
+(** Selecting the elements of even/odd indices out of a list. Used in FFT.*)
+Fixpoint EvenList (l:list C) : list C := 
+  match l with
+     | nil => nil
+     | (x :: l' )%list=> x :: OddList l'
+end
+with OddList (l:list C) : list C := 
+  match l with
+     | nil => nil
+     | (_ :: l' )%list=> EvenList l'
+    end.
+
+(** Pointwise operation on two complex lists. Used in FFT.*)
+Fixpoint ListOp (l1: list C) (l2: list C) (Op: C->C->C) (default: list C): list C :=
+  match l1, l2 with
+     | nil, nil => nil
+     | (x1 :: l1' ), (x2 :: l2') => (Op x1 x2) :: ListOp l1' l2' Op default
+     | nil, _ => default
+     | _, nil => default 
+  end.
+
+(** Generating the phase factor used in FFT.*)
+Fixpoint PhaseGen (n:nat) (m: nat): list C :=
+match n with
+| O => [(1%R,0%R)]
+| S n' => PhaseGen n' m ++ [(exp_complex (-(IZR (Z.of_nat n)) * 2 * PI / (IZR (Z.of_nat m))))]
+end.
+Definition Phase (N: nat): list C:= PhaseGen N (2*N).
+
+(** Checking the length of list X.*)
+Definition lenX_pow_2_n_1 (X : list C) : Prop :=
+  exists N, Datatypes.length X = Init.Nat.pow 2 N.
+(* equal of nat *)
+Definition lenX_pow_2_n_2 (X : list C) : Prop :=
+  exists N, Z.of_nat (Datatypes.length X) = Z.pow 2 N.
+(* equal of Z *)
+
+(** This function describes the algorithm of FFT. The length of list x must be 2^M. *)
+Fixpoint FFT (x:list C) (M:nat): list C :=
+  match M with
+  | O => x
+  | S M' => ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cplus [] 
+                  ++ ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cminus []
+  end.
+
+
+(**  This is our ultimate goal.*)
+Definition FFTCorrect : forall (x:list C) (M:nat) (k:nat), Z.of_nat (length x) = 2^(Z.of_nat M) -> 
+                                                                                    Z.of_nat k <= 2^(Z.of_nat M) -> 
+                                                                                    Fourier x 0 (Z.of_nat k) (length x) = nth k (FFT x M) (0%R, 0%R).
+Proof.
+Admitted.
+
+
+(**  Below are some useful intermediate results for the proof. These come from the derivation of the algorithm of FFT.*)
+
+(** This is the even term of the Fourier transform *)
 Fixpoint Fourier_even (X : list C) (n : R) (k : Z) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
     | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (IZR k) / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
   end.
 
-(* This is the odd term of the Fourier transform *)
+(** This is the odd term of the Fourier transform *)
 Fixpoint Fourier_odd (X : list C) (n : R) (k : Z) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
     | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (IZR k) / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
   end.
 
-(* Split Fourier transform into odd and even when k < N / 2*)
+(** Split Fourier transform into odd and even when k < N / 2*)
 Lemma Fourier_split1: forall (X : list C) (k : Z),
   ~(X = nil) ->
   exists len, len = Datatypes.length X ->
@@ -130,7 +171,7 @@ Lemma Fourier_split2_2: forall (X : list C) (k : Z),
 Proof.
 Admitted.
 
-(* Split Fourier transform into odd and even when k < N / 2*)
+(** Split Fourier transform into odd and even when k < N / 2*)
 Lemma Fourier_split3_1: forall (X : list C) (k : Z),
   ~(X = nil) ->
   exists len, len = Datatypes.length X ->
@@ -144,85 +185,6 @@ Lemma Fourier_split3_2: forall (X : list C) (k : Z),
   exists len, len = Datatypes.length X ->
   Fourier_odd X 0 k len = (exp_complex (-2 * PI * (IZR k) / (2 * INR len) )) * Fourier X 0 k len.
 Proof.
-Admitted.
-
-
-Lemma example1: forall (x y z w : C) , EvenList [x; y; z; w] = [x; z]%list.
-Proof.
-  intros.
-  simpl.
-  reflexivity.
-Qed.
-
-Lemma example2: forall (x y z : C) , OddList [x; y; z] = [y]%list.
-Proof.
-  intros.
-  simpl.
-  reflexivity.
-Qed.
-
-Lemma example3: forall (x y z w : C) , lenX_pow_2_n_1 [x; y; z; w].
-Proof.
-  intros.
-  unfold lenX_pow_2_n_1.
-  exists 2%nat.
-  simpl.
-  lia.
-Qed.
-
-Lemma example4: forall (x y z w : C) , lenX_pow_2_n_2 [x; y; z; w].
-Proof.
-  intros.
-  unfold lenX_pow_2_n_2.
-  exists 2.
-  simpl.
-  lia.
-Qed.
-
-
-(*Pointwise operation on two complex lists. Used in FFT*)
-Fixpoint ListOp (l1: list C) (l2: list C) (Op: C->C->C) (default: list C): list C :=
-  match l1, l2 with
-     | nil, nil => nil
-     | (x1 :: l1' ), (x2 :: l2') => (Op x1 x2) :: ListOp l1' l2' Op default
-     | nil, _ => default
-     | _, nil => default 
-  end.
-
-
-Example ListOpexample: forall (x y z w : C) , ListOp [x;y] [z;w] Cplus [] = [x+z; y+w].
-Proof.
-  intros.
-  simpl.
-  reflexivity.
-Qed.
- 
-(* Generating the phase factor used in FFT.*)
-Fixpoint PhaseGen (n:nat) (m: nat): list C :=
-match n with
-| O => [(1%R,0%R)]
-| S n' => PhaseGen n' m ++ [(exp_complex (-(IZR (Z.of_nat n)) * 2 * PI / (IZR (Z.of_nat m))))]
-end.
-
-Definition Phase (N: nat): list C:= PhaseGen N (2*N).
-
-(* The length of list x must be 2^M. *)
-Fixpoint FFT (x:list C) (M:nat): list C :=
-  match M with
-  | O => x
-  | S M' => ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cplus [] 
-                  ++ ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cminus []
-  end.
-
-
-Example FFTEx: FFT [ (1%R,0%R) ; (2%R,0%R) ]  1%nat = [(3%R, 0%R); ( (-1)%R,0%R)].
-Proof.
-  unfold FFT.
-  unfold EvenList, OddList.
-  unfold ListOp. simpl.
-  unfold Cmult, Cplus. simpl. 
-  simpl. 
-  compute.
 Admitted.
 
 
