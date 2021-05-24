@@ -1,0 +1,1036 @@
+Inductive list (A : Type) : Type :=
+    nil : list A | cons : A -> list A -> list A
+
+Arguments list _%type_scope
+Arguments nil {A}%type_scope
+Arguments cons {A}%type_scope a l%list_scope : rename
+
+
+
+nil: forall {A : Type}, list A
+NoDup: forall [A : Type], list A -> Prop
+list_max: list nat -> nat
+list_sum: list nat -> nat
+rev': forall [A : Type], list A -> list A
+rev: forall [A : Type], list A -> list A
+In: forall [A : Type], A -> list A -> Prop
+last: forall [A : Type], list A -> A -> A
+removelast: forall [A : Type], list A -> list A
+tl: forall [A : Type], list A -> list A
+hd: forall [A : Type], A -> list A -> A
+length: forall [A : Type], list A -> nat
+seq: nat -> nat -> list nat
+Exists: forall [A : Type], (A -> Prop) -> list A -> Prop
+lel: forall [A : Type], list A -> list A -> Prop
+incl: forall [A : Type], list A -> list A -> Prop
+cons: forall {A : Type}, A -> list A -> list A
+concat: forall [A : Type], list (list A) -> list A
+Forall: forall [A : Type], (A -> Prop) -> list A -> Prop
+repeat: forall [A : Type], A -> nat -> list A
+hd_error: forall [A : Type], list A -> option A
+ForallPairs: forall [A : Type], (A -> A -> Prop) -> list A -> Prop
+Relation_Operators.Desc: forall A : Set, (A -> A -> Prop) -> list A -> Prop
+rev_append: forall [A : Type], list A -> list A -> list A
+app: forall [A : Type], list A -> list A -> list A
+Add: forall [A : Type], A -> list A -> list A -> Prop
+ForallOrdPairs: forall [A : Type], (A -> A -> Prop) -> list A -> Prop
+
+lel_refl: forall [A : Type] (l : list A), lel l l
+incl_refl: forall [A : Type] (l : list A), incl l l
+existsb: forall [A : Type], (A -> bool) -> list A -> bool
+nth_default: forall [A : Type], A -> list A -> nat -> A
+firstn: forall [A : Type], nat -> list A -> list A
+skipn: forall [A : Type], nat -> list A -> list A
+forallb: forall [A : Type], (A -> bool) -> list A -> bool
+nth: forall [A : Type], nat -> list A -> A -> A
+map: forall [A B : Type], (A -> B) -> list A -> list B
+filter: forall [A : Type], (A -> bool) -> list A -> list A
+fold_left: forall [A B : Type], (A -> B -> A) -> list B -> A -> A
+nth_ok: forall [A : Type], nat -> list A -> A -> bool
+flat_map: forall [A B : Type], (A -> list B) -> list A -> list B
+Relation_Operators.Ltl:
+  forall A : Set, (A -> A -> Prop) -> list A -> list A -> Prop
+nth_error: forall [A : Type], list A -> nat -> option A
+fold_right: forall [A B : Type], (B -> A -> A) -> A -> list B -> A
+Forall2: forall [A B : Type], (A -> B -> Prop) -> list A -> list B -> Prop
+incl_nil_l: forall [A : Type] (l : list A), incl nil l
+find: forall [A : Type], (A -> bool) -> list A -> option A
+combine: forall [A B : Type], list A -> list B -> list (A * B)
+list_prod: forall [A B : Type], list A -> list B -> list (A * B)
+split: forall [A B : Type], list (A * B) -> list A * list B
+list_power: forall [A B : Type], list A -> list B -> list (list (A * B))
+in_eq: forall [A : Type] (a : A) (l : list A), In a (a :: l)
+Add_head: forall [A : Type] (a : A) (l : list A), Add a l (a :: l)
+NoDup_rev: forall [A : Type] [l : list A], NoDup l -> NoDup (rev l)
+partition: forall [A : Type], (A -> bool) -> list A -> list A * list A
+rev_involutive: forall [A : Type] (l : list A), rev (rev l) = l
+map_id: forall [A : Type] (l : list A), map (fun x : A => x) l = l
+skipn_O: forall [A : Type] (l : list A), skipn 0 l = l
+concat_nil: forall A : Type, concat nil = nil
+app_nil_l: forall [A : Type] (l : list A), nil ++ l = l
+app_nil_r: forall [A : Type] (l : list A), l ++ nil = l
+app_nil_end: forall [A : Type] (l : list A), l = l ++ nil
+incl_filter:
+  forall [A : Type] (f : A -> bool) (l : list A), incl (filter f l) l
+firstn_all: forall [A : Type] (l : list A), firstn (length l) l = l
+ForallPairs_ForallOrdPairs:
+  forall [A : Type] [R : A -> A -> Prop] [l : list A],
+  ForallPairs R l -> ForallOrdPairs R l
+Exists_rev:
+  forall [A : Type] [P : A -> Prop] [l : list A],
+  Exists P l -> Exists P (rev l)
+Forall_rev:
+  forall [A : Type] [P : A -> Prop] [l : list A],
+  Forall P l -> Forall P (rev l)
+Exists_cons_hd:
+  forall [A : Type] (P : A -> Prop) (x : A) (l : list A),
+  P x -> Exists P (x :: l)
+firstn_le_length:
+  forall [A : Type] (n : nat) (l : list A), length (firstn n l) <= n
+firstn_nil: forall (A : Type) (n : nat), firstn n nil = nil
+in_cons: forall [A : Type] (a b : A) (l : list A), In b l -> In b (a :: l)
+Forall_inv:
+  forall [A : Type] [P : A -> Prop] [a : A] [l : list A],
+  Forall P (a :: l) -> P a
+firstn_O: forall [A : Type] (l : list A), firstn 0 l = nil
+in_rev: forall [A : Type] (l : list A) (x : A), In x l <-> In x (rev l)
+NoDup_map_inv:
+  forall [A B : Type] (f : A -> B) (l : list A), NoDup (map f l) -> NoDup l
+lel_nil: forall [A : Type] [l' : list A], lel l' nil -> nil = l'
+rev_length: forall [A : Type] (l : list A), length (rev l) = length l
+NoDup_filter:
+  forall [A : Type] (f : A -> bool) [l : list A],
+  NoDup l -> NoDup (filter f l)
+incl_l_nil: forall [A : Type] [l : list A], incl l nil -> l = nil
+lel_cons: forall [A : Type] (b : A) [l m : list A], lel l m -> lel l (b :: m)
+Exists_cons_tl:
+  forall [A : Type] [P : A -> Prop] (x : A) [l : list A],
+  Exists P l -> Exists P (x :: l)
+Forall_inv_tail:
+  forall [A : Type] [P : A -> Prop] [a : A] [l : list A],
+  Forall P (a :: l) -> Forall P l
+incl_tl: forall [A : Type] (a : A) [l m : list A], incl l m -> incl l (a :: m)
+lel_trans: forall [A : Type] [l m n : list A], lel l m -> lel m n -> lel l n
+in_elt: forall [A : Type] (x : A) (l1 l2 : list A), In x (l1 ++ x :: l2)
+rev_alt: forall [A : Type] (l : list A), rev l = rev_append l nil
+incl_tran:
+  forall [A : Type] [l m n : list A], incl l m -> incl m n -> incl l n
+skipn_all: forall [A : Type] (l : list A), skipn (length l) l = nil
+incl_appl:
+  forall [A : Type] [l : list A] (m : list A) [n : list A],
+  incl l n -> incl l (n ++ m)
+skipn_nil: forall (A : Type) (n : nat), skipn n (nil : list A) = nil
+Relation_Operators.Lt_nil:
+  forall (A : Set) (leA : A -> A -> Prop) (a : A) (x : list A),
+  Relation_Operators.Ltl A leA nil (a :: x)
+incl_appr:
+  forall [A : Type] [l : list A] (m : list A) [n : list A],
+  incl l n -> incl l (m ++ n)
+nil_cons: forall [A : Type] [x : A] [l : list A], nil <> x :: l
+nodup:
+  forall [A : Type], (forall x y : A, {x = y} + {x <> y}) -> list A -> list A
+incl_Exists:
+  forall [A : Type] [P : A -> Prop] [l1 l2 : list A],
+  incl l1 l2 -> Exists P l1 -> Exists P l2
+incl_Forall:
+  forall [A : Type] [P : A -> Prop] [l1 l2 : list A],
+  incl l2 l1 -> Forall P l1 -> Forall P l2
+Forall_cons:
+  forall [A : Type] [P : A -> Prop] (x : A) [l : list A],
+  P x -> Forall P l -> Forall P (x :: l)
+Forall_forall:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Forall P l <-> (forall x : A, In x l -> P x)
+nth_default_eq:
+  forall [A : Type] (n : nat) (l : list A) (d : A),
+  nth_default d l n = nth n l d
+Exists_impl:
+  forall [A : Type] [P : A -> Prop] (Q : A -> Prop),
+  (forall a : A, P a -> Q a) -> forall l : list A, Exists P l -> Exists Q l
+in_map:
+  forall [A B : Type] (f : A -> B) (l : list A) (x : A),
+  In x l -> In (f x) (map f l)
+Forall_impl:
+  forall [A : Type] [P : A -> Prop] (Q : A -> Prop),
+  (forall a : A, P a -> Q a) -> forall l : list A, Forall P l -> Forall Q l
+Add_inv:
+  forall [A : Type] (a : A) (l : list A),
+  In a l -> exists l' : list A, Add a l' l
+seq_shift: forall len start : nat, map S (seq start len) = seq (S start) len
+lel_cons_cons:
+  forall [A : Type] (a b : A) [l m : list A], lel l m -> lel (a :: l) (b :: m)
+remove':
+  forall [A : Type],
+  (forall x y : A, {x = y} + {x <> y}) -> A -> list A -> list A
+lel_tail:
+  forall [A : Type] [a b : A] [l m : list A], lel (a :: l) (b :: m) -> lel l m
+list_max_le:
+  forall (l : list nat) (n : nat),
+  list_max l <= n <-> Forall (fun k : nat => k <= n) l
+Add_app:
+  forall [A : Type] (a : A) (l1 l2 : list A), Add a (l1 ++ l2) (l1 ++ a :: l2)
+remove:
+  forall [A : Type],
+  (forall x y : A, {x = y} + {x <> y}) -> A -> list A -> list A
+cons_seq:
+  forall len start : nat, start :: seq (S start) len = seq start (S len)
+count_occ':
+  forall [A : Type],
+  (forall x y : A, {x = y} + {x <> y}) -> list A -> A -> nat
+count_occ:
+  forall [A : Type],
+  (forall x y : A, {x = y} + {x <> y}) -> list A -> A -> nat
+removelast_firstn_len:
+  forall [A : Type] (l : list A),
+  removelast l = firstn (Nat.pred (length l)) l
+map_length:
+  forall [A B : Type] (f : A -> B) (l : list A), length (map f l) = length l
+hd_error_cons:
+  forall [A : Type] (l : list A) (x : A), hd_error (x :: l) = Some x
+rev_append_rev:
+  forall [A : Type] (l l' : list A), rev_append l l' = rev l ++ l'
+incl_Forall_in_iff:
+  forall [A : Type] (l l' : list A),
+  incl l l' <-> Forall (fun x : A => In x l') l
+list_sum_app:
+  forall l1 l2 : list nat, list_sum (l1 ++ l2) = list_sum l1 + list_sum l2
+NoDup_cons:
+  forall [A : Type] (x : A) [l : list A],
+  ~ In x l -> NoDup l -> NoDup (x :: l)
+list_max_app:
+  forall l1 l2 : list nat,
+  list_max (l1 ++ l2) = Nat.max (list_max l1) (list_max l2)
+skipn_length:
+  forall [A : Type] (n : nat) (l : list A), length (skipn n l) = length l - n
+incl_app:
+  forall [A : Type] [l m n : list A], incl l n -> incl m n -> incl (l ++ m) n
+Add_cons:
+  forall [A : Type] [a : A] (x : A) [l l' : list A],
+  Add a l l' -> Add a (x :: l) (x :: l')
+firstn_length:
+  forall [A : Type] (n : nat) (l : list A),
+  length (firstn n l) = Nat.min n (length l)
+firstn_skipn:
+  forall [A : Type] (n : nat) (l : list A), firstn n l ++ skipn n l = l
+NoDup_remove_1:
+  forall [A : Type] (l l' : list A) (a : A),
+  NoDup (l ++ a :: l') -> NoDup (l ++ l')
+Forall_Exists_neg:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Forall (fun x : A => ~ P x) l <-> ~ Exists P l
+incl_cons:
+  forall [A : Type] [a : A] [l m : list A],
+  In a m -> incl l m -> incl (a :: l) m
+combine_nil: forall [A : Type] (B : Type) (l : list A), combine l nil = nil
+firstn_all2:
+  forall [A : Type] [n : nat] (l : list A), length l <= n -> firstn n l = l
+Forall_elt:
+  forall [A : Type] [P : A -> Prop] (a : A) (l1 l2 : list A),
+  Forall P (l1 ++ a :: l2) -> P a
+app_assoc: forall [A : Type] (l m n : list A), l ++ m ++ n = (l ++ m) ++ n
+nth_overflow:
+  forall [A : Type] (l : list A) [n : nat] (d : A),
+  length l <= n -> nth n l d = d
+in_app_or:
+  forall [A : Type] (l m : list A) (a : A), In a (l ++ m) -> In a l \/ In a m
+in_or_app:
+  forall [A : Type] (l m : list A) (a : A), In a l \/ In a m -> In a (l ++ m)
+app_inv_tail:
+  forall [A : Type] (l l1 l2 : list A), l1 ++ l = l2 ++ l -> l1 = l2
+nth_In:
+  forall [A : Type] [n : nat] (l : list A) (d : A),
+  n < length l -> In (nth n l d) l
+length_zero_iff_nil: forall [A : Type] (l : list A), length l = 0 <-> l = nil
+NoDup_incl_length:
+  forall [A : Type] [l l' : list A],
+  NoDup l -> incl l l' -> length l <= length l'
+removelast_last:
+  forall [A : Type] (l : list A) (a : A), removelast (l ++ a :: nil) = l
+rev_app_distr: forall [A : Type] (x y : list A), rev (x ++ y) = rev y ++ rev x
+incl_map:
+  forall [A B : Type] (f : A -> B) [l1 l2 : list A],
+  incl l1 l2 -> incl (map f l1) (map f l2)
+app_assoc_reverse:
+  forall [A : Type] (l m n : list A), (l ++ m) ++ n = l ++ m ++ n
+app_inv_head:
+  forall [A : Type] (l l1 l2 : list A), l ++ l1 = l ++ l2 -> l1 = l2
+firstn_length_le:
+  forall [A : Type] (l : list A) [n : nat],
+  n <= length l -> length (firstn n l) = n
+in_inv:
+  forall [A : Type] [a b : A] [l : list A], In b (a :: l) -> a = b \/ In b l
+map_rev:
+  forall [A B : Type] (f : A -> B) (l : list A), map f (rev l) = rev (map f l)
+fold_left_length:
+  forall [A : Type] (l : list A),
+  fold_left (fun (x : nat) (_ : A) => S x) l 0 = length l
+last_last:
+  forall [A : Type] (l : list A) (a d : A), last (l ++ a :: nil) d = a
+firstn_firstn:
+  forall [A : Type] (l : list A) (i j : nat),
+  firstn i (firstn j l) = firstn (Nat.min i j) l
+app_comm_cons:
+  forall [A : Type] (x y : list A) (a : A), a :: x ++ y = (a :: x) ++ y
+list_rec:
+  forall [A : Type] (P : list A -> Set),
+  P nil ->
+  (forall (a : A) (l : list A), P l -> P (a :: l)) -> forall l : list A, P l
+Exists_cons:
+  forall [A : Type] (P : A -> Prop) (x : A) (l : list A),
+  Exists P (x :: l) <-> P x \/ Exists P l
+Relation_Operators.Lt_hd:
+  forall (A : Set) (leA : A -> A -> Prop) (a b : A),
+  leA a b ->
+  forall x y : list A, Relation_Operators.Ltl A leA (a :: x) (b :: y)
+list_sind:
+  forall [A : Type] (P : list A -> SProp),
+  P nil ->
+  (forall (a : A) (l : list A), P l -> P (a :: l)) -> forall l : list A, P l
+Forall_fold_right:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Forall P l <-> fold_right (fun x : A => and (P x)) True l
+list_ind:
+  forall [A : Type] (P : list A -> Prop),
+  P nil ->
+  (forall (a : A) (l : list A), P l -> P (a :: l)) -> forall l : list A, P l
+Relation_Operators.Lt_tl:
+  forall (A : Set) (leA : A -> A -> Prop) (a : A) (x y : list A),
+  Relation_Operators.Ltl A leA x y ->
+  Relation_Operators.Ltl A leA (a :: x) (a :: y)
+Exists_fold_right:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Exists P l <-> fold_right (fun x : A => or (P x)) False l
+map_eq_nil:
+  forall [A B : Type] (f : A -> B) (l : list A), map f l = nil -> l = nil
+list_rect:
+  forall [A : Type] (P : list A -> Type),
+  P nil ->
+  (forall (a : A) (l : list A), P l -> P (a :: l)) -> forall l : list A, P l
+incl_app_inv:
+  forall [A : Type] (l1 l2 : list A) [m : list A],
+  incl (l1 ++ l2) m -> incl l1 m /\ incl l2 m
+Forall_dec:
+  forall [A : Type] (P : A -> Prop),
+  (forall x : A, {P x} + {~ P x}) ->
+  forall l : list A, {Forall P l} + {~ Forall P l}
+FOP_cons:
+  forall [A : Type] [R : A -> A -> Prop] (a : A) [l : list A],
+  Forall (R a) l -> ForallOrdPairs R l -> ForallOrdPairs R (a :: l)
+Forall_and:
+  forall [A : Type] [P Q : A -> Prop] [l : list A],
+  Forall P l -> Forall Q l -> Forall (fun x : A => P x /\ Q x) l
+app_cons_not_nil: forall [A : Type] (x y : list A) (a : A), nil <> x ++ a :: y
+app_length:
+  forall [A : Type] (l l' : list A), length (l ++ l') = length l + length l'
+Exists_dec:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  (forall x : A, {P x} + {~ P x}) -> {Exists P l} + {~ Exists P l}
+incl_cons_inv:
+  forall [A : Type] [a : A] [l m : list A],
+  incl (a :: l) m -> In a m /\ incl l m
+skipn_cons:
+  forall [A : Type] (n : nat) (a : A) (l : list A),
+  skipn (S n) (a :: l) = skipn n l
+Forall_and_inv:
+  forall [A : Type] (P Q : A -> Prop) [l : list A],
+  Forall (fun x : A => P x /\ Q x) l -> Forall P l /\ Forall Q l
+Exists_or:
+  forall [A : Type] [P Q : A -> Prop] [l : list A],
+  Exists P l \/ Exists Q l -> Exists (fun x : A => P x \/ Q x) l
+Exists_exists:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Exists P l <-> (exists x : A, In x l /\ P x)
+nth_in_or_default:
+  forall [A : Type] (n : nat) (l : list A) (d : A),
+  {In (nth n l d) l} + {nth n l d = d}
+Exists_or_inv:
+  forall [A : Type] (P Q : A -> Prop) [l : list A],
+  Exists (fun x : A => P x \/ Q x) l -> Exists P l \/ Exists Q l
+in_app_iff:
+  forall [A : Type] (l l' : list A) (a : A),
+  In a (l ++ l') <-> In a l \/ In a l'
+Add_length:
+  forall [A : Type] [a : A] [l l' : list A],
+  Add a l l' -> length l' = S (length l)
+skipn_all2:
+  forall [A : Type] [n : nat] (l : list A), length l <= n -> skipn n l = nil
+seq_app:
+  forall len1 len2 start : nat,
+  seq start (len1 + len2) = seq start len1 ++ seq (start + len1) len2
+concat_cons:
+  forall [A : Type] (x : list A) (l : list (list A)),
+  concat (x :: l) = x ++ concat l
+nth_error_In:
+  forall [A : Type] (l : list A) (n : nat) [x : A],
+  nth_error l n = Some x -> In x l
+exists_Forall:
+  forall [A B : Type] (P : A -> B -> Prop) [l : list B],
+  (exists k : A, Forall (P k) l) ->
+  Forall (fun x : B => exists k : A, P k x) l
+flat_map_concat_map:
+  forall [A B : Type] (f : A -> list B) (l : list A),
+  flat_map f l = concat (map f l)
+NoDup_nodup:
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y}) (l : list A),
+  NoDup (nodup decA l)
+NoDup_incl_NoDup:
+  forall [A : Type] [l l' : list A],
+  NoDup l -> length l' <= length l -> incl l l' -> NoDup l'
+Add_in:
+  forall [A : Type] [a : A] [l l' : list A],
+  Add a l l' -> forall x : A, In x l' <-> In x (a :: l)
+Forall_app:
+  forall [A : Type] (P : A -> Prop) (l1 l2 : list A),
+  Forall P (l1 ++ l2) <-> Forall P l1 /\ Forall P l2
+NoDup_cons_iff:
+  forall [A : Type] (a : A) (l : list A),
+  NoDup (a :: l) <-> ~ In a l /\ NoDup l
+concat_app:
+  forall [A : Type] (l1 l2 : list (list A)),
+  concat (l1 ++ l2) = concat l1 ++ concat l2
+NoDup_length_incl:
+  forall [A : Type] [l l' : list A],
+  NoDup l -> length l' <= length l -> incl l l' -> incl l' l
+incl_app_app:
+  forall [A : Type] [l1 l2 m1 m2 : list A],
+  incl l1 m1 -> incl l2 m2 -> incl (l1 ++ l2) (m1 ++ m2)
+Exists_app:
+  forall [A : Type] (P : A -> Prop) (l1 l2 : list A),
+  Exists P (l1 ++ l2) <-> Exists P l1 \/ Exists P l2
+map_cons:
+  forall [A B : Type] (f : A -> B) (x : A) (l : list A),
+  map f (x :: l) = f x :: map f l
+nth_indep:
+  forall [A : Type] (l : list A) [n : nat] (d d' : A),
+  n < length l -> nth n l d = nth n l d'
+ForallOrdPairs_ForallPairs:
+  forall [A : Type] [R : A -> A -> Prop],
+  (forall x : A, R x x) ->
+  (forall x y : A, R x y -> R y x) ->
+  forall l : list A, ForallOrdPairs R l -> ForallPairs R l
+repeat_to_concat:
+  forall [A : Type] (n : nat) (a : A),
+  repeat a n = concat (repeat (a :: nil) n)
+firstn_cons:
+  forall [A : Type] (n : nat) (a : A) (l : list A),
+  firstn (S n) (a :: l) = a :: firstn n l
+rev_unit:
+  forall [A : Type] (l : list A) (a : A), rev (l ++ a :: nil) = a :: rev l
+nth_middle:
+  forall [A : Type] (l l' : list A) (a d : A),
+  nth (length l) (l ++ a :: l') d = a
+filter_ext:
+  forall [A : Type] (f g : A -> bool),
+  (forall a : A, f a = g a) -> forall l : list A, filter f l = filter g l
+hd_error_some_nil:
+  forall [A : Type] [l : list A] [a : A], hd_error l = Some a -> l <> nil
+firstn_skipn_comm:
+  forall [A : Type] (m n : nat) (l : list A),
+  firstn m (skipn n l) = skipn n (firstn (n + m) l)
+skipn_firstn_comm:
+  forall [A : Type] (m n : nat) (l : list A),
+  skipn m (firstn n l) = firstn (n - m) (skipn m l)
+map_ext:
+  forall [A B : Type] (f g : A -> B),
+  (forall a : A, f a = g a) -> forall l : list A, map f l = map g l
+NoDup_remove_2:
+  forall [A : Type] (l l' : list A) (a : A),
+  NoDup (l ++ a :: l') -> ~ In a (l ++ l')
+in_combine_l:
+  forall [A B : Type] (l : list A) (l' : list B) (x : A) (y : B),
+  In (x, y) (combine l l') -> In x l
+in_combine_r:
+  forall [A B : Type] (l : list A) (l' : list B) (x : A) (y : B),
+  In (x, y) (combine l l') -> In y l'
+firstn_removelast:
+  forall [A : Type] [n : nat] (l : list A),
+  n < length l -> firstn n (removelast l) = firstn n l
+map_nth:
+  forall [A B : Type] (f : A -> B) (l : list A) (d : A) (n : nat),
+  nth n (map f l) (f d) = f (nth n l d)
+map_map:
+  forall [A B C : Type] (f : A -> B) (g : B -> C) (l : list A),
+  map g (map f l) = map (fun x : A => g (f x)) l
+last_length:
+  forall [A : Type] (l : list A) (a : A),
+  length (l ++ a :: nil) = S (length l)
+Forall_Exists_dec:
+  forall [A : Type] (P : A -> Prop),
+  (forall x : A, {P x} + {~ P x}) ->
+  forall l : list A, {Forall P l} + {Exists (fun x : A => ~ P x) l}
+repeat_cons:
+  forall [A : Type] (n : nat) (a : A),
+  a :: repeat a n = repeat a n ++ a :: nil
+in_flat_map_Exists:
+  forall [A B : Type] (f : A -> list B) (x : B) (l : list A),
+  In x (flat_map f l) <-> Exists (fun y : A => In x (f y)) l
+filter_app:
+  forall [A : Type] (f : A -> bool) (l l' : list A),
+  filter f (l ++ l') = filter f l ++ filter f l'
+forallb_app:
+  forall [A : Type] (f : A -> bool) (l1 l2 : list A),
+  forallb f (l1 ++ l2) = (forallb f l1 && forallb f l2)%bool
+existsb_app:
+  forall [A : Type] (f : A -> bool) (l1 l2 : list A),
+  existsb f (l1 ++ l2) = (existsb f l1 || existsb f l2)%bool
+in_dec:
+  forall [A : Type],
+  (forall x y : A, {x = y} + {x <> y}) ->
+  forall (a : A) (l : list A), {In a l} + {~ In a l}
+combine_firstn_r:
+  forall [A B : Type] (l : list A) (l' : list B),
+  combine l l' = combine (firstn (length l') l) l'
+In_nth_error:
+  forall [A : Type] (l : list A) (x : A),
+  In x l -> exists n : nat, nth_error l n = Some x
+neg_Forall_Exists_neg:
+  forall [A : Type] [P : A -> Prop] [l : list A],
+  (forall x : A, {P x} + {~ P x}) ->
+  ~ Forall P l -> Exists (fun x : A => ~ P x) l
+combine_firstn_l:
+  forall [A B : Type] (l : list A) (l' : list B),
+  combine l l' = combine l (firstn (length l) l')
+rev_ind:
+  forall [A : Type] (P : list A -> Prop),
+  P nil ->
+  (forall (x : A) (l : list A), P l -> P (l ++ x :: nil)) ->
+  forall l : list A, P l
+concat_map:
+  forall [A B : Type] (f : A -> B) (l : list (list A)),
+  map f (concat l) = concat (map (map f) l)
+nth_error_None:
+  forall [A : Type] (l : list A) (n : nat),
+  nth_error l n = None <-> length l <= n
+remove_In:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), ~ In x (remove eq_dec x l)
+forallb_forall:
+  forall [A : Type] (f : A -> bool) (l : list A),
+  forallb f l = true <-> (forall x : A, In x l -> f x = true)
+Forall_nth:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Forall P l <-> (forall (i : nat) (d : A), i < length l -> P (nth i l d))
+fold_left_rev_right:
+  forall [A B : Type] (f : A -> B -> B) (l : list A) (i : B),
+  fold_right f i (rev l) = fold_left (fun (x : B) (y : A) => f y x) l i
+rev_eq_app:
+  forall [A : Type] (l l1 l2 : list A),
+  rev l = l1 ++ l2 -> l = rev l2 ++ rev l1
+split_length_l:
+  forall [A B : Type] (l : list (A * B)), length (fst (split l)) = length l
+nth_error_nth:
+  forall [A : Type] (l : list A) (n : nat) [x : A] (d : A),
+  nth_error l n = Some x -> nth n l d = x
+split_length_r:
+  forall [A B : Type] (l : list (A * B)), length (snd (split l)) = length l
+combine_length:
+  forall [A B : Type] (l : list A) (l' : list B),
+  length (combine l l') = Nat.min (length l) (length l')
+prod_length:
+  forall [A B : Type] (l : list A) (l' : list B),
+  length (list_prod l l') = length l * length l'
+map_app:
+  forall [A B : Type] (f : A -> B) (l l' : list A),
+  map f (l ++ l') = map f l ++ map f l'
+concat_filter_map:
+  forall [A : Type] (f : A -> bool) (l : list (list A)),
+  concat (map (filter f) l) = filter f (concat l)
+concat_nil_Forall:
+  forall [A : Type] (l : list (list A)),
+  concat l = nil <-> Forall (fun x : list A => x = nil) l
+app_eq_nil:
+  forall [A : Type] (l l' : list A), l ++ l' = nil -> l = nil /\ l' = nil
+nodup_fixed_point:
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y}) [l : list A],
+  NoDup l -> nodup decA l = l
+firstn_skipn_rev:
+  forall [A : Type] (x : nat) (l : list A),
+  firstn x l = rev (skipn (length l - x) (rev l))
+fold_right_app:
+  forall [A B : Type] (f : A -> B -> B) (l l' : list A) (i : B),
+  fold_right f i (l ++ l') = fold_right f (fold_right f i l') l
+list_eq_dec:
+  forall [A : Type],
+  (forall x y : A, {x = y} + {x <> y}) ->
+  forall l l' : list A, {l = l'} + {l <> l'}
+NoDup_Add:
+  forall [A : Type] [a : A] [l l' : list A],
+  Add a l l' -> NoDup l' <-> NoDup l /\ ~ In a l
+fold_left_app:
+  forall [A B : Type] (f : A -> B -> A) (l l' : list B) (i : A),
+  fold_left f (l ++ l') i = fold_left f l' (fold_left f l i)
+Forall2_cons:
+  forall [A B : Type] [R : A -> B -> Prop] (x : A) 
+    (y : B) [l : list A] [l' : list B],
+  R x y -> Forall2 R l l' -> Forall2 R (x :: l) (y :: l')
+skipn_rev:
+  forall [A : Type] (x : nat) (l : list A),
+  skipn x (rev l) = rev (firstn (length l - x) l)
+firstn_rev:
+  forall [A : Type] (x : nat) (l : list A),
+  firstn x (rev l) = rev (skipn (length l - x) l)
+seq_S:
+  forall len start : nat,
+  seq start (S len) = seq start len ++ start + len :: nil
+removelast_firstn:
+  forall [A : Type] [n : nat] (l : list A),
+  n < length l -> removelast (firstn (S n) l) = firstn n l
+app_nth2_plus:
+  forall [A : Type] (l l' : list A) (d : A) (n : nat),
+  nth (length l + n) (l ++ l') d = nth n l' d
+flat_map_ext:
+  forall [A B : Type] (f g : A -> list B),
+  (forall a : A, f a = g a) -> forall l : list A, flat_map f l = flat_map g l
+not_in_cons:
+  forall [A : Type] (x a : A) (l : list A),
+  ~ In x (a :: l) <-> x <> a /\ ~ In x l
+rev_list_ind:
+  forall [A : Type] (P : list A -> Prop),
+  P nil ->
+  (forall (a : A) (l : list A), P (rev l) -> P (rev (a :: l))) ->
+  forall l : list A, P (rev l)
+flat_map_app:
+  forall [A B : Type] (f : A -> list B) (l1 l2 : list A),
+  flat_map f (l1 ++ l2) = flat_map f l1 ++ flat_map f l2
+removelast_app:
+  forall [A : Type] (l : list A) [l' : list A],
+  l' <> nil -> removelast (l ++ l') = l ++ removelast l'
+nth_S_cons:
+  forall [A : Type] (n : nat) (l : list A) (d a : A),
+  In (nth n l d) l -> In (nth (S n) (a :: l) d) (a :: l)
+Exists_Forall_neg:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  (forall x : A, P x \/ ~ P x) ->
+  Exists (fun x : A => ~ P x) l <-> ~ Forall P l
+in_prod_aux:
+  forall [A B : Type] (x : A) (y : B) (l : list B),
+  In y l -> In (x, y) (map (fun y0 : B => (x, y0)) l)
+in_concat:
+  forall [A : Type] (l : list (list A)) (y : A),
+  In y (concat l) <-> (exists x : list A, In x l /\ In y x)
+in_split_r:
+  forall [A B : Type] (l : list (A * B)) (p : A * B),
+  In p l -> In (snd p) (snd (split l))
+Forall_rect:
+  forall [A : Type] [P : A -> Prop] (Q : list A -> Type),
+  Q nil ->
+  (forall (b : A) (l : list A), P b -> Q (b :: l)) ->
+  forall l : list A, Forall P l -> Q l
+in_split_l:
+  forall [A B : Type] (l : list (A * B)) (p : A * B),
+  In p l -> In (fst p) (fst (split l))
+in_prod:
+  forall [A B : Type] (l : list A) (l' : list B) (x : A) (y : B),
+  In x l -> In y l' -> In (x, y) (list_prod l l')
+map_ext_Forall:
+  forall [A B : Type] (f g : A -> B) [l : list A],
+  Forall (fun x : A => f x = g x) l -> map f l = map g l
+filter_In:
+  forall [A : Type] (f : A -> bool) (x : A) (l : list A),
+  In x (filter f l) <-> In x l /\ f x = true
+firstn_app_2:
+  forall [A : Type] (n : nat) (l1 l2 : list A),
+  firstn (length l1 + n) (l1 ++ l2) = l1 ++ firstn n l2
+ext_in_filter:
+  forall [A : Type] (f g : A -> bool) (l : list A),
+  filter f l = filter g l -> forall a : A, In a l -> f a = g a
+app_nth1:
+  forall [A : Type] (l l' : list A) (d : A) [n : nat],
+  n < length l -> nth n (l ++ l') d = nth n l d
+remove_alt:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (x : A) (l : list A), remove' eq_dec x l = remove eq_dec x l
+in_elt_inv:
+  forall [A : Type] (x y : A) (l1 l2 : list A),
+  In x (l1 ++ y :: l2) -> x = y \/ In x (l1 ++ l2)
+nth_error_Some:
+  forall [A : Type] (l : list A) (n : nat),
+  nth_error l n <> None <-> n < length l
+filter_ext_in:
+  forall [A : Type] (f g : A -> bool) (l : list A),
+  (forall a : A, In a l -> f a = g a) -> filter f l = filter g l
+remove_length_le:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), length (remove eq_dec x l) <= length l
+ext_in_map:
+  forall [A B : Type] [f g : A -> B] [l : list A],
+  map f l = map g l -> forall a : A, In a l -> f a = g a
+map_ext_in:
+  forall [A B : Type] (f g : A -> B) (l : list A),
+  (forall a : A, In a l -> f a = g a) -> map f l = map g l
+destruct_list:
+  forall [A : Type] (l : list A),
+  {x : A & {tl : list A | l = x :: tl}} + {l = nil}
+list_max_lt:
+  forall [l : list nat] (n : nat),
+  l <> nil -> list_max l < n <-> Forall (fun k : nat => k < n) l
+find_none:
+  forall [A : Type] (f : A -> bool) (l : list A),
+  find f l = None -> forall x : A, In x l -> f x = false
+notin_flat_map_Forall:
+  forall [A B : Type] (f : A -> list B) (x : B) (l : list A),
+  ~ In x (flat_map f l) <-> Forall (fun y : A => ~ In x (f y)) l
+count_occ_alt:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), count_occ' eq_dec l x = count_occ eq_dec l x
+nth_error_app1:
+  forall [A : Type] (l l' : list A) [n : nat],
+  n < length l -> nth_error (l ++ l') n = nth_error l n
+incl_Add_inv:
+  forall [A : Type] [a : A] [l u v : list A],
+  ~ In a l -> incl (a :: l) v -> Add a u v -> incl l u
+remove_remove_eq:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A),
+  remove eq_dec x (remove eq_dec x l) = remove eq_dec x l
+nth_error_nth':
+  forall [A : Type] (l : list A) [n : nat] (d : A),
+  n < length l -> nth_error l n = Some (nth n l d)
+nodup_In:
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), In x (nodup decA l) <-> In x l
+in_split:
+  forall [A : Type] (x : A) (l : list A),
+  In x l -> exists l1 l2 : list A, l = l1 ++ x :: l2
+notin_remove:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), ~ In x l -> remove eq_dec x l = l
+split_combine:
+  forall [A B : Type] (l : list (A * B)),
+  let (l1, l2) := split l in combine l1 l2 = l
+in_flat_map:
+  forall [A B : Type] (f : A -> list B) (l : list A) (y : B),
+  In y (flat_map f l) <-> (exists x : A, In x l /\ In y (f x))
+in_map_iff:
+  forall [A B : Type] (f : A -> B) (l : list A) (y : B),
+  In y (map f l) <-> (exists x : A, f x = y /\ In x l)
+Forall2_app:
+  forall [A B : Type] [R : A -> B -> Prop] [l1 l2 : list A] [l1' l2' : list B],
+  Forall2 R l1 l1' -> Forall2 R l2 l2' -> Forall2 R (l1 ++ l2) (l1' ++ l2')
+filter_ext_in_iff:
+  forall [A : Type] (f g : A -> bool) (l : list A),
+  filter f l = filter g l <-> (forall a : A, In a l -> f a = g a)
+remove_cons:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (x : A) (l : list A), remove eq_dec x (x :: l) = remove eq_dec x l
+ForallOrdPairs_In:
+  forall [A : Type] [R : A -> A -> Prop] [l : list A],
+  ForallOrdPairs R l ->
+  forall x y : A, In x l -> In y l -> x = y \/ R x y \/ R y x
+skipn_app:
+  forall [A : Type] (n : nat) (l1 l2 : list A),
+  skipn n (l1 ++ l2) = skipn n l1 ++ skipn (n - length l1) l2
+firstn_app:
+  forall [A : Type] (n : nat) (l1 l2 : list A),
+  firstn n (l1 ++ l2) = firstn n l1 ++ firstn (n - length l1) l2
+nodup_incl:
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y})
+    (l1 l2 : list A), incl l1 (nodup decA l2) <-> incl l1 l2
+filter_map:
+  forall [A : Type] (f g : A -> bool) (l : list A),
+  filter f l = filter g l <-> map f l = map g l
+combine_firstn:
+  forall [A B : Type] (l : list A) (l' : list B) (n : nat),
+  firstn n (combine l l') = combine (firstn n l) (firstn n l')
+existsb_exists:
+  forall [A : Type] (f : A -> bool) (l : list A),
+  existsb f l = true <-> (exists x : A, In x l /\ f x = true)
+NoDup_remove:
+  forall [A : Type] (l l' : list A) (a : A),
+  NoDup (l ++ a :: l') -> NoDup (l ++ l') /\ ~ In a (l ++ l')
+map_ext_in_iff:
+  forall {A B : Type} {f g : A -> B} {l : list A},
+  map f l = map g l <-> (forall a : A, In a l -> f a = g a)
+In_nth:
+  forall [A : Type] (l : list A) (x d : A),
+  In x l -> exists n : nat, n < length l /\ nth n l d = x
+app_removelast_last:
+  forall [A : Type] [l : list A] (d : A),
+  l <> nil -> l = removelast l ++ last l d :: nil
+find_some:
+  forall [A : Type] (f : A -> bool) (l : list A) [x : A],
+  find f l = Some x -> In x l /\ f x = true
+in_prod_iff:
+  forall [A B : Type] (l : list A) (l' : list B) (x : A) (y : B),
+  In (x, y) (list_prod l l') <-> In x l /\ In y l'
+remove_incl:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y})
+    [l1 l2 : list A] (x : A),
+  incl l1 l2 -> incl (remove eq_dec x l1) (remove eq_dec x l2)
+count_occ_In:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), In x l <-> count_occ eq_dec l x > 0
+map_last:
+  forall [A B : Type] (f : A -> B) (l : list A) (a : A),
+  map f (l ++ a :: nil) = map f l ++ f a :: nil
+Forall_ind:
+  forall [A : Type] [P : A -> Prop] (P0 : list A -> Prop),
+  P0 nil ->
+  (forall (x : A) (l : list A), P x -> Forall P l -> P0 l -> P0 (x :: l)) ->
+  forall l : list A, Forall P l -> P0 l
+Exists_nth:
+  forall [A : Type] (P : A -> Prop) (l : list A),
+  Exists P l <-> (exists (i : nat) (d : A), i < length l /\ P (nth i l d))
+Forall_image:
+  forall [A B : Type] (f : A -> B) (l : list B),
+  Forall (fun y : B => exists x : A, y = f x) l <->
+  (exists l' : list A, l = map f l')
+Forall_sind:
+  forall [A : Type] [P : A -> Prop] (P0 : list A -> SProp),
+  P0 nil ->
+  (forall (x : A) (l : list A), P x -> Forall P l -> P0 l -> P0 (x :: l)) ->
+  forall l : list A, Forall P l -> P0 l
+in_in_remove:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) [x y : A], x <> y -> In x l -> In x (remove eq_dec y l)
+remove_remove_comm:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x y : A),
+  remove eq_dec x (remove eq_dec y l) = remove eq_dec y (remove eq_dec x l)
+rev_nth:
+  forall [A : Type] (l : list A) (d : A) [n : nat],
+  n < length l -> nth n (rev l) d = nth (length l - S n) l d
+existsb_nth:
+  forall [A : Type] (f : A -> bool) (l : list A) [n : nat] (d : A),
+  n < length l -> existsb f l = false -> f (nth n l d) = false
+app_nth2:
+  forall [A : Type] (l l' : list A) (d : A) [n : nat],
+  n >= length l -> nth n (l ++ l') d = nth (n - length l) l' d
+nth_error_app2:
+  forall [A : Type] (l l' : list A) [n : nat],
+  length l <= n -> nth_error (l ++ l') n = nth_error l' (n - length l)
+NoDup_nth_error:
+  forall [A : Type] (l : list A),
+  NoDup l <->
+  (forall i j : nat, i < length l -> nth_error l i = nth_error l j -> i = j)
+remove_length_lt:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), In x l -> length (remove eq_dec x l) < length l
+map_nth_error:
+  forall [A B : Type] (f : A -> B) (n : nat) (l : list A) [d : A],
+  nth_error l n = Some d -> nth_error (map f l) n = Some (f d)
+count_occ_not_In:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x : A), ~ In x l <-> count_occ eq_dec l x = 0
+exists_last:
+  forall [A : Type] [l : list A],
+  l <> nil -> {l' : list A & {a : A | l = l' ++ a :: nil}}
+app_inj_tail:
+  forall [A : Type] (x y : list A) (a b : A),
+  x ++ a :: nil = y ++ b :: nil -> x = y /\ a = b
+NoDup_count_occ:
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y}) (l : list A),
+  NoDup l <-> (forall x : A, count_occ decA l x <= 1)
+partition_inv_nil:
+  forall [A : Type] (f : A -> bool) (l : list A),
+  partition f l = (nil, nil) <-> l = nil
+nodup_inv:
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y}) 
+    (k : list A) [l : list A] [a : A], nodup decA k = a :: l -> ~ In a l
+in_remove:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) (x y : A), In x (remove eq_dec y l) -> In x l /\ x <> y
+count_occ_inv_nil:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) (l : list A),
+  (forall x : A, count_occ eq_dec l x = 0) <-> l = nil
+NoDup_sind:
+  forall [A : Type] (P : list A -> SProp),
+  P nil ->
+  (forall (x : A) (l : list A), ~ In x l -> NoDup l -> P l -> P (x :: l)) ->
+  forall l : list A, NoDup l -> P l
+NoDup_ind:
+  forall [A : Type] (P : list A -> Prop),
+  P nil ->
+  (forall (x : A) (l : list A), ~ In x l -> NoDup l -> P l -> P (x :: l)) ->
+  forall l : list A, NoDup l -> P l
+Exists_ind:
+  forall [A : Type] [P : A -> Prop] (P0 : list A -> Prop),
+  (forall (x : A) (l : list A), P x -> P0 (x :: l)) ->
+  (forall (x : A) (l : list A), Exists P l -> P0 l -> P0 (x :: l)) ->
+  forall l : list A, Exists P l -> P0 l
+remove_concat:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y})
+    (l : list (list A)) (x : A),
+  remove eq_dec x (concat l) = flat_map (remove eq_dec x) l
+Exists_sind:
+  forall [A : Type] [P : A -> Prop] (P0 : list A -> SProp),
+  (forall (x : A) (l : list A), P x -> P0 (x :: l)) ->
+  (forall (x : A) (l : list A), Exists P l -> P0 l -> P0 (x :: l)) ->
+  forall l : list A, Exists P l -> P0 l
+count_occ_cons_neq:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) [x y : A],
+  x <> y -> count_occ eq_dec (x :: l) y = count_occ eq_dec l y
+hd_error_tl_repr:
+  forall [A : Type] (l : list A) (a : A) (r : list A),
+  hd_error l = Some a /\ tl l = r <-> l = a :: r
+nth_ext:
+  forall [A : Type] (l l' : list A) (d d' : A),
+  length l = length l' ->
+  (forall n : nat, n < length l -> nth n l d = nth n l' d') -> l = l'
+combine_split:
+  forall [A B : Type] (l : list A) (l' : list B),
+  length l = length l' -> split (combine l l') = (l, l')
+remove_app:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (x : A) (l1 l2 : list A),
+  remove eq_dec x (l1 ++ l2) = remove eq_dec x l1 ++ remove eq_dec x l2
+NoDup_nth:
+  forall [A : Type] (l : list A) (d : A),
+  NoDup l <->
+  (forall i j : nat,
+   i < length l -> j < length l -> nth i l d = nth j l d -> i = j)
+ForallOrdPairs_ind:
+  forall [A : Type] [R : A -> A -> Prop] (P : list A -> Prop),
+  P nil ->
+  (forall (a : A) (l : list A),
+   Forall (R a) l -> ForallOrdPairs R l -> P l -> P (a :: l)) ->
+  forall l : list A, ForallOrdPairs R l -> P l
+count_occ_cons_eq:
+  forall [A : Type] (eq_dec : forall x y : A, {x = y} + {x <> y}) 
+    (l : list A) [x y : A],
+  x = y -> count_occ eq_dec (x :: l) y = S (count_occ eq_dec l y)
+ForallOrdPairs_sind:
+  forall [A : Type] [R : A -> A -> Prop] (P : list A -> SProp),
+  P nil ->
+  (forall (a : A) (l : list A),
+   Forall (R a) l -> ForallOrdPairs R l -> P l -> P (a :: l)) ->
+  forall l : list A, ForallOrdPairs R l -> P l
+elt_eq_unit:
+  forall [A : Type] (l1 l2 : list A) (a : A) [b : A],
+  l1 ++ a :: l2 = b :: nil -> a = b /\ l1 = nil /\ l2 = nil
+fold_symmetric:
+  forall [A : Type] (f : A -> A -> A),
+  (forall x y z : A, f x (f y z) = f (f x y) z) ->
+  forall a0 : A,
+  (forall y : A, f a0 y = f y a0) ->
+  forall l : list A, fold_left f l a0 = fold_right f a0 l
+Relation_Operators.d_conc:
+  forall (A : Set) (leA : A -> A -> Prop) (x y : A) (l : list A),
+  Relation_Operators.clos_refl A leA x y ->
+  Relation_Operators.Desc A leA (l ++ y :: nil) ->
+  Relation_Operators.Desc A leA ((l ++ y :: nil) ++ x :: nil)
+NoDup_count_occ':
+  forall [A : Type] (decA : forall x y : A, {x = y} + {x <> y}) (l : list A),
+  NoDup l <-> (forall x : A, In x l -> count_occ decA l x = 1)
+Add_split:
+  forall [A : Type] [a : A] [l l' : list A],
+  Add a l l' -> exists l1 l2 : list A, l = l1 ++ l2 /\ l' = l1 ++ a :: l2
+partition_length:
+  forall [A : Type] (f : A -> bool) (l : list A) [l1 l2 : list A],
+  partition f l = (l1, l2) -> length l = length l1 + length l2
+Add_ind:
+  forall [A : Type] [a : A] (P : list A -> list A -> Prop),
+  (forall l : list A, P l (a :: l)) ->
+  (forall (x : A) (l l' : list A),
+   Add a l l' -> P l l' -> P (x :: l) (x :: l')) ->
+  forall l l0 : list A, Add a l l0 -> P l l0
+Add_sind:
+  forall [A : Type] [a : A] (P : list A -> list A -> SProp),
+  (forall l : list A, P l (a :: l)) ->
+  (forall (x : A) (l l' : list A),
+   Add a l l' -> P l l' -> P (x :: l) (x :: l')) ->
+  forall l l0 : list A, Add a l l0 -> P l l0
+elements_in_partition:
+  forall [A : Type] (f : A -> bool) (l : list A) [l1 l2 : list A],
+  partition f l = (l1, l2) -> forall x : A, In x l <-> In x l1 \/ In x l2
+nth_nth_nth_map:
+  forall [A : Type] (l : list A) [n : nat] (d : A) (ln : list nat) [dn : nat],
+  n < length ln \/ length l <= dn ->
+  nth (nth n ln dn) l d = nth n (map (fun x : nat => nth x l d) ln) d
+combine_nth:
+  forall [A B : Type] (l : list A) (l' : list B) (n : nat) (x : A) (y : B),
+  length l = length l' ->
+  nth n (combine l l') (x, y) = (nth n l x, nth n l' y)
+nth_split:
+  forall [A : Type] [n : nat] (l : list A) (d : A),
+  n < length l ->
+  exists l1 l2 : list A, l = l1 ++ nth n l d :: l2 /\ length l1 = n
+Forall2_app_inv_r:
+  forall [A B : Type] [R : A -> B -> Prop] (l1' l2' : list B) [l : list A],
+  Forall2 R l (l1' ++ l2') ->
+  exists l1 l2 : list A, Forall2 R l1 l1' /\ Forall2 R l2 l2' /\ l = l1 ++ l2
+Forall2_app_inv_l:
+  forall [A B : Type] [R : A -> B -> Prop] (l1 l2 : list A) [l' : list B],
+  Forall2 R (l1 ++ l2) l' ->
+  exists l1' l2' : list B,
+    Forall2 R l1 l1' /\ Forall2 R l2 l2' /\ l' = l1' ++ l2'
+nth_error_split:
+  forall [A : Type] (l : list A) (n : nat) [a : A],
+  nth_error l n = Some a ->
+  exists l1 l2 : list A, l = l1 ++ a :: l2 /\ length l1 = n
+map_eq_cons:
+  forall [A B : Type] (f : A -> B) (l : list A) [l' : list B] [b : B],
+  map f l = b :: l' ->
+  exists (a : A) (tl : list A), l = a :: tl /\ f a = b /\ map f tl = l'
+app_eq_unit:
+  forall [A : Type] (x y : list A) [a : A],
+  x ++ y = a :: nil -> x = nil /\ y = a :: nil \/ x = a :: nil /\ y = nil
+Forall2_ind:
+  forall [A B : Type] [R : A -> B -> Prop] (P : list A -> list B -> Prop),
+  P nil nil ->
+  (forall (x : A) (y : B) (l : list A) (l' : list B),
+   R x y -> Forall2 R l l' -> P l l' -> P (x :: l) (y :: l')) ->
+  forall (l : list A) (l0 : list B), Forall2 R l l0 -> P l l0
+Forall2_sind:
+  forall [A B : Type] [R : A -> B -> Prop] (P : list A -> list B -> SProp),
+  P nil nil ->
+  (forall (x : A) (y : B) (l : list A) (l' : list B),
+   R x y -> Forall2 R l l' -> P l l' -> P (x :: l) (y :: l')) ->
+  forall (l : list A) (l0 : list B), Forall2 R l l0 -> P l l0
+split_nth:
+  forall [A B : Type] (l : list (A * B)) (n : nat) (d : A * B),
+  nth n l d = (nth n (fst (split l)) (fst d), nth n (snd (split l)) (snd d))
+partition_cons2:
+  forall [A : Type] (f : A -> bool) (a : A) (l : list A) [l1 l2 : list A],
+  partition f l = (l1, l2) ->
+  f a = false -> partition f (a :: l) = (l1, a :: l2)
+partition_cons1:
+  forall [A : Type] (f : A -> bool) (a : A) (l : list A) [l1 l2 : list A],
+  partition f l = (l1, l2) ->
+  f a = true -> partition f (a :: l) = (a :: l1, l2)
+map_eq_app:
+  forall [A B : Type] (f : A -> B) (l : list A) (l1 l2 : list B),
+  map f l = l1 ++ l2 ->
+  exists l1' l2' : list A, l = l1' ++ l2' /\ map f l1' = l1 /\ map f l2' = l2
+count_occ_map:
+  forall [A B : Type] (f : A -> B)
+    (decA : forall x1 x2 : A, {x1 = x2} + {x1 <> x2})
+    (decB : forall y1 y2 : B, {y1 = y2} + {y1 <> y2}),
+  (forall x1 x2 : A, f x1 = f x2 -> x1 = x2) ->
+  forall (x : A) (l : list A),
+  count_occ decA l x = count_occ decB (map f l) (f x)
+Relation_Operators.Ltl_sind:
+  forall (A : Set) (leA : A -> A -> Prop) (P : list A -> list A -> SProp),
+  (forall (a : A) (x : list A), P nil (a :: x)) ->
+  (forall a b : A, leA a b -> forall x y : list A, P (a :: x) (b :: y)) ->
+  (forall (a : A) (x y : list A),
+   Relation_Operators.Ltl A leA x y -> P x y -> P (a :: x) (a :: y)) ->
+  forall l l0 : list A, Relation_Operators.Ltl A leA l l0 -> P l l0
+Relation_Operators.Ltl_ind:
+  forall (A : Set) (leA : A -> A -> Prop) (P : list A -> list A -> Prop),
+  (forall (a : A) (x : list A), P nil (a :: x)) ->
+  (forall a b : A, leA a b -> forall x y : list A, P (a :: x) (b :: y)) ->
+  (forall (a : A) (x y : list A),
+   Relation_Operators.Ltl A leA x y -> P x y -> P (a :: x) (a :: y)) ->
+  forall l l0 : list A, Relation_Operators.Ltl A leA l l0 -> P l l0
+Relation_Operators.Desc_ind:
+  forall (A : Set) (leA : A -> A -> Prop) (P : list A -> Prop),
+  P nil ->
+  (forall x : A, P (x :: nil)) ->
+  (forall (x y : A) (l : list A),
+   Relation_Operators.clos_refl A leA x y ->
+   Relation_Operators.Desc A leA (l ++ y :: nil) ->
+   P (l ++ y :: nil) -> P ((l ++ y :: nil) ++ x :: nil)) ->
+  forall l : list A, Relation_Operators.Desc A leA l -> P l
+Relation_Operators.Desc_sind:
+  forall (A : Set) (leA : A -> A -> Prop) (P : list A -> SProp),
+  P nil ->
+  (forall x : A, P (x :: nil)) ->
+  (forall (x y : A) (l : list A),
+   Relation_Operators.clos_refl A leA x y ->
+   Relation_Operators.Desc A leA (l ++ y :: nil) ->
+   P (l ++ y :: nil) -> P ((l ++ y :: nil) ++ x :: nil)) ->
+  forall l : list A, Relation_Operators.Desc A leA l -> P l
+(use "About" for full details on the implicit arguments of incl_cons and
+ incl_nil_l)
