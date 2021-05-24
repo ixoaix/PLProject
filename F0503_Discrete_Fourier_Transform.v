@@ -13,7 +13,6 @@
 
 (* 2021-05-07 20:39 *)
 From Coq Require Import Reals ssreflect.
-Require Import PL.Imp.
 Require Import Coq.Lists.List.
 
 (** Definition of complex numbers based on real numbers defined in coq's standard library.*)
@@ -125,8 +124,8 @@ Fixpoint FFT (x:list C) (M:nat): list C :=
 
 
 (**  This is our ultimate goal.*)
-Definition FFTCorrect : forall (x:list C) (M:nat) (k:nat), Z.of_nat (length x) = 2^(Z.of_nat M) -> 
-                                                                                    Z.of_nat k <= 2^(Z.of_nat M) -> 
+Definition FFTCorrect : forall (x:list C) (M:nat) (k:nat), length x = 2^M -> 
+                                                                                    k <= 2^M -> 
                                                                                     Fourier x 0 (Z.of_nat k) (length x) = nth k (FFT x M) (0%R, 0%R).
 Proof.
 Admitted.
