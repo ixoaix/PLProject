@@ -61,28 +61,6 @@ with OddList (l:list C) : list C :=
 Definition exp_complex (x : R) : C :=
   (cos x, sin x).
 
-Definition lenX_pow_2_n_1 (X : list C) : Prop :=
-  exists N, Z.of_nat (Datatypes.length X) = Zpower.two_power_nat N.
-(* equal of Z *)
-
-Definition lenX_pow_2_n_2 (X : list C) : Prop :=
-  exists N, Datatypes.length X = Init.Nat.pow 2 N.
-(* equal of nat *)
-
-Definition lenX_pow_2_n_3 (X : list C) : Prop :=
-  exists N, Z.of_nat (Datatypes.length X) = Z.pow 2 N.
-(* equal of Z *)
-
-Fixpoint Fourier_sum (X : list C) (n : R) (k : Z) : C :=
-  match X with
-    | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (IZR k) / (INR (Datatypes.length X)))) + (Fourier_sum X' (n + 1) k)
-  end.
-
-Definition Fourier (X : list C) (k : Z) : C :=
-  Fourier_sum X 0%R k.
-(* Function 'Fourier' means the k_th term of Fourier transform of list X. *)
-
 Lemma exp_mult: forall (x y : R),
   exp_complex x * exp_complex y = exp_complex ( x + y ) .
 Proof.
@@ -99,6 +77,75 @@ Proof.
   rewrite <- H1.
   reflexivity.
 Qed.
+
+Definition lenX_pow_2_n_1 (X : list C) : Prop :=
+  exists N, Datatypes.length X = Init.Nat.pow 2 N.
+(* equal of nat *)
+
+Definition lenX_pow_2_n_2 (X : list C) : Prop :=
+  exists N, Z.of_nat (Datatypes.length X) = Z.pow 2 N.
+(* equal of Z *)
+
+(* This is Fourier transform *)
+Fixpoint Fourier (X : list C) (n : R) (k : Z) (len : nat) : C :=
+  match X with
+    | nil => (0%R , 0%R)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (IZR k) / (INR len ))) + (Fourier X' (n + 1) k len)
+  end.
+
+(* This is the even term of the Fourier transform *)
+Fixpoint Fourier_even (X : list C) (n : R) (k : Z) (len : nat) : C :=
+  match X with
+    | nil => (0%R , 0%R)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (IZR k) / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
+  end.
+
+(* This is the odd term of the Fourier transform *)
+Fixpoint Fourier_odd (X : list C) (n : R) (k : Z) (len : nat) : C :=
+  match X with
+    | nil => (0%R , 0%R)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (IZR k) / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
+  end.
+
+(* Split Fourier transform into odd and even when k < N / 2*)
+Lemma Fourier_split1: forall (X : list C) (k : Z),
+  ~(X = nil) ->
+  exists len, len = Datatypes.length X ->
+  exists len', len = (2 * len')%nat ->
+  Fourier X 0 k len = Fourier_even (EvenList X) 0 k len' + Fourier_odd (EvenList X) 0 k len'.
+Proof.
+Admitted.
+
+Lemma Fourier_split2_1: forall (X : list C) (k : Z),
+  ~(X = nil) ->
+  exists len, len = Datatypes.length X ->
+  Fourier_even X 0 k len = Fourier X 0 k len.
+Proof.
+Admitted.
+
+Lemma Fourier_split2_2: forall (X : list C) (k : Z),
+  ~(X = nil) ->
+  exists len, len = Datatypes.length X ->
+  Fourier_odd X 0 k len = (exp_complex (-2 * PI * (IZR k ) / (2 * (INR len)) )) * Fourier X 0 k len.
+Proof.
+Admitted.
+
+(* Split Fourier transform into odd and even when k < N / 2*)
+Lemma Fourier_split3_1: forall (X : list C) (k : Z),
+  ~(X = nil) ->
+  exists len, len = Datatypes.length X ->
+  exists k', k' = (k - Z.of_nat len / 2)%Z ->
+  Fourier_even X 0 k len = Fourier X 0 k' len.
+Proof.
+Admitted.
+
+Lemma Fourier_split3_2: forall (X : list C) (k : Z),
+  ~(X = nil) ->
+  exists len, len = Datatypes.length X ->
+  Fourier_odd X 0 k len = (exp_complex (-2 * PI * (IZR k) / (2 * INR len) )) * Fourier X 0 k len.
+Proof.
+Admitted.
+
 
 Lemma example1: forall (x y z w : C) , EvenList [x; y; z; w] = [x; z]%list.
 Proof.
@@ -119,24 +166,14 @@ Proof.
   intros.
   unfold lenX_pow_2_n_1.
   exists 2%nat.
-  unfold Zpower.two_power_nat.
   simpl.
-  reflexivity.
+  lia.
 Qed.
 
 Lemma example4: forall (x y z w : C) , lenX_pow_2_n_2 [x; y; z; w].
 Proof.
   intros.
   unfold lenX_pow_2_n_2.
-  exists 2%nat.
-  simpl.
-  lia.
-Qed.
-
-Lemma example5: forall (x y z w : C) , lenX_pow_2_n_3 [x; y; z; w].
-Proof.
-  intros.
-  unfold lenX_pow_2_n_3.
   exists 2.
   simpl.
   lia.
@@ -185,7 +222,7 @@ Proof.
   unfold ListOp. simpl.
   unfold Cmult, Cplus. simpl. 
   simpl. 
-  compute. 
+  compute.
 Admitted.
 
 
