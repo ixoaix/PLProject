@@ -56,75 +56,47 @@ with OddList (l:list C) : list C :=
      | (_ :: l' )%list=> EvenList l'
     end.
 
-Print pow_2_n.
-(* pow_2_n = fun n : nat => (2 ^ n)%R
-     : nat -> R *)
-Print Zpower.two_power_nat.
-(* Zpower.two_power_nat = 
-fun n : nat => Z.pos (Zpower.shift_nat n 1)
-     : nat -> Z *)
-Print Init.Nat.pow.
-(* Init.Nat.pow = 
-fix pow (n m : nat) {struct m} : nat :=
-  match m with
-  | 0 => 1
-  | S m0 => (n * pow n m0)%nat
-  end
-     : nat -> nat -> nat *)
-Print Nat.pow.
-(* Nat.pow = 
-fix pow (n m : nat) {struct m} : nat :=
-  match m with
-  | 0 => 1
-  | S m0 => (n * pow n m0)%nat
-  end
-     : nat -> nat -> nat *)
-Print INR.
-(* INR = 
-fix INR (n : nat) : R :=
-  match n with
-  | 0 => 0%R
-  | 1 => 1%R
-  | S (S _ as n0) => (INR n0 + 1)%R
-  end
-     : nat -> R *)
-Print Int_part.
-(* Int_part = fun r : R => (up r - 1)%Z
-     : R -> Z *)
-Print Z.of_nat.
-(* Z.of_nat = 
-fun n : nat =>
-match n with
-| 0 => 0%Z
-| S n0 => Z.pos (Pos.of_succ_nat n0)
-end
-     : nat -> Z *)
-Print Datatypes.length.
-(* length: forall [A : Type], list A -> nat *)
-Print Z.pow.
-(* Z.pow = 
-fun x y : Z =>
-match y with
-| 0 => 1
-| Z.pos p => Z.pow_pos x p
-| Z.neg _ => 0
-end
-     : Z -> Z -> Z *)
-
-Definition exp_complex (x : nat) : C :=
-  (cos_n x, sin_n x).
+Definition exp_complex (x : R) : C :=
+  (cos x, sin x).
 
 Definition lenX_pow_2_n_1 (X : list C) : Prop :=
-  exists n, Z.of_nat (Datatypes.length X) = Zpower.two_power_nat n.
+  exists N, Z.of_nat (Datatypes.length X) = Zpower.two_power_nat N.
 (* equal of Z *)
 
 Definition lenX_pow_2_n_2 (X : list C) : Prop :=
-  exists n, Datatypes.length X = Init.Nat.pow 2 n.
+  exists N, Datatypes.length X = Init.Nat.pow 2 N.
 (* equal of nat *)
 
 Definition lenX_pow_2_n_3 (X : list C) : Prop :=
-  exists n, Z.of_nat (Datatypes.length X) = Z.pow 2 n.
+  exists N, Z.of_nat (Datatypes.length X) = Z.pow 2 N.
 (* equal of Z *)
+
+Fixpoint Fourier_sum (X : list C) (n : R) (k : Z) : C :=
+  match X with
+    | nil => (0%R , 0%R)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (IZR k) / (INR (Datatypes.length X)))) + (Fourier_sum X' (n + 1) k)
+  end.
+
+Definition Fourier (X : list C) (k : Z) : C :=
+  Fourier_sum X 0%R k.
+(* Function 'Fourier' means the k_th term of Fourier transform of list X. *)
+
+Lemma exp_mult: forall (x y : R),
+  exp_complex x * exp_complex y = exp_complex ( x + y ) .
+Proof.
+  intros.
+  unfold exp_complex.
+  unfold Cmult.
+  simpl.
+  pose proof cos_plus x y.
+  rewrite <- H.
+  assert ((sin x * cos y + cos x * sin y )%R = (cos x * sin y + sin x * cos y )%R).
+  { apply Rplus_comm. }
+  rewrite <- H0.
+  pose proof sin_plus x y.
+  rewrite <- H1.
+  reflexivity.
+Qed.
 
 Lemma example1: forall (x y z w : C) , EvenList [x; y; z; w] = [x; z]%list.
 Proof.
@@ -147,7 +119,7 @@ Proof.
   exists 2%nat.
   unfold Zpower.two_power_nat.
   simpl.
-reflexivity.
+  reflexivity.
 Qed.
 
 Lemma example4: forall (x y z w : C) , lenX_pow_2_n_2 [x; y; z; w].
@@ -156,7 +128,7 @@ Proof.
   unfold lenX_pow_2_n_2.
   exists 2%nat.
   simpl.
-  reflexivity.
+  lia.
 Qed.
 
 Lemma example5: forall (x y z w : C) , lenX_pow_2_n_3 [x; y; z; w].
@@ -165,11 +137,5 @@ Proof.
   unfold lenX_pow_2_n_3.
   exists 2.
   simpl.
-  reflexivity.
+  lia.
 Qed.
-
-Fixpoint X_len2pow (X : list C) : list C :=
-  match (lenX_pow_2_n_3 X) with
-    | True => X
-    | False => X_len2pow (X ++ (0, 0)::nil)
-  end.
