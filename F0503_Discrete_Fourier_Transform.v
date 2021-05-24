@@ -15,6 +15,8 @@
 From Coq Require Import Reals ssreflect.
 Require Import PL.Imp.
 
+Require Import Coq.Lists.List.
+
 Definition C := (R * R)%type.
 
 (** *** Arithmetic operations *)
@@ -139,3 +141,51 @@ Proof.
   simpl.
   lia.
 Qed.
+
+
+(*Pointwise operation on two complex lists. Used in FFT*)
+Fixpoint ListOp (l1: list C) (l2: list C) (Op: C->C->C) (default: list C): list C :=
+  match l1, l2 with
+     | nil, nil => nil
+     | (x1 :: l1' ), (x2 :: l2') => (Op x1 x2) :: ListOp l1' l2' Op default
+     | nil, _ => default
+     | _, nil => default 
+  end.
+
+
+Example ListOpexample: forall (x y z w : C) , ListOp [x;y] [z;w] Cplus [] = [x+z; y+w].
+Proof.
+  intros.
+  simpl.
+  reflexivity.
+Qed.
+ 
+(* Generating the phase factor used in FFT.*)
+Fixpoint PhaseGen (n:nat) (m: nat): list C :=
+match n with
+| O => [(1%R,0%R)]
+| S n' => PhaseGen n' m ++ [(exp_complex (-(IZR (Z.of_nat n)) * 2 * PI / (IZR (Z.of_nat m))))]
+end.
+
+Definition Phase (N: nat): list C:= PhaseGen N (2*N).
+
+(* The length of list x must be 2^M. *)
+Fixpoint FFT (x:list C) (M:nat): list C :=
+  match M with
+  | O => x
+  | S M' => ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cplus [] 
+                  ++ ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cminus []
+  end.
+
+
+Example FFTEx: FFT [ (1%R,0%R) ; (2%R,0%R) ]  1%nat = [(3%R, 0%R); ( (-1)%R,0%R)].
+Proof.
+  unfold FFT.
+  unfold EvenList, OddList.
+  unfold ListOp. simpl.
+  unfold Cmult, Cplus. simpl. 
+  simpl. 
+  compute. 
+Admitted.
+
+
