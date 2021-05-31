@@ -1,0 +1,62 @@
+DIGEST 60e5753a54ce4efea16ad772c1762120
+FPL.Rcompute
+R15:19 Coq.Reals.Reals <> <> lib
+R21:29 Coq.ssr.ssreflect <> <> lib
+mod 40:45 <> Rsimpl
+prf 76:84 Rsimpl compute_1
+R99:101 Coq.Init.Datatypes <> nat ind
+binder 95:95 <> k:1
+R111:113 Coq.Init.Datatypes <> nat ind
+binder 105:107 <> len:2
+R164:166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R138:140 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R130:132 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R126:128 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R121:123 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R124:125 Coq.Reals.Rtrigo1 <> PI def
+R133:135 Coq.Reals.Raxioms <> INR def
+R137:137 PL.Rcompute <> k:1 var
+R141:142 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R143:145 Coq.Reals.Raxioms <> INR def
+R151:154 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R162:162 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R148:150 PL.Rcompute <> len:2 var
+R158:160 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R155:157 PL.Rcompute <> len:2 var
+R200:208 Coq.Reals.RIneq <> Rmult_0_r thm
+R213:215 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R216:217 Coq.Reals.Rtrigo1 <> PI def
+R200:208 Coq.Reals.RIneq <> Rmult_0_r thm
+R213:215 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R216:217 Coq.Reals.Rtrigo1 <> PI def
+R247:255 Coq.Reals.RIneq <> Rmult_0_l thm
+R263:265 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R258:260 Coq.Reals.Raxioms <> INR def
+R266:267 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R268:270 Coq.Reals.Raxioms <> INR def
+R276:279 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R287:287 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R283:285 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R247:255 Coq.Reals.RIneq <> Rmult_0_l thm
+R263:265 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R258:260 Coq.Reals.Raxioms <> INR def
+R266:267 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R268:270 Coq.Reals.Raxioms <> INR def
+R276:279 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R287:287 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R283:285 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R305:315 Coq.Reals.Raxioms <> Rmult_assoc thm
+R328:329 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R330:332 Coq.Reals.Raxioms <> INR def
+R338:341 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R349:349 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R345:347 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R320:322 Coq.Reals.Raxioms <> INR def
+R305:315 Coq.Reals.Raxioms <> Rmult_assoc thm
+R328:329 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R330:332 Coq.Reals.Raxioms <> INR def
+R338:341 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R349:349 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R345:347 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R320:322 Coq.Reals.Raxioms <> INR def
+R416:421 PL.Rcompute Rsimpl <> mod
