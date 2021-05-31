@@ -70,10 +70,10 @@ Infix "++" := app (right associativity, at level 60) : list_scope.
 
 (** The function below computes the kth element of Discrete Fourier Transform of a list of complex numbers 
 by DEFINITION, not FFT. *)
-Fixpoint Fourier (X : list C) (n : R) (k : Z) (len : nat) : C :=
+Fixpoint Fourier (X : list C) (n : R) (k : nat) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (IZR k) / (INR len ))) + (Fourier X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (INR k) / (INR len ))) + (Fourier X' (n + 1) k len)
   end.
 
 
@@ -127,7 +127,7 @@ Fixpoint FFT (x:list C) (M:nat): list C :=
 (**  This is our ultimate goal.*)
 Definition FFTCorrect : forall (x:list C) (M:nat) (k:nat), length x = 2^M -> 
                                                                                      k <= 2^M -> 
-                                                                                    Fourier x 0 (Z.of_nat k) (length x) = nth k (FFT x M) (0%R, 0%R).
+                                                                                    Fourier x 0 k (length x) = nth k (FFT x M) (0%R, 0%R).
 Proof.
 Admitted.
 
@@ -135,55 +135,63 @@ Admitted.
 (**  Below are some useful intermediate results for the proof. These come from the derivation of the algorithm of FFT.*)
 
 (** This is the even term of the Fourier transform *)
-Fixpoint Fourier_even (X : list C) (n : R) (k : Z) (len : nat) : C :=
+Fixpoint Fourier_even (X : list C) (n : R) (k : nat) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (IZR k) / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (INR k) / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
   end.
 
 (** This is the odd term of the Fourier transform *)
-Fixpoint Fourier_odd (X : list C) (n : R) (k : Z) (len : nat) : C :=
+Fixpoint Fourier_odd (X : list C) (n : R) (k : nat) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (IZR k) / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (INR k) / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
   end.
 
 (** Split Fourier transform into odd and even when k < N / 2*)
-Lemma Fourier_split1: forall (X : list C) (k : Z),
+Lemma Fourier_split1: forall (X : list C) (k : nat),
   ~(X = nil) ->
-  exists len, len = Datatypes.length X ->
+  exists len, exists len' , len = Datatypes.length X -> 
+  len = (2 * len')%nat ->
+  Fourier X 0 k len = Fourier_even (EvenList X) 0 k len' + Fourier_odd (EvenList X) 0 k len'.
+Proof.
+Admitted.
+
+Lemma Fourier_split1_0 : forall (X : list C) (k : nat),
+  ~(X = nil) ->
+  exists len,  len = Datatypes.length X -> 
   exists len', len = (2 * len')%nat ->
   Fourier X 0 k len = Fourier_even (EvenList X) 0 k len' + Fourier_odd (EvenList X) 0 k len'.
 Proof.
 Admitted.
 
-Lemma Fourier_split2_1: forall (X : list C) (k : Z),
+Lemma Fourier_split2_1: forall (X : list C) (k : nat),
   ~(X = nil) ->
   exists len, len = Datatypes.length X ->
   Fourier_even X 0 k len = Fourier X 0 k len.
 Proof.
 Admitted.
 
-Lemma Fourier_split2_2: forall (X : list C) (k : Z),
+Lemma Fourier_split2_2: forall (X : list C) (k : nat),
   ~(X = nil) ->
   exists len, len = Datatypes.length X ->
-  Fourier_odd X 0 k len = (exp_complex (-2 * PI * (IZR k ) / (2 * (INR len)) )) * Fourier X 0 k len.
+  Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k ) / (2 * (INR len)) )) * Fourier X 0 k len.
 Proof.
 Admitted.
 
 (** Split Fourier transform into odd and even when k < N / 2*)
-Lemma Fourier_split3_1: forall (X : list C) (k : Z),
+Lemma Fourier_split3_1: forall (X : list C) (k : nat),
   ~(X = nil) ->
   exists len, len = Datatypes.length X ->
-  exists k', k' = (k - Z.of_nat len / 2)%Z ->
+  exists k', k' = (k - len/2)%nat ->
   Fourier_even X 0 k len = Fourier X 0 k' len.
 Proof.
 Admitted.
 
-Lemma Fourier_split3_2: forall (X : list C) (k : Z),
+Lemma Fourier_split3_2: forall (X : list C) (k : nat),
   ~(X = nil) ->
   exists len, len = Datatypes.length X ->
-  Fourier_odd X 0 k len = (exp_complex (-2 * PI * (IZR k) / (2 * INR len) )) * Fourier X 0 k len.
+  Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) / (2 * INR len) )) * Fourier X 0 k len.
 Proof.
 Admitted.
 
