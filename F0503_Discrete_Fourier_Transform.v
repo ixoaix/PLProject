@@ -13,7 +13,7 @@
 
 (* 2021-05-07 20:39 *)
 From Coq Require Import Reals ssreflect.
-
+Require Import PL.Rcompute.
 Require Import Coq.Lists.List.
 
 (** Definition of complex numbers based on real numbers defined in coq's standard library.*)
@@ -73,7 +73,7 @@ by DEFINITION, not FFT. *)
 Fixpoint Fourier (X : list C) (n : R) (k : nat) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (INR k) / (INR len ))) + (Fourier X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (INR k) * / (INR len ))) + (Fourier X' (n + 1) k len)
   end.
 
 
@@ -139,20 +139,35 @@ Admitted.
 Fixpoint Fourier_even (X : list C) (n : R) (k : nat) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (INR k) / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (INR k) * / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
   end.
 
 (** This is the odd term of the Fourier transform *)
 Fixpoint Fourier_odd (X : list C) (n : R) (k : nat) (len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (INR k) / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (INR k) * / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
   end.
 
 (** Split Fourier transform into odd and even when k < N / 2*)
 Lemma Fourier_split1: forall (X : list C) (k : nat) (len : nat),
   Fourier X 0 k (2 * len) = Fourier_even (EvenList X) 0 k len + Fourier_odd (OddList X) 0 k len.
 Proof.
+  intros.
+  induction X.
+  {
+  simpl.
+  unfold Cplus.
+  simpl.
+  pose proof Rplus_0_l 0.
+  rewrite H.
+  reflexivity.
+  }
+  {
+  simpl.
+  pose proof Rsimpl.compute_1 k len.
+  rewrite H.
+  
 Admitted.
 
 Lemma Fourier_split1_0 : forall (X : list C) (k : nat) (len : nat),
@@ -166,7 +181,7 @@ Proof.
 Admitted.
 
 Lemma Fourier_split2_2: forall (X : list C) (k : nat) (len : nat),
-  X = nil \/ X <> nil /\ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k ) / (2 * (INR len)) )) * Fourier X 0 k len.
+  X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k ) * / (2 * (INR len)) )) * Fourier X 0 k len.
 Proof.
 Admitted.
 
@@ -177,7 +192,7 @@ Proof.
 Admitted.
 
 Lemma Fourier_split3_2: forall (X : list C) (k : nat) (len : nat),
-  X = nil \/ X <> nil /\ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) / (2 * INR len) )) * Fourier X 0 k len.
+  X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) * / (2 * INR len) )) * Fourier X 0 k len.
 Proof.
 Admitted.
 
