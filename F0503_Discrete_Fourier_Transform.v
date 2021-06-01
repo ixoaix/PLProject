@@ -77,18 +77,11 @@ Definition lenX_pow_2_n_2 (X : list C) : Prop :=
 Fixpoint FFT (x:list C) (M:nat): list C :=
   match M with
   | O => x
-  | S M' => ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cplus [] 
-                  ++ ListOp (FFT (EvenList x) M') (ListOp (FFT (OddList x) M') (Phase (2^M')) Cmult []) Cminus []
+  | S M' => ListOp (FFT (EvenList x) M') (ListOp (Phase (2^M')) (FFT (OddList x) M') Cmult []) Cplus [] 
+                  ++ ListOp (FFT (EvenList x) M') (ListOp (Phase (2^M')) (FFT (OddList x) M') Cmult []) Cminus []
   end.
 
 
-(**  This is our ultimate goal.*)
-Definition FFTCorrect : forall (x:list C) (M:nat) (k:nat),
-  length x = 2^M ->
-  k <= 2^M -> 
-  Fourier x 0 k (length x) = nth k (FFT x M) (0%R, 0%R).
-Proof.
-Admitted.
 
 
 (**  Below are some useful intermediate results for the proof. These come from the derivation of the algorithm of FFT.*)
@@ -145,7 +138,7 @@ Admitted.
 
 (** Split Fourier transform into odd and even when k < N / 2*)
 Lemma Fourier_split3_1: forall (X : list C) (k : nat) (len : nat),
-  Fourier_even X 0 k len = Fourier X 0 (k - len / 2) len.
+  Fourier_even X 0 k len = Fourier X 0 (k - len) len.
 Proof.
 Admitted.
 
@@ -153,5 +146,104 @@ Lemma Fourier_split3_2: forall (X : list C) (k : nat) (len : nat),
   X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) * / (2 * INR len) )) * Fourier X 0 k len.
 Proof.
 Admitted.
+
+Lemma FstHalf: forall (X: list C) (k: nat) (len: nat),
+k <= len - 1 ->
+Fourier X 0 k (2 * len) = Fourier (EvenList X) 0 k len + (exp_complex (-2 * PI * (INR k) * / (2 * INR len) )) * Fourier (OddList X) 0 k len.
+Proof.
+Admitted.
+
+Lemma SndHalf: forall (X: list C) (k: nat) (len: nat),
+len - 1 < k->
+Fourier X 0 k (2 * len) = Fourier (EvenList X) 0 (k - len) len - (exp_complex (-2 * PI * (INR (k - len)) * / (2 * INR len) )) * Fourier (OddList X) 0 (k - len) len.
+Proof.
+Admitted.
+
+
+Lemma FFTSplit: forall (x:list C)(M: nat)(a: list C)(b: list C),
+(forall (k: nat), (k <= 2^(M - 1) - 1) -> Fourier x 0 k (length x) = nth k a (0%R, 0%R)/\ Fourier x 0 (k + 2^(M-1)) (length x) = nth k b (0%R, 0%R)) ->
+forall (k: nat), (k <= 2^M - 1) -> Fourier x 0 k (length x) = nth k (a++b) (0%R, 0%R).
+Proof.
+Admitted.
+
+Lemma nthListOp: forall (l1: list C) (l2: list C) (Op: C->C->C) (default: list C) (k: nat) (default0: C),
+nth k (ListOp l1 l2 Op default) default0 = Op (nth k l1 default0) (nth k l2 default0).
+Proof.
+Admitted.
+
+Lemma EvenLength: forall (x: list C) (M: nat),
+length x = 2 ^ S M -> length (EvenList x) = (2 ^ M) .
+Proof.
+Admitted.
+
+Lemma OddLength: forall (x: list C) (M: nat),
+length x = 2 ^ S M -> length (OddList x) = (2 ^ M) .
+Proof.
+Admitted.
+
+Lemma Phase_k: forall(k : nat) (M: nat),
+nth k (Phase (2 ^ M)) (0%R, 0%R) = exp_complex (-2 * PI * INR k * / (2 * INR (2 ^ M))).
+Proof.
+Admitted.
+
+Lemma ineq: forall(k0: nat) (M: nat),
+2^(S M - 1) - 1 < (k0 + 2 ^ (S M - 1)).
+Proof.
+Admitted.
+
+(**  This is our ultimate goal.*)
+Definition FFTCorrect : forall (M:nat) (x:list C) (k:nat),
+  (length x = Nat.pow 2 M /\ k <= Nat.pow 2 M - 1) -> 
+  Fourier x 0 k (length x) = nth k (FFT x M) (0%R, 0%R).
+Proof.
+  induction M.
+  + intros. simpl. simpl in H.
+    destruct H. rewrite H. destruct x.
+    ++ unfold Fourier. destruct k; simpl; reflexivity.
+    ++ destruct x. 
+          2:{simpl in H. discriminate H. }
+          simpl.
+          pose proof Rsimpl.compute_1 k 1.
+          simpl in H1. 
+          rewrite H1. rewrite expcomplex_0. 
+          destruct k. destruct c. unfold Cmult, Cplus. simpl. repeat rewrite Rmult_0_r. 
+          repeat rewrite Rmult_1_r. repeat rewrite Rplus_0_r. repeat rewrite Rminus_0_r.
+          repeat rewrite Rplus_0_l. reflexivity. 
+          simpl in H0. apply le_n_0_eq in H0. discriminate H0.
+  + intros. destruct H. simpl. revert H0. apply FFTSplit. split. 
+    ++ repeat rewrite nthListOp.
+          pose proof FstHalf x k0 (2^(S M - 1)) H0.
+          rewrite H. simpl; rewrite Nat.add_0_r. 
+          simpl in H1; rewrite Nat.sub_0_r in H1; rewrite Nat.add_0_r in H1. 
+          pose proof IHM (EvenList x) k0. pose proof IHM (OddList x) k0.
+          pose proof EvenLength _ _ H. pose proof OddLength _ _ H.
+          simpl in H0; rewrite Nat.sub_0_r in H0. 
+          assert(Fourier (EvenList x) 0 k0 (length (EvenList x)) = nth k0 (FFT (EvenList x) M) (0%R, 0%R)).
+          apply H2. split. exact H4. exact H0.
+          assert(Fourier (OddList x) 0 k0 (length (OddList x)) = nth k0 (FFT (OddList x) M) (0%R, 0%R)).
+          apply H3. split. exact H5. exact H0.
+          pose proof Phase_k k0 M. 
+          rewrite H5 in H7; rewrite H4 in H6; rewrite H6 H7 in H1; rewrite H8; rewrite H1. 
+          reflexivity.
+    ++ repeat rewrite nthListOp. 
+          pose proof ineq k0 M.
+          pose proof SndHalf x (k0 + 2 ^ (S M - 1)) (2^(S M - 1)) .
+          rewrite H. simpl in H1; rewrite Nat.sub_0_r in H1; rewrite plus_comm in H1.
+          simpl in H2; rewrite Nat.sub_0_r in H2; rewrite Nat.add_0_r in H2.
+          rewrite plus_comm in H2. rewrite minus_plus in H2.
+          pose proof IHM (EvenList x) k0. pose proof IHM (OddList x) k0.
+          pose proof EvenLength _ _ H. pose proof OddLength _ _ H.
+          simpl in H0; rewrite Nat.sub_0_r in H0. 
+          assert(Fourier (EvenList x) 0 k0 (length (EvenList x)) = nth k0 (FFT (EvenList x) M) (0%R, 0%R)).
+          apply H3. split. exact H5. exact H0.
+          assert(Fourier (OddList x) 0 k0 (length (OddList x)) = nth k0 (FFT (OddList x) M) (0%R, 0%R)).
+          apply H4. split. exact H6. exact H0.
+          pose proof Phase_k k0 M.
+          pose proof H2 H1.
+          rewrite H5 in H7; rewrite H6 in H8; rewrite H7 H8 in H10; rewrite H9.
+          simpl; rewrite Nat.add_0_r; rewrite Nat.sub_0_r; rewrite plus_comm.
+          rewrite H10.
+          reflexivity.
+Qed.
 
 
