@@ -117,9 +117,6 @@ Proof.
   {
   simpl.
   pose proof expcomplex_0.
-  rewrite H0.
-  pose proof Rsimpl.compute_1 k (2 * (INR len)).
-  rewrite H.
 Admitted.
 
 Lemma Fourier_split1_0 : forall (X : list C) (k : nat) (len : nat),
