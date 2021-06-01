@@ -116,8 +116,6 @@ Proof.
   }
   {
   simpl.
-  pose proof Rsimpl.compute_1 k (len + (len + 0)).
-  rewrite H.
   pose proof expcomplex_0.
   rewrite H0.
   pose proof Rsimpl.compute_1 k (2 * (INR len)).
@@ -206,8 +204,7 @@ Proof.
     ++ destruct x. 
           2:{simpl in H. discriminate H. }
           simpl.
-          pose proof Rsimpl.compute_1 k 1.
-          simpl in H1. 
+          pose proof Rsimpl.compute_1 (-2*PI) (INR k) 1%R .
           rewrite H1. rewrite expcomplex_0. 
           destruct k. destruct c. unfold Cmult, Cplus. simpl. repeat rewrite Rmult_0_r. 
           repeat rewrite Rmult_1_r. repeat rewrite Rplus_0_r. repeat rewrite Rminus_0_r.
@@ -246,7 +243,7 @@ Proof.
           rewrite H5 in H7; rewrite H6 in H8; rewrite H7 H8 in H10; rewrite H9.
           simpl; rewrite Nat.add_0_r; rewrite Nat.sub_0_r; rewrite plus_comm.
           rewrite H10.
-          reflexivity.
+          reflexivity. 
 Qed.
 
 
