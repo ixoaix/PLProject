@@ -161,4 +161,56 @@ Proof.
   exact H1.
 Qed.
 
+Lemma UseByFourier_neq1_1:forall (p q n : R),
+  p * q + p * n * q = p * (n + 1) * q.
+Proof.
+  intros.
+  pose proof Rmult_comm p n.
+  pose proof Rmult_comm p (n + 1).
+  rewrite H H0. clear.
+  pose proof Rmult_1_l (p * q).
+  rewrite <- H.
+  pose proof Rmult_plus_distr_r 1 n (p * q).
+  pose proof Rmult_assoc n p q.
+  rewrite H1.
+  rewrite <- H0.
+  pose proof Rplus_comm 1 n.
+  rewrite H2.
+  pose proof Rmult_assoc (n + 1) p q.
+  rewrite H3.
+  reflexivity.
+Qed.
+
+Lemma UseByFourier_even_neq1_1:forall (p q r : R),
+  r <> 0 -> p * q * / r = p * 2 * q * / (2 * r).
+Proof.
+  intros.
+  pose proof Rinv_mult_distr 2 r.
+  pose proof not_0_IZR 2.
+  assert ( 2%Z <> 0%Z ).
+  congruence.
+  pose proof H1 H2.
+  pose proof H0 H3.
+  pose proof H4 H.
+  rewrite H5.
+  pose proof Rmult_assoc (p * 2 * q) (/2) (/r).
+  rewrite <- H6.
+  pose proof Rmult_assoc p 2 q.
+  pose proof Rmult_comm 2 q.
+  rewrite H8 in H7.
+  pose proof Rmult_assoc p q 2.
+  rewrite <- H9 in H7.
+  rewrite H7.
+  pose proof Rmult_assoc (p * q) 2 (/2).
+  pose proof Rinv_l 2.
+  specialize (H11 H3).
+  pose proof Rmult_comm 2 (/2).
+  rewrite <- H12 in H11.
+  rewrite H11 in H10.
+  rewrite H10.
+  pose proof Rmult_1_r (p * q).
+  rewrite H13.
+  reflexivity.
+Qed.
+
 End Rsimpl.

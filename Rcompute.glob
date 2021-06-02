@@ -1,4 +1,4 @@
-DIGEST 216c36a9c9eb71819c59c0f59c499667
+DIGEST c5d79fc474d252cb6146fddccbb49231
 FPL.Rcompute
 R15:19 Coq.Reals.Reals <> <> lib
 R21:29 Coq.ssr.ssreflect <> <> lib
@@ -651,4 +651,110 @@ R4314:4314 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R4301:4310 Coq.Reals.Raxioms <> Rplus_comm thm
 R4320:4320 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R4314:4314 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4367:4372 PL.Rcompute Rsimpl <> mod
+prf 4369:4387 Rsimpl UseByFourier_neq1_1
+R4405:4405 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4397:4397 <> p:52
+binder 4399:4399 <> q:53
+binder 4401:4401 <> n:54
+R4428:4430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4416:4418 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4412:4414 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4411:4411 PL.Rcompute <> p:52 var
+R4415:4415 PL.Rcompute <> q:53 var
+R4424:4426 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4420:4422 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4419:4419 PL.Rcompute <> p:52 var
+R4423:4423 PL.Rcompute <> n:54 var
+R4427:4427 PL.Rcompute <> q:53 var
+R4442:4444 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4432:4435 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4441:4441 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4431:4431 PL.Rcompute <> p:52 var
+R4437:4439 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4436:4436 PL.Rcompute <> n:54 var
+R4445:4445 PL.Rcompute <> q:53 var
+R4478:4487 Coq.Reals.Raxioms <> Rmult_comm thm
+R4478:4487 Coq.Reals.Raxioms <> Rmult_comm thm
+R4507:4516 Coq.Reals.Raxioms <> Rmult_comm thm
+R4522:4524 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4507:4516 Coq.Reals.Raxioms <> Rmult_comm thm
+R4522:4524 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4565:4573 Coq.Reals.Raxioms <> Rmult_1_l thm
+R4577:4579 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4565:4573 Coq.Reals.Raxioms <> Rmult_1_l thm
+R4577:4579 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4613:4630 Coq.Reals.RIneq <> Rmult_plus_distr_r thm
+R4638:4640 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4613:4630 Coq.Reals.RIneq <> Rmult_plus_distr_r thm
+R4638:4640 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4658:4668 Coq.Reals.Raxioms <> Rmult_assoc thm
+R4658:4668 Coq.Reals.Raxioms <> Rmult_assoc thm
+R4721:4730 Coq.Reals.Raxioms <> Rplus_comm thm
+R4721:4730 Coq.Reals.Raxioms <> Rplus_comm thm
+R4764:4774 Coq.Reals.Raxioms <> Rmult_assoc thm
+R4778:4780 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4764:4774 Coq.Reals.Raxioms <> Rmult_assoc thm
+R4778:4780 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+prf 4830:4853 Rsimpl UseByFourier_even_neq1_1
+R4871:4871 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4863:4863 <> p:55
+binder 4865:4865 <> q:56
+binder 4867:4867 <> r:57
+R4883:4886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4898:4900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4892:4894 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4888:4890 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4887:4887 PL.Rcompute <> p:55 var
+R4891:4891 PL.Rcompute <> q:56 var
+R4895:4896 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4897:4897 PL.Rcompute <> r:57 var
+R4910:4912 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4906:4908 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4902:4904 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4901:4901 PL.Rcompute <> p:55 var
+R4909:4909 PL.Rcompute <> q:56 var
+R4913:4915 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4921:4921 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R4917:4919 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4920:4920 PL.Rcompute <> r:57 var
+R4878:4881 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4877:4877 PL.Rcompute <> r:57 var
+R4954:4968 Coq.Reals.RIneq <> Rinv_mult_distr thm
+R4954:4968 Coq.Reals.RIneq <> Rinv_mult_distr thm
+R4988:4996 Coq.Reals.RIneq <> not_0_IZR thm
+R4988:4996 Coq.Reals.RIneq <> not_0_IZR thm
+R5015:5018 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5015:5018 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5126:5136 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5156:5156 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5151:5151 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5144:5146 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5140:5142 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5126:5136 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5156:5156 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5151:5151 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5144:5146 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5140:5142 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5191:5201 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5191:5201 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5223:5232 Coq.Reals.Raxioms <> Rmult_comm thm
+R5223:5232 Coq.Reals.Raxioms <> Rmult_comm thm
+R5272:5282 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5272:5282 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5341:5351 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5364:5364 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5355:5357 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5341:5351 Coq.Reals.Raxioms <> Rmult_assoc thm
+R5364:5364 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5355:5357 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5382:5387 Coq.Reals.Raxioms <> Rinv_l thm
+R5382:5387 Coq.Reals.Raxioms <> Rinv_l thm
+R5428:5437 Coq.Reals.Raxioms <> Rmult_comm thm
+R5442:5442 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5428:5437 Coq.Reals.Raxioms <> Rmult_comm thm
+R5442:5442 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R5522:5530 Coq.Reals.RIneq <> Rmult_1_r thm
+R5534:5536 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5522:5530 Coq.Reals.RIneq <> Rmult_1_r thm
+R5534:5536 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5581:5586 PL.Rcompute Rsimpl <> mod
