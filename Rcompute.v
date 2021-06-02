@@ -161,7 +161,7 @@ Proof.
   exact H1.
 Qed.
 
-Lemma UseByFourier_neq1_1:forall (p q n : R),
+Lemma UseByFourier_nMinus1_1:forall (p q n : R),
   p * q + p * n * q = p * (n + 1) * q.
 Proof.
   intros.
@@ -181,7 +181,7 @@ Proof.
   reflexivity.
 Qed.
 
-Lemma UseByFourier_even_neq1_1:forall (p q r : R),
+Lemma UseByFourier_even_nMinus1_1:forall (p q r : R),
   r <> 0 -> p * q * / r = p * 2 * q * / (2 * r).
 Proof.
   intros.
@@ -210,6 +210,47 @@ Proof.
   rewrite H10.
   pose proof Rmult_1_r (p * q).
   rewrite H13.
+  reflexivity.
+Qed.
+
+Lemma UseByFourier_odd_nMinus1_1:forall (p q n r : R),
+  r <> 0 -> p * q * / r + p * (2 * n + 1) * q * / (2 * r) = p * (2 * (n + 1) + 1) * q * / (2 * r).
+Proof.
+  intros.
+  pose proof UseByFourier_even_nMinus1_1 p q r.
+  specialize (H0 H).
+  rewrite H0.
+  clear H0.
+  assert(2 * (n + 1) + 1 = (2 * n + 1) + 2).
+  {
+  pose proof Rmult_plus_distr_l 2 n 1.
+  rewrite H0.
+  pose proof Rmult_1_r 2.
+  rewrite H1.
+  pose proof Rplus_assoc (2 * n) 2 1.
+  pose proof Rplus_comm 2 1.
+  rewrite H3 in H2.
+  pose proof Rplus_assoc (2 * n) 1 2.
+  rewrite H2 H4.
+  reflexivity.
+  }
+  rewrite H0.
+  clear H0.
+  pose proof Rmult_comm p (2 * n + 1 + 2).
+  pose proof Rmult_plus_distr_r (2 * n + 1) 2 p.
+  pose proof Rmult_comm (2 * n + 1) p.
+  pose proof Rmult_comm 2 p.
+  rewrite H2 H3 in H1.
+  rewrite H1 in H0.
+  rewrite H0.
+  pose proof Rplus_comm (p * (2 * n + 1)) (p * 2).
+  rewrite H4.
+  pose proof Rmult_plus_distr_r (p * 2) (p * (2 * n + 1)) (q * / (2 * r)).
+  pose proof Rmult_assoc (p * 2 + p * (2 * n + 1)) q (/ (2 * r)).
+  pose proof Rmult_assoc (p * 2 ) q (/ (2 * r)).
+  pose proof Rmult_assoc (p * (2 * n + 1)) q (/ (2 * r)).
+  rewrite H6 H7 H8.
+  rewrite <- H5.
   reflexivity.
 Qed.
 
