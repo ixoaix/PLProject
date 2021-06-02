@@ -284,3 +284,19 @@ Proof.
   rewrite H H0.
   reflexivity.
 Qed.
+
+Lemma Cmult_eq_compat_l:forall (r r1 r2 : C),
+  r1 = r2 -> r * r1 = r * r2.
+Proof.
+  intros.
+  rewrite H.
+  reflexivity.
+Qed.
+
+Lemma Cmult_eq_compat_r:forall (r r1 r2 : C),
+  r1 = r2 -> r1 * r = r2 * r.
+Proof.
+  intros.
+  rewrite H.
+  reflexivity.
+Qed.
