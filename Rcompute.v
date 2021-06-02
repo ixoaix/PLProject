@@ -1,6 +1,5 @@
 Require Import Reals ssreflect.
 
-
 Local Open Scope R.
 
 Lemma compute_1: forall (p k l : R),
