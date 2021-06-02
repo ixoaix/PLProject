@@ -13,7 +13,7 @@
 
 (* 2021-05-07 20:39 *)
 From Coq Require Import Reals ssreflect.
-Require Import PL.Rcompute PL.Ecompute.
+Require Import PL.Rcompute PL.Ccompute.
 Require Import Coq.Lists.List.
 
 Local Open Scope C_scope.
@@ -128,7 +128,7 @@ exp_complex (-2 * PI * n * INR k * / INR len) = exp_complex (-2 * PI * (n + 1) *
   {
   clear.
   pose proof exp_mult (-2 * PI * INR k * / INR len) (-2 * PI * n * INR k * / INR len).
-  pose proof Rsimpl.UseByFourier_nMinus1_1 (-2 * PI)%R (INR k * / INR len) n.
+  pose proof UseByFourier_nMinus1_1 (-2 * PI)%R (INR k * / INR len) n.
   rewrite H.
   pose proof Rmult_assoc (-2 * PI)%R (INR k) (/ INR len).
   rewrite <- H1 in H0.
@@ -178,12 +178,12 @@ exp_complex (-2 * PI * 2 * n * INR k * / (2 * INR len)) = exp_complex (-2 * PI *
   {
   pose proof not_0_INR.
   specialize (H2 len H).
-  pose proof Rsimpl.UseByFourier_even_nMinus1_1 (-2 * PI)%R (INR k) (INR len).
+  pose proof UseByFourier_even_nMinus1_1 (-2 * PI)%R (INR k) (INR len).
   specialize (H3 H2).
   rewrite H3.
   clear.
   pose proof exp_mult (-2 * PI * 2 * INR k * / (2 * INR len)) (-2 * PI * 2 * n * INR k * / (2 * INR len)).
-  pose proof Rsimpl.UseByFourier_nMinus1_1 (-2 * PI * 2)%R (INR k * / (2 * INR len)) n.
+  pose proof UseByFourier_nMinus1_1 (-2 * PI * 2)%R (INR k * / (2 * INR len)) n.
   rewrite H.
   pose proof Rmult_assoc (-2 * PI * 2)%R (INR k) (/ (2 * INR len)).
   rewrite <- H1 in H0.
@@ -233,7 +233,7 @@ exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len)) = exp_complex (-2 
   {
   pose proof not_0_INR.
   specialize (H2 len H).
-  pose proof Rsimpl.UseByFourier_odd_nMinus1_1 (-2 * PI)%R (INR k) n (INR len).
+  pose proof UseByFourier_odd_nMinus1_1 (-2 * PI)%R (INR k) n (INR len).
   specialize (H3 H2).
   pose proof exp_mult (-2 * PI * INR k * / INR len) (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len)).
   rewrite H4 H3.
@@ -268,8 +268,8 @@ Proof.
   }
   {
   simpl.
-  pose proof Rsimpl.compute_1 (-2 * PI)%R (INR k) (INR (len + (len + 0))).
-  pose proof Rsimpl.compute_1 (-2 * PI * 2)%R (INR k) ((2 * INR len)).
+  pose proof compute_1 (-2 * PI)%R (INR k) (INR (len + (len + 0))).
+  pose proof compute_1 (-2 * PI * 2)%R (INR k) ((2 * INR len)).
   rewrite H H0.
   clear H H0.
   assert ((0 + 1)%R = 1%R).
@@ -292,9 +292,9 @@ Proof.
   reflexivity.
   }
   simpl.
-  pose proof Rsimpl.compute_1 (-2 * PI * 2) (INR k) (2 * INR len).
+  pose proof compute_1 (-2 * PI * 2) (INR k) (2 * INR len).
   rewrite H0.
-  pose proof Rsimpl.compute_1 (-2 * PI) (INR k) (INR len).
+  pose proof compute_1 (-2 * PI) (INR k) (INR len).
   rewrite H1.
   clear H0 H1.
   assert ( 0 + 1 = 1 )%R.
@@ -384,7 +384,7 @@ Proof.
     ++ destruct x. 
           2:{simpl in H. discriminate H. }
           simpl.
-          pose proof Rsimpl.compute_1 (-2*PI) (INR k) 1%R .
+          pose proof compute_1 (-2*PI) (INR k) 1%R .
           rewrite H1. rewrite expcomplex_0. 
           destruct k. destruct c. unfold Cmult, Cplus. simpl. repeat rewrite Rmult_0_r. 
           repeat rewrite Rmult_1_r. repeat rewrite Rplus_0_r. repeat rewrite Rminus_0_r.

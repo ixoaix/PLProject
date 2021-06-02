@@ -1,6 +1,5 @@
 Require Import Reals ssreflect.
 
-Module Rsimpl.
 
 Local Open Scope R.
 
@@ -253,5 +252,3 @@ Proof.
   rewrite <- H5.
   reflexivity.
 Qed.
-
-End Rsimpl.

@@ -1,5 +1,5 @@
-DIGEST a783775de8edb1a04bb728e2ef5c08b2
-FPL.Ecompute
+DIGEST 1c6a272892dfc1d5944e83e49dec8369
+FPL.Ccompute
 R15:19 Coq.Reals.Reals <> <> lib
 R21:29 Coq.ssr.ssreflect <> <> lib
 R47:57 PL.Rcompute <> <> lib
@@ -8,79 +8,79 @@ R172:174 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
 R171:171 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 R175:175 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 def 225:229 <> Cplus
-R238:238 PL.Ecompute <> C def
+R238:238 PL.Ccompute <> C def
 binder 232:232 <> x:1
 binder 234:234 <> y:2
-R243:243 PL.Ecompute <> C def
+R243:243 PL.Ccompute <> C def
 R248:248 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R270:271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R293:293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R249:253 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rplus defax
 R264:266 Coq.Init.Datatypes <> fst def
-R268:268 PL.Ecompute <> y:2 var
+R268:268 PL.Ccompute <> y:2 var
 R256:258 Coq.Init.Datatypes <> fst def
-R260:260 PL.Ecompute <> x:1 var
+R260:260 PL.Ccompute <> x:1 var
 R272:276 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rplus defax
 R287:289 Coq.Init.Datatypes <> snd def
-R291:291 PL.Ecompute <> y:2 var
+R291:291 PL.Ccompute <> y:2 var
 R279:281 Coq.Init.Datatypes <> snd def
-R283:283 PL.Ecompute <> x:1 var
+R283:283 PL.Ccompute <> x:1 var
 def 307:310 <> Copp
-R317:317 PL.Ecompute <> C def
+R317:317 PL.Ccompute <> C def
 binder 313:313 <> x:3
-R322:322 PL.Ecompute <> C def
+R322:322 PL.Ccompute <> C def
 R327:327 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R339:340 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R352:352 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R328:331 Coq.Reals.Rdefinitions RbaseSymbolsImpl Ropp defax
 R333:335 Coq.Init.Datatypes <> fst def
-R337:337 PL.Ecompute <> x:3 var
+R337:337 PL.Ccompute <> x:3 var
 R341:344 Coq.Reals.Rdefinitions RbaseSymbolsImpl Ropp defax
 R346:348 Coq.Init.Datatypes <> snd def
-R350:350 PL.Ecompute <> x:3 var
+R350:350 PL.Ccompute <> x:3 var
 def 366:371 <> Cminus
-R380:380 PL.Ecompute <> C def
+R380:380 PL.Ccompute <> C def
 binder 374:374 <> x:4
 binder 376:376 <> y:5
-R385:385 PL.Ecompute <> C def
-R390:394 PL.Ecompute <> Cplus def
-R399:402 PL.Ecompute <> Copp def
-R404:404 PL.Ecompute <> y:5 var
-R396:396 PL.Ecompute <> x:4 var
+R385:385 PL.Ccompute <> C def
+R390:394 PL.Ccompute <> Cplus def
+R399:402 PL.Ccompute <> Copp def
+R404:404 PL.Ccompute <> y:5 var
+R396:396 PL.Ccompute <> x:4 var
 def 419:423 <> Cmult
-R432:432 PL.Ecompute <> C def
+R432:432 PL.Ccompute <> C def
 binder 426:426 <> x:6
 binder 428:428 <> y:7
-R437:437 PL.Ecompute <> C def
+R437:437 PL.Ccompute <> C def
 R442:442 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R498:499 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R551:551 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R443:448 Coq.Reals.Rdefinitions <> Rminus def
 R476:480 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
 R491:493 Coq.Init.Datatypes <> snd def
-R495:495 PL.Ecompute <> y:7 var
+R495:495 PL.Ccompute <> y:7 var
 R483:485 Coq.Init.Datatypes <> snd def
-R487:487 PL.Ecompute <> x:6 var
+R487:487 PL.Ccompute <> x:6 var
 R451:455 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
 R466:468 Coq.Init.Datatypes <> fst def
-R470:470 PL.Ecompute <> y:7 var
+R470:470 PL.Ccompute <> y:7 var
 R458:460 Coq.Init.Datatypes <> fst def
-R462:462 PL.Ecompute <> x:6 var
+R462:462 PL.Ccompute <> x:6 var
 R500:504 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rplus defax
 R530:534 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
 R544:546 Coq.Init.Datatypes <> fst def
-R548:548 PL.Ecompute <> y:7 var
+R548:548 PL.Ccompute <> y:7 var
 R536:538 Coq.Init.Datatypes <> snd def
-R540:540 PL.Ecompute <> x:6 var
+R540:540 PL.Ccompute <> x:6 var
 R507:511 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rmult defax
 R521:523 Coq.Init.Datatypes <> snd def
-R525:525 PL.Ecompute <> y:7 var
+R525:525 PL.Ccompute <> y:7 var
 R513:515 Coq.Init.Datatypes <> fst def
-R517:517 PL.Ecompute <> x:6 var
+R517:517 PL.Ccompute <> x:6 var
 def 565:568 <> Cinv
-R575:575 PL.Ecompute <> C def
+R575:575 PL.Ccompute <> C def
 binder 571:571 <> x:8
-R580:580 PL.Ecompute <> C def
+R580:580 PL.Ccompute <> C def
 R585:585 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R630:631 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R675:675 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
@@ -88,73 +88,73 @@ R586:589 Coq.Reals.Rdefinitions <> Rdiv def
 R600:604 Coq.Reals.Rdefinitions RbaseSymbolsImpl Rplus defax
 R624:626 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
 R619:621 Coq.Init.Datatypes <> snd def
-R623:623 PL.Ecompute <> x:8 var
+R623:623 PL.Ccompute <> x:8 var
 R612:614 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
 R607:609 Coq.Init.Datatypes <> fst def
-R611:611 PL.Ecompute <> x:8 var
+R611:611 PL.Ccompute <> x:8 var
 R592:594 Coq.Init.Datatypes <> fst def
-R596:596 PL.Ecompute <> x:8 var
+R596:596 PL.Ccompute <> x:8 var
 R632:635 Coq.Reals.Rdefinitions RbaseSymbolsImpl Ropp defax
 R638:641 Coq.Reals.Rdefinitions <> Rdiv def
 R661:663 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
 R657:659 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
 R652:654 Coq.Init.Datatypes <> fst def
-R656:656 PL.Ecompute <> x:8 var
+R656:656 PL.Ccompute <> x:8 var
 R669:671 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
 R664:666 Coq.Init.Datatypes <> snd def
-R668:668 PL.Ecompute <> x:8 var
+R668:668 PL.Ccompute <> x:8 var
 R644:646 Coq.Init.Datatypes <> snd def
-R648:648 PL.Ecompute <> x:8 var
+R648:648 PL.Ccompute <> x:8 var
 def 689:692 <> Cdiv
-R701:701 PL.Ecompute <> C def
+R701:701 PL.Ccompute <> C def
 binder 695:695 <> x:9
 binder 697:697 <> y:10
-R706:706 PL.Ecompute <> C def
-R711:715 PL.Ecompute <> Cmult def
-R720:723 PL.Ecompute <> Cinv def
-R725:725 PL.Ecompute <> y:10 var
-R717:717 PL.Ecompute <> x:9 var
-R823:827 PL.Ecompute <> Cplus def
+R706:706 PL.Ccompute <> C def
+R711:715 PL.Ccompute <> Cmult def
+R720:723 PL.Ccompute <> Cinv def
+R725:725 PL.Ccompute <> y:10 var
+R717:717 PL.Ccompute <> x:9 var
+R823:827 PL.Ccompute <> Cplus def
 not 816:816 <> ::C_scope:x_'+'_x
-R859:862 PL.Ecompute <> Copp def
+R859:862 PL.Ccompute <> Copp def
 not 849:849 <> ::C_scope:'-'_x
-R891:896 PL.Ecompute <> Cminus def
+R891:896 PL.Ccompute <> Cminus def
 not 884:884 <> ::C_scope:x_'-'_x
-R922:926 PL.Ecompute <> Cmult def
+R922:926 PL.Ccompute <> Cmult def
 not 915:915 <> ::C_scope:x_'*'_x
-R958:961 PL.Ecompute <> Cinv def
+R958:961 PL.Ccompute <> Cinv def
 not 948:948 <> ::C_scope:'/'_x
-R990:993 PL.Ecompute <> Cdiv def
+R990:993 PL.Ccompute <> Cdiv def
 not 983:983 <> ::C_scope:x_'/'_x
-R1028:1028 PL.Ecompute <> C def
+R1028:1028 PL.Ccompute <> C def
 not 1016:1016 <> ::C_scope:'(x,'_'y)'
 def 1118:1128 <> exp_complex
 R1135:1135 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 binder 1131:1131 <> x:11
-R1140:1140 PL.Ecompute <> C def
+R1140:1140 PL.Ccompute <> C def
 R1147:1147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1153:1154 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1160:1160 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1148:1150 Coq.Reals.Rtrigo_def <> cos def
-R1152:1152 PL.Ecompute <> x:11 var
+R1152:1152 PL.Ccompute <> x:11 var
 R1155:1157 Coq.Reals.Rtrigo_def <> sin def
-R1159:1159 PL.Ecompute <> x:11 var
+R1159:1159 PL.Ccompute <> x:11 var
 prf 1170:1177 <> exp_mult
 R1194:1194 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 binder 1188:1188 <> x:12
 binder 1190:1190 <> y:13
 R1229:1231 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1213:1215 PL.Ecompute <> ::C_scope:x_'*'_x not
-R1200:1210 PL.Ecompute <> exp_complex def
-R1212:1212 PL.Ecompute <> x:12 var
-R1216:1226 PL.Ecompute <> exp_complex def
-R1228:1228 PL.Ecompute <> y:13 var
-R1232:1242 PL.Ecompute <> exp_complex def
+R1213:1215 PL.Ccompute <> ::C_scope:x_'*'_x not
+R1200:1210 PL.Ccompute <> exp_complex def
+R1212:1212 PL.Ccompute <> x:12 var
+R1216:1226 PL.Ccompute <> exp_complex def
+R1228:1228 PL.Ccompute <> y:13 var
+R1232:1242 PL.Ccompute <> exp_complex def
 R1247:1249 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R1246:1246 PL.Ecompute <> x:12 var
-R1250:1250 PL.Ecompute <> y:13 var
-R1282:1292 PL.Ecompute <> exp_complex def
-R1304:1308 PL.Ecompute <> Cmult def
+R1246:1246 PL.Ccompute <> x:12 var
+R1250:1250 PL.Ccompute <> y:13 var
+R1282:1292 PL.Ccompute <> exp_complex def
+R1304:1308 PL.Ccompute <> Cmult def
 R1333:1340 Coq.Reals.Cos_plus <> cos_plus thm
 R1333:1340 Coq.Reals.Cos_plus <> cos_plus thm
 R1407:1409 Coq.Init.Logic <> ::type_scope:x_'='_x not
@@ -193,11 +193,11 @@ R1501:1508 Coq.Reals.Rtrigo1 <> sin_plus thm
 R1501:1508 Coq.Reals.Rtrigo1 <> sin_plus thm
 prf 1559:1570 <> expcomplex_0
 R1588:1590 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1575:1585 PL.Ecompute <> exp_complex def
+R1575:1585 PL.Ccompute <> exp_complex def
 R1591:1591 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1595:1597 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1601:1601 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1620:1630 PL.Ecompute <> exp_complex def
+R1620:1630 PL.Ccompute <> exp_complex def
 R1646:1650 Coq.Reals.Rtrigo_def <> cos_0 thm
 R1646:1650 Coq.Reals.Rtrigo_def <> cos_0 thm
 R1679:1683 Coq.Reals.Rtrigo_def <> sin_0 thm
@@ -206,17 +206,17 @@ prf 1727:1738 <> exp_mult_0_1
 R1753:1753 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 binder 1749:1749 <> x:14
 R1785:1787 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1772:1774 PL.Ecompute <> ::C_scope:x_'*'_x not
-R1759:1769 PL.Ecompute <> exp_complex def
-R1771:1771 PL.Ecompute <> x:14 var
+R1772:1774 PL.Ccompute <> ::C_scope:x_'*'_x not
+R1759:1769 PL.Ccompute <> exp_complex def
+R1771:1771 PL.Ccompute <> x:14 var
 R1775:1775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1779:1780 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1784:1784 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1788:1788 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1792:1793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1797:1797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1826:1836 PL.Ecompute <> exp_complex def
-R1839:1843 PL.Ecompute <> Cmult def
+R1826:1836 PL.Ccompute <> exp_complex def
+R1839:1843 PL.Ccompute <> Cmult def
 R1868:1876 Coq.Reals.RIneq <> Rmult_0_r thm
 R1879:1881 Coq.Reals.Rtrigo_def <> cos def
 R1868:1876 Coq.Reals.RIneq <> Rmult_0_r thm
@@ -233,17 +233,17 @@ prf 2032:2043 <> exp_mult_0_2
 R2058:2058 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 binder 2054:2054 <> x:15
 R2090:2092 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2074:2076 PL.Ecompute <> ::C_scope:x_'*'_x not
+R2074:2076 PL.Ccompute <> ::C_scope:x_'*'_x not
 R2064:2064 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2068:2069 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2073:2073 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2077:2087 PL.Ecompute <> exp_complex def
-R2089:2089 PL.Ecompute <> x:15 var
+R2077:2087 PL.Ccompute <> exp_complex def
+R2089:2089 PL.Ccompute <> x:15 var
 R2093:2093 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2097:2098 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2102:2102 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2131:2141 PL.Ecompute <> exp_complex def
-R2144:2148 PL.Ecompute <> Cmult def
+R2131:2141 PL.Ccompute <> exp_complex def
+R2144:2148 PL.Ccompute <> Cmult def
 R2173:2181 Coq.Reals.RIneq <> Rmult_0_l thm
 R2184:2186 Coq.Reals.Rtrigo_def <> cos def
 R2173:2181 Coq.Reals.RIneq <> Rmult_0_l thm
@@ -257,30 +257,30 @@ R2253:2262 Coq.Reals.RIneq <> Rminus_0_r thm
 R2280:2288 Coq.Reals.Raxioms <> Rplus_0_l thm
 R2280:2288 Coq.Reals.Raxioms <> Rplus_0_l thm
 prf 2337:2348 <> Cminus_minus
-R2355:2355 PL.Ecompute <> C def
+R2355:2355 PL.Ccompute <> C def
 binder 2351:2351 <> x:16
 R2363:2365 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2360:2360 PL.Ecompute <> ::C_scope:'-'_x not
-R2361:2361 PL.Ecompute <> ::C_scope:'-'_x not
-R2362:2362 PL.Ecompute <> x:16 var
-R2366:2366 PL.Ecompute <> x:16 var
-R2399:2402 PL.Ecompute <> Copp def
+R2360:2360 PL.Ccompute <> ::C_scope:'-'_x not
+R2361:2361 PL.Ccompute <> ::C_scope:'-'_x not
+R2362:2362 PL.Ccompute <> x:16 var
+R2366:2366 PL.Ccompute <> x:16 var
+R2399:2402 PL.Ccompute <> Copp def
 R2427:2441 Coq.Reals.RIneq <> Ropp_involutive thm
 R2427:2441 Coq.Reals.RIneq <> Ropp_involutive thm
 R2459:2473 Coq.Reals.RIneq <> Ropp_involutive thm
 R2459:2473 Coq.Reals.RIneq <> Ropp_involutive thm
 prf 2522:2531 <> Cplus_comm
-R2540:2540 PL.Ecompute <> C def
+R2540:2540 PL.Ccompute <> C def
 binder 2534:2534 <> x:17
 binder 2536:2536 <> y:18
 R2550:2552 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2546:2548 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2545:2545 PL.Ecompute <> x:17 var
-R2549:2549 PL.Ecompute <> y:18 var
-R2554:2556 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2553:2553 PL.Ecompute <> y:18 var
-R2557:2557 PL.Ecompute <> x:17 var
-R2576:2580 PL.Ecompute <> Cplus def
+R2546:2548 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2545:2545 PL.Ccompute <> x:17 var
+R2549:2549 PL.Ccompute <> y:18 var
+R2554:2556 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2553:2553 PL.Ccompute <> y:18 var
+R2557:2557 PL.Ccompute <> x:17 var
+R2576:2580 PL.Ccompute <> Cplus def
 R2596:2605 Coq.Reals.Raxioms <> Rplus_comm thm
 R2618:2620 Coq.Init.Datatypes <> fst def
 R2608:2610 Coq.Init.Datatypes <> fst def
@@ -294,41 +294,41 @@ R2642:2651 Coq.Reals.Raxioms <> Rplus_comm thm
 R2664:2666 Coq.Init.Datatypes <> snd def
 R2654:2656 Coq.Init.Datatypes <> snd def
 prf 2718:2730 <> Cplus_assoc_l
-R2741:2741 PL.Ecompute <> C def
+R2741:2741 PL.Ccompute <> C def
 binder 2733:2733 <> x:19
 binder 2735:2735 <> y:20
 binder 2737:2737 <> z:21
 R2755:2757 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2751:2753 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2747:2749 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2746:2746 PL.Ecompute <> x:19 var
-R2750:2750 PL.Ecompute <> y:20 var
-R2754:2754 PL.Ecompute <> z:21 var
-R2758:2758 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2764:2768 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2760:2762 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2759:2759 PL.Ecompute <> x:19 var
-R2763:2763 PL.Ecompute <> y:20 var
-R2769:2769 PL.Ecompute <> z:21 var
-R2788:2792 PL.Ecompute <> Cplus def
+R2751:2753 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2747:2749 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2746:2746 PL.Ccompute <> x:19 var
+R2750:2750 PL.Ccompute <> y:20 var
+R2754:2754 PL.Ccompute <> z:21 var
+R2758:2758 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2764:2768 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2760:2762 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2759:2759 PL.Ccompute <> x:19 var
+R2763:2763 PL.Ccompute <> y:20 var
+R2769:2769 PL.Ccompute <> z:21 var
+R2788:2792 PL.Ccompute <> Cplus def
 prf 2831:2843 <> Cplus_assoc_r
-R2854:2854 PL.Ecompute <> C def
+R2854:2854 PL.Ccompute <> C def
 binder 2846:2846 <> x:22
 binder 2848:2848 <> y:23
 binder 2850:2850 <> z:24
 R2868:2870 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2864:2866 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2860:2862 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2859:2859 PL.Ecompute <> x:22 var
-R2863:2863 PL.Ecompute <> y:23 var
-R2867:2867 PL.Ecompute <> z:24 var
-R2872:2875 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2881:2881 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2871:2871 PL.Ecompute <> x:22 var
-R2877:2879 PL.Ecompute <> ::C_scope:x_'+'_x not
-R2876:2876 PL.Ecompute <> y:23 var
-R2880:2880 PL.Ecompute <> z:24 var
-R2900:2904 PL.Ecompute <> Cplus def
+R2864:2866 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2860:2862 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2859:2859 PL.Ccompute <> x:22 var
+R2863:2863 PL.Ccompute <> y:23 var
+R2867:2867 PL.Ccompute <> z:24 var
+R2872:2875 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2881:2881 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2871:2871 PL.Ccompute <> x:22 var
+R2877:2879 PL.Ccompute <> ::C_scope:x_'+'_x not
+R2876:2876 PL.Ccompute <> y:23 var
+R2880:2880 PL.Ccompute <> z:24 var
+R2900:2904 PL.Ccompute <> Cplus def
 R2929:2939 Coq.Reals.Raxioms <> Rplus_assoc thm
 R2963:2965 Coq.Init.Datatypes <> fst def
 R2952:2954 Coq.Init.Datatypes <> fst def
@@ -346,16 +346,16 @@ R3020:3022 Coq.Init.Datatypes <> snd def
 R3009:3011 Coq.Init.Datatypes <> snd def
 R2999:3001 Coq.Init.Datatypes <> snd def
 prf 3073:3081 <> Cplus_0_r
-R3088:3088 PL.Ecompute <> C def
+R3088:3088 PL.Ccompute <> C def
 binder 3084:3084 <> x:25
 R3108:3110 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3094:3096 PL.Ecompute <> ::C_scope:x_'+'_x not
-R3093:3093 PL.Ecompute <> x:25 var
+R3094:3096 PL.Ccompute <> ::C_scope:x_'+'_x not
+R3093:3093 PL.Ccompute <> x:25 var
 R3097:3097 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3101:3103 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3107:3107 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3111:3111 PL.Ecompute <> x:25 var
-R3130:3134 PL.Ecompute <> Cplus def
+R3111:3111 PL.Ccompute <> x:25 var
+R3130:3134 PL.Ccompute <> Cplus def
 R3159:3167 Coq.Reals.RIneq <> Rplus_0_r thm
 R3170:3172 Coq.Init.Datatypes <> fst def
 R3159:3167 Coq.Reals.RIneq <> Rplus_0_r thm
@@ -365,16 +365,16 @@ R3204:3206 Coq.Init.Datatypes <> snd def
 R3193:3201 Coq.Reals.RIneq <> Rplus_0_r thm
 R3204:3206 Coq.Init.Datatypes <> snd def
 prf 3280:3288 <> Cplus_0_l
-R3295:3295 PL.Ecompute <> C def
+R3295:3295 PL.Ccompute <> C def
 binder 3291:3291 <> x:26
 R3315:3317 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3311:3313 PL.Ecompute <> ::C_scope:x_'+'_x not
+R3311:3313 PL.Ccompute <> ::C_scope:x_'+'_x not
 R3300:3300 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3304:3306 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3310:3310 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3314:3314 PL.Ecompute <> x:26 var
-R3318:3318 PL.Ecompute <> x:26 var
-R3337:3341 PL.Ecompute <> Cplus def
+R3314:3314 PL.Ccompute <> x:26 var
+R3318:3318 PL.Ccompute <> x:26 var
+R3337:3341 PL.Ccompute <> Cplus def
 R3366:3374 Coq.Reals.Raxioms <> Rplus_0_l thm
 R3377:3379 Coq.Init.Datatypes <> fst def
 R3366:3374 Coq.Reals.Raxioms <> Rplus_0_l thm
@@ -384,17 +384,17 @@ R3411:3413 Coq.Init.Datatypes <> snd def
 R3400:3408 Coq.Reals.Raxioms <> Rplus_0_l thm
 R3411:3413 Coq.Init.Datatypes <> snd def
 prf 3487:3497 <> Cplus_opp_r
-R3504:3504 PL.Ecompute <> C def
+R3504:3504 PL.Ccompute <> C def
 binder 3500:3500 <> x:27
 R3515:3517 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3510:3512 PL.Ecompute <> ::C_scope:x_'+'_x not
-R3509:3509 PL.Ecompute <> x:27 var
-R3513:3513 PL.Ecompute <> ::C_scope:'-'_x not
-R3514:3514 PL.Ecompute <> x:27 var
+R3510:3512 PL.Ccompute <> ::C_scope:x_'+'_x not
+R3509:3509 PL.Ccompute <> x:27 var
+R3513:3513 PL.Ccompute <> ::C_scope:'-'_x not
+R3514:3514 PL.Ccompute <> x:27 var
 R3518:3518 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3522:3524 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3528:3528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3547:3551 PL.Ecompute <> Cplus def
+R3547:3551 PL.Ccompute <> Cplus def
 R3576:3586 Coq.Reals.Raxioms <> Rplus_opp_r thm
 R3589:3591 Coq.Init.Datatypes <> fst def
 R3576:3586 Coq.Reals.Raxioms <> Rplus_opp_r thm
@@ -404,23 +404,23 @@ R3625:3627 Coq.Init.Datatypes <> snd def
 R3612:3622 Coq.Reals.Raxioms <> Rplus_opp_r thm
 R3625:3627 Coq.Init.Datatypes <> snd def
 prf 3678:3692 <> Copp_plus_distr
-R3703:3703 PL.Ecompute <> C def
+R3703:3703 PL.Ccompute <> C def
 binder 3695:3696 <> z1:28
 binder 3698:3699 <> z2:29
 R3719:3722 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R3734:3734 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3708:3710 PL.Ecompute <> ::C_scope:'-'_x not
-R3718:3718 PL.Ecompute <> ::C_scope:'-'_x not
-R3713:3715 PL.Ecompute <> ::C_scope:x_'+'_x not
-R3711:3712 PL.Ecompute <> z1:28 var
-R3716:3717 PL.Ecompute <> z2:29 var
-R3727:3729 PL.Ecompute <> ::C_scope:x_'+'_x not
-R3723:3724 PL.Ecompute <> ::C_scope:'-'_x not
-R3725:3726 PL.Ecompute <> z1:28 var
-R3730:3731 PL.Ecompute <> ::C_scope:'-'_x not
-R3732:3733 PL.Ecompute <> z2:29 var
-R3753:3757 PL.Ecompute <> Cplus def
-R3760:3763 PL.Ecompute <> Copp def
+R3708:3710 PL.Ccompute <> ::C_scope:'-'_x not
+R3718:3718 PL.Ccompute <> ::C_scope:'-'_x not
+R3713:3715 PL.Ccompute <> ::C_scope:x_'+'_x not
+R3711:3712 PL.Ccompute <> z1:28 var
+R3716:3717 PL.Ccompute <> z2:29 var
+R3727:3729 PL.Ccompute <> ::C_scope:x_'+'_x not
+R3723:3724 PL.Ccompute <> ::C_scope:'-'_x not
+R3725:3726 PL.Ccompute <> z1:28 var
+R3730:3731 PL.Ccompute <> ::C_scope:'-'_x not
+R3732:3733 PL.Ccompute <> z2:29 var
+R3753:3757 PL.Ccompute <> Cplus def
+R3760:3763 PL.Ccompute <> Copp def
 R3788:3802 Coq.Reals.RIneq <> Ropp_plus_distr thm
 R3816:3818 Coq.Init.Datatypes <> fst def
 R3805:3807 Coq.Init.Datatypes <> fst def
@@ -434,21 +434,21 @@ R3840:3854 Coq.Reals.RIneq <> Ropp_plus_distr thm
 R3868:3870 Coq.Init.Datatypes <> snd def
 R3857:3859 Coq.Init.Datatypes <> snd def
 prf 3922:3937 <> Copp_minus_distr
-R3948:3948 PL.Ecompute <> C def
+R3948:3948 PL.Ccompute <> C def
 binder 3940:3941 <> z1:30
 binder 3943:3944 <> z2:31
 R3964:3966 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3953:3955 PL.Ecompute <> ::C_scope:'-'_x not
-R3963:3963 PL.Ecompute <> ::C_scope:'-'_x not
-R3958:3960 PL.Ecompute <> ::C_scope:x_'-'_x not
-R3956:3957 PL.Ecompute <> z1:30 var
-R3961:3962 PL.Ecompute <> z2:31 var
-R3969:3971 PL.Ecompute <> ::C_scope:x_'-'_x not
-R3967:3968 PL.Ecompute <> z2:31 var
-R3972:3973 PL.Ecompute <> z1:30 var
-R3992:3997 PL.Ecompute <> Cminus def
-R4000:4004 PL.Ecompute <> Cplus def
-R4007:4010 PL.Ecompute <> Copp def
+R3953:3955 PL.Ccompute <> ::C_scope:'-'_x not
+R3963:3963 PL.Ccompute <> ::C_scope:'-'_x not
+R3958:3960 PL.Ccompute <> ::C_scope:x_'-'_x not
+R3956:3957 PL.Ccompute <> z1:30 var
+R3961:3962 PL.Ccompute <> z2:31 var
+R3969:3971 PL.Ccompute <> ::C_scope:x_'-'_x not
+R3967:3968 PL.Ccompute <> z2:31 var
+R3972:3973 PL.Ccompute <> z1:30 var
+R3992:3997 PL.Ccompute <> Cminus def
+R4000:4004 PL.Ccompute <> Cplus def
+R4007:4010 PL.Ccompute <> Copp def
 R4035:4049 Coq.Reals.RIneq <> Ropp_plus_distr thm
 R4063:4063 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
 R4064:4066 Coq.Init.Datatypes <> fst def
@@ -522,17 +522,17 @@ R4385:4387 Coq.Init.Datatypes <> snd def
 R4418:4427 Coq.Reals.Raxioms <> Rplus_comm thm
 R4418:4427 Coq.Reals.Raxioms <> Rplus_comm thm
 prf 4478:4487 <> Cmult_comm
-R4496:4496 PL.Ecompute <> C def
+R4496:4496 PL.Ccompute <> C def
 binder 4490:4490 <> x:32
 binder 4492:4492 <> y:33
 R4506:4508 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4502:4504 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4501:4501 PL.Ecompute <> x:32 var
-R4505:4505 PL.Ecompute <> y:33 var
-R4510:4512 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4509:4509 PL.Ecompute <> y:33 var
-R4513:4513 PL.Ecompute <> x:32 var
-R4532:4536 PL.Ecompute <> Cmult def
+R4502:4504 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4501:4501 PL.Ccompute <> x:32 var
+R4505:4505 PL.Ccompute <> y:33 var
+R4510:4512 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4509:4509 PL.Ccompute <> y:33 var
+R4513:4513 PL.Ccompute <> x:32 var
+R4532:4536 PL.Ccompute <> Cmult def
 R4552:4561 Coq.Reals.Raxioms <> Rmult_comm thm
 R4574:4576 Coq.Init.Datatypes <> fst def
 R4564:4566 Coq.Init.Datatypes <> fst def
@@ -572,282 +572,282 @@ R4775:4777 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R4770:4772 Coq.Init.Datatypes <> snd def
 R4778:4780 Coq.Init.Datatypes <> fst def
 prf 4847:4859 <> Cmult_assoc_l
-R4870:4870 PL.Ecompute <> C def
+R4870:4870 PL.Ccompute <> C def
 binder 4862:4862 <> x:34
 binder 4864:4864 <> y:35
 binder 4866:4866 <> z:36
 R4884:4886 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4880:4882 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4876:4878 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4875:4875 PL.Ecompute <> x:34 var
-R4879:4879 PL.Ecompute <> y:35 var
-R4883:4883 PL.Ecompute <> z:36 var
-R4887:4887 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4893:4897 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4889:4891 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4888:4888 PL.Ecompute <> x:34 var
-R4892:4892 PL.Ecompute <> y:35 var
-R4898:4898 PL.Ecompute <> z:36 var
+R4880:4882 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4876:4878 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4875:4875 PL.Ccompute <> x:34 var
+R4879:4879 PL.Ccompute <> y:35 var
+R4883:4883 PL.Ccompute <> z:36 var
+R4887:4887 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4893:4897 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4889:4891 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4888:4888 PL.Ccompute <> x:34 var
+R4892:4892 PL.Ccompute <> y:35 var
+R4898:4898 PL.Ccompute <> z:36 var
 prf 4935:4947 <> Cmult_assoc_r
-R4958:4958 PL.Ecompute <> C def
+R4958:4958 PL.Ccompute <> C def
 binder 4950:4950 <> x:37
 binder 4952:4952 <> y:38
 binder 4954:4954 <> z:39
 R4972:4974 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4968:4970 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4964:4966 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4963:4963 PL.Ecompute <> x:37 var
-R4967:4967 PL.Ecompute <> y:38 var
-R4971:4971 PL.Ecompute <> z:39 var
-R4976:4979 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4985:4985 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4975:4975 PL.Ecompute <> x:37 var
-R4981:4983 PL.Ecompute <> ::C_scope:x_'*'_x not
-R4980:4980 PL.Ecompute <> y:38 var
-R4984:4984 PL.Ecompute <> z:39 var
-R5004:5008 PL.Ecompute <> Cmult def
-R5011:5014 PL.Ecompute <> Copp def
-R5039:5065 PL.Rcompute Rsimpl UseByCmult_assoc_r_1 thm
-R5110:5112 Coq.Init.Datatypes <> snd def
-R5101:5103 Coq.Init.Datatypes <> snd def
-R5093:5095 Coq.Init.Datatypes <> snd def
-R5085:5087 Coq.Init.Datatypes <> fst def
-R5076:5078 Coq.Init.Datatypes <> fst def
-R5068:5070 Coq.Init.Datatypes <> fst def
-R5039:5065 PL.Rcompute Rsimpl UseByCmult_assoc_r_1 thm
-R5110:5112 Coq.Init.Datatypes <> snd def
-R5101:5103 Coq.Init.Datatypes <> snd def
-R5093:5095 Coq.Init.Datatypes <> snd def
-R5085:5087 Coq.Init.Datatypes <> fst def
-R5076:5078 Coq.Init.Datatypes <> fst def
-R5068:5070 Coq.Init.Datatypes <> fst def
-R5131:5157 PL.Rcompute Rsimpl UseByCmult_assoc_r_2 thm
-R5202:5204 Coq.Init.Datatypes <> snd def
-R5193:5195 Coq.Init.Datatypes <> snd def
-R5185:5187 Coq.Init.Datatypes <> snd def
-R5177:5179 Coq.Init.Datatypes <> fst def
-R5168:5170 Coq.Init.Datatypes <> fst def
-R5160:5162 Coq.Init.Datatypes <> fst def
-R5131:5157 PL.Rcompute Rsimpl UseByCmult_assoc_r_2 thm
-R5202:5204 Coq.Init.Datatypes <> snd def
-R5193:5195 Coq.Init.Datatypes <> snd def
-R5185:5187 Coq.Init.Datatypes <> snd def
-R5177:5179 Coq.Init.Datatypes <> fst def
-R5168:5170 Coq.Init.Datatypes <> fst def
-R5160:5162 Coq.Init.Datatypes <> fst def
-prf 5253:5261 <> Cmult_0_r
-R5268:5268 PL.Ecompute <> C def
-binder 5264:5264 <> x:40
-R5288:5290 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5274:5276 PL.Ecompute <> ::C_scope:x_'*'_x not
-R5273:5273 PL.Ecompute <> x:40 var
+R4968:4970 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4964:4966 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4963:4963 PL.Ccompute <> x:37 var
+R4967:4967 PL.Ccompute <> y:38 var
+R4971:4971 PL.Ccompute <> z:39 var
+R4976:4979 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4985:4985 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4975:4975 PL.Ccompute <> x:37 var
+R4981:4983 PL.Ccompute <> ::C_scope:x_'*'_x not
+R4980:4980 PL.Ccompute <> y:38 var
+R4984:4984 PL.Ccompute <> z:39 var
+R5004:5008 PL.Ccompute <> Cmult def
+R5011:5014 PL.Ccompute <> Copp def
+R5039:5058 PL.Rcompute <> UseByCmult_assoc_r_1 thm
+R5103:5105 Coq.Init.Datatypes <> snd def
+R5094:5096 Coq.Init.Datatypes <> snd def
+R5086:5088 Coq.Init.Datatypes <> snd def
+R5078:5080 Coq.Init.Datatypes <> fst def
+R5069:5071 Coq.Init.Datatypes <> fst def
+R5061:5063 Coq.Init.Datatypes <> fst def
+R5039:5058 PL.Rcompute <> UseByCmult_assoc_r_1 thm
+R5103:5105 Coq.Init.Datatypes <> snd def
+R5094:5096 Coq.Init.Datatypes <> snd def
+R5086:5088 Coq.Init.Datatypes <> snd def
+R5078:5080 Coq.Init.Datatypes <> fst def
+R5069:5071 Coq.Init.Datatypes <> fst def
+R5061:5063 Coq.Init.Datatypes <> fst def
+R5124:5143 PL.Rcompute <> UseByCmult_assoc_r_2 thm
+R5188:5190 Coq.Init.Datatypes <> snd def
+R5179:5181 Coq.Init.Datatypes <> snd def
+R5171:5173 Coq.Init.Datatypes <> snd def
+R5163:5165 Coq.Init.Datatypes <> fst def
+R5154:5156 Coq.Init.Datatypes <> fst def
+R5146:5148 Coq.Init.Datatypes <> fst def
+R5124:5143 PL.Rcompute <> UseByCmult_assoc_r_2 thm
+R5188:5190 Coq.Init.Datatypes <> snd def
+R5179:5181 Coq.Init.Datatypes <> snd def
+R5171:5173 Coq.Init.Datatypes <> snd def
+R5163:5165 Coq.Init.Datatypes <> fst def
+R5154:5156 Coq.Init.Datatypes <> fst def
+R5146:5148 Coq.Init.Datatypes <> fst def
+prf 5239:5247 <> Cmult_0_r
+R5254:5254 PL.Ccompute <> C def
+binder 5250:5250 <> x:40
+R5274:5276 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5260:5262 PL.Ccompute <> ::C_scope:x_'*'_x not
+R5259:5259 PL.Ccompute <> x:40 var
+R5263:5263 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5267:5269 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5273:5273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R5277:5277 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R5281:5283 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R5287:5287 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5291:5291 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5295:5297 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5301:5301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5334:5338 PL.Ecompute <> Cmult def
-R5363:5371 Coq.Reals.RIneq <> Rmult_0_r thm
-R5363:5371 Coq.Reals.RIneq <> Rmult_0_r thm
-R5389:5397 Coq.Reals.RIneq <> Rmult_0_r thm
-R5389:5397 Coq.Reals.RIneq <> Rmult_0_r thm
-R5432:5440 Coq.Reals.RIneq <> Rplus_0_r thm
-R5432:5440 Coq.Reals.RIneq <> Rplus_0_r thm
-R5458:5467 Coq.Reals.RIneq <> Rminus_0_r thm
-R5458:5467 Coq.Reals.RIneq <> Rminus_0_r thm
-prf 5516:5524 <> Cmult_0_l
-R5531:5531 PL.Ecompute <> C def
-binder 5527:5527 <> x:41
-R5551:5553 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5547:5549 PL.Ecompute <> ::C_scope:x_'*'_x not
-R5536:5536 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5540:5542 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5546:5546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5550:5550 PL.Ecompute <> x:41 var
-R5554:5554 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5558:5560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5564:5564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5587:5596 PL.Ecompute <> Cmult_comm thm
-R5598:5598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5602:5603 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5607:5607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5587:5596 PL.Ecompute <> Cmult_comm thm
-R5598:5598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5602:5603 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5607:5607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5625:5633 PL.Ecompute <> Cmult_0_r thm
-R5625:5633 PL.Ecompute <> Cmult_0_r thm
-prf 5681:5689 <> Cmult_1_r
-R5696:5696 PL.Ecompute <> C def
-binder 5692:5692 <> x:42
-R5716:5718 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5702:5704 PL.Ecompute <> ::C_scope:x_'*'_x not
-R5701:5701 PL.Ecompute <> x:42 var
-R5705:5705 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5709:5711 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5715:5715 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5719:5719 PL.Ecompute <> x:42 var
-R5752:5756 PL.Ecompute <> Cmult def
-R5781:5789 Coq.Reals.RIneq <> Rmult_0_r thm
-R5781:5789 Coq.Reals.RIneq <> Rmult_0_r thm
-R5807:5815 Coq.Reals.RIneq <> Rmult_0_r thm
-R5807:5815 Coq.Reals.RIneq <> Rmult_0_r thm
-R5834:5842 Coq.Reals.RIneq <> Rmult_1_r thm
-R5834:5842 Coq.Reals.RIneq <> Rmult_1_r thm
-R5860:5868 Coq.Reals.RIneq <> Rmult_1_r thm
-R5860:5868 Coq.Reals.RIneq <> Rmult_1_r thm
-R5887:5896 Coq.Reals.RIneq <> Rminus_0_r thm
-R5887:5896 Coq.Reals.RIneq <> Rminus_0_r thm
-R5914:5922 Coq.Reals.Raxioms <> Rplus_0_l thm
-R5914:5922 Coq.Reals.Raxioms <> Rplus_0_l thm
-prf 5983:5991 <> Cmult_1_l
-R5998:5998 PL.Ecompute <> C def
-binder 5994:5994 <> x:43
-R6018:6020 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6014:6016 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6003:6003 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6007:6009 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6013:6013 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6017:6017 PL.Ecompute <> x:43 var
-R6021:6021 PL.Ecompute <> x:43 var
-R6044:6053 PL.Ecompute <> Cmult_comm thm
-R6055:6055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6059:6060 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6064:6064 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6044:6053 PL.Ecompute <> Cmult_comm thm
-R6055:6055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6059:6060 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6064:6064 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6082:6090 PL.Ecompute <> Cmult_1_r thm
-R6082:6090 PL.Ecompute <> Cmult_1_r thm
-prf 6139:6156 <> Cmult_plus_distr_l
-R6167:6167 PL.Ecompute <> C def
-binder 6159:6159 <> x:44
-binder 6161:6161 <> y:45
-binder 6163:6163 <> z:46
-R6183:6185 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6173:6176 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6182:6182 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6172:6172 PL.Ecompute <> x:44 var
-R6178:6180 PL.Ecompute <> ::C_scope:x_'+'_x not
-R6177:6177 PL.Ecompute <> y:45 var
-R6181:6181 PL.Ecompute <> z:46 var
-R6191:6193 PL.Ecompute <> ::C_scope:x_'+'_x not
-R6187:6189 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6186:6186 PL.Ecompute <> x:44 var
-R6190:6190 PL.Ecompute <> y:45 var
-R6195:6197 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6194:6194 PL.Ecompute <> x:44 var
-R6198:6198 PL.Ecompute <> z:46 var
-R6217:6221 PL.Ecompute <> Cmult def
-R6224:6228 PL.Ecompute <> Cplus def
-R6253:6284 PL.Rcompute Rsimpl UseByCmult_plus_distr_l_1 thm
-R6329:6331 Coq.Init.Datatypes <> snd def
-R6320:6322 Coq.Init.Datatypes <> snd def
-R6312:6314 Coq.Init.Datatypes <> snd def
-R6304:6306 Coq.Init.Datatypes <> fst def
-R6295:6297 Coq.Init.Datatypes <> fst def
-R6287:6289 Coq.Init.Datatypes <> fst def
-R6253:6284 PL.Rcompute Rsimpl UseByCmult_plus_distr_l_1 thm
-R6329:6331 Coq.Init.Datatypes <> snd def
-R6320:6322 Coq.Init.Datatypes <> snd def
-R6312:6314 Coq.Init.Datatypes <> snd def
-R6304:6306 Coq.Init.Datatypes <> fst def
-R6295:6297 Coq.Init.Datatypes <> fst def
-R6287:6289 Coq.Init.Datatypes <> fst def
-R6350:6381 PL.Rcompute Rsimpl UseByCmult_plus_distr_l_2 thm
-R6426:6428 Coq.Init.Datatypes <> snd def
-R6417:6419 Coq.Init.Datatypes <> snd def
-R6409:6411 Coq.Init.Datatypes <> snd def
-R6401:6403 Coq.Init.Datatypes <> fst def
-R6392:6394 Coq.Init.Datatypes <> fst def
-R6384:6386 Coq.Init.Datatypes <> fst def
-R6350:6381 PL.Rcompute Rsimpl UseByCmult_plus_distr_l_2 thm
-R6426:6428 Coq.Init.Datatypes <> snd def
-R6417:6419 Coq.Init.Datatypes <> snd def
-R6409:6411 Coq.Init.Datatypes <> snd def
-R6401:6403 Coq.Init.Datatypes <> fst def
-R6392:6394 Coq.Init.Datatypes <> fst def
-R6384:6386 Coq.Init.Datatypes <> fst def
-prf 6477:6494 <> Cmult_plus_distr_r
-R6505:6505 PL.Ecompute <> C def
-binder 6497:6497 <> x:47
-binder 6499:6499 <> y:48
-binder 6501:6501 <> z:49
-R6522:6524 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6510:6510 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6516:6520 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6512:6514 PL.Ecompute <> ::C_scope:x_'+'_x not
-R6511:6511 PL.Ecompute <> x:47 var
-R6515:6515 PL.Ecompute <> y:48 var
-R6521:6521 PL.Ecompute <> z:49 var
-R6530:6532 PL.Ecompute <> ::C_scope:x_'+'_x not
-R6526:6528 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6525:6525 PL.Ecompute <> x:47 var
-R6529:6529 PL.Ecompute <> z:49 var
-R6534:6536 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6533:6533 PL.Ecompute <> y:48 var
-R6537:6537 PL.Ecompute <> z:49 var
-R6556:6560 PL.Ecompute <> Cmult def
-R6563:6567 PL.Ecompute <> Cplus def
-R6592:6623 PL.Rcompute Rsimpl UseByCmult_plus_distr_r_1 thm
-R6668:6670 Coq.Init.Datatypes <> snd def
-R6659:6661 Coq.Init.Datatypes <> snd def
-R6651:6653 Coq.Init.Datatypes <> snd def
-R6643:6645 Coq.Init.Datatypes <> fst def
-R6634:6636 Coq.Init.Datatypes <> fst def
-R6626:6628 Coq.Init.Datatypes <> fst def
-R6592:6623 PL.Rcompute Rsimpl UseByCmult_plus_distr_r_1 thm
-R6668:6670 Coq.Init.Datatypes <> snd def
-R6659:6661 Coq.Init.Datatypes <> snd def
-R6651:6653 Coq.Init.Datatypes <> snd def
-R6643:6645 Coq.Init.Datatypes <> fst def
-R6634:6636 Coq.Init.Datatypes <> fst def
-R6626:6628 Coq.Init.Datatypes <> fst def
-R6689:6720 PL.Rcompute Rsimpl UseByCmult_plus_distr_r_2 thm
-R6765:6767 Coq.Init.Datatypes <> snd def
-R6756:6758 Coq.Init.Datatypes <> snd def
-R6748:6750 Coq.Init.Datatypes <> snd def
-R6740:6742 Coq.Init.Datatypes <> fst def
-R6731:6733 Coq.Init.Datatypes <> fst def
-R6723:6725 Coq.Init.Datatypes <> fst def
-R6689:6720 PL.Rcompute Rsimpl UseByCmult_plus_distr_r_2 thm
-R6765:6767 Coq.Init.Datatypes <> snd def
-R6756:6758 Coq.Init.Datatypes <> snd def
-R6748:6750 Coq.Init.Datatypes <> snd def
-R6740:6742 Coq.Init.Datatypes <> fst def
-R6731:6733 Coq.Init.Datatypes <> fst def
-R6723:6725 Coq.Init.Datatypes <> fst def
-prf 6816:6832 <> Cmult_eq_compat_l
-R6852:6852 PL.Ecompute <> C def
-binder 6842:6842 <> r:50
-binder 6844:6845 <> r1:51
-binder 6847:6848 <> r2:52
-R6865:6868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6875:6877 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6870:6872 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6869:6869 PL.Ecompute <> r:50 var
-R6873:6874 PL.Ecompute <> r1:51 var
-R6879:6881 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6878:6878 PL.Ecompute <> r:50 var
-R6882:6883 PL.Ecompute <> r2:52 var
-R6860:6862 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6858:6859 PL.Ecompute <> r1:51 var
-R6863:6864 PL.Ecompute <> r2:52 var
-prf 6943:6959 <> Cmult_eq_compat_r
-R6979:6979 PL.Ecompute <> C def
-binder 6969:6969 <> r:53
-binder 6971:6972 <> r1:54
-binder 6974:6975 <> r2:55
-R6992:6995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7002:7004 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6998:7000 PL.Ecompute <> ::C_scope:x_'*'_x not
-R6996:6997 PL.Ecompute <> r1:54 var
-R7001:7001 PL.Ecompute <> r:53 var
-R7007:7009 PL.Ecompute <> ::C_scope:x_'*'_x not
-R7005:7006 PL.Ecompute <> r2:55 var
-R7010:7010 PL.Ecompute <> r:53 var
-R6987:6989 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6985:6986 PL.Ecompute <> r1:54 var
-R6990:6991 PL.Ecompute <> r2:55 var
+R5320:5324 PL.Ccompute <> Cmult def
+R5349:5357 Coq.Reals.RIneq <> Rmult_0_r thm
+R5349:5357 Coq.Reals.RIneq <> Rmult_0_r thm
+R5375:5383 Coq.Reals.RIneq <> Rmult_0_r thm
+R5375:5383 Coq.Reals.RIneq <> Rmult_0_r thm
+R5418:5426 Coq.Reals.RIneq <> Rplus_0_r thm
+R5418:5426 Coq.Reals.RIneq <> Rplus_0_r thm
+R5444:5453 Coq.Reals.RIneq <> Rminus_0_r thm
+R5444:5453 Coq.Reals.RIneq <> Rminus_0_r thm
+prf 5502:5510 <> Cmult_0_l
+R5517:5517 PL.Ccompute <> C def
+binder 5513:5513 <> x:41
+R5537:5539 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5533:5535 PL.Ccompute <> ::C_scope:x_'*'_x not
+R5522:5522 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5526:5528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5532:5532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5536:5536 PL.Ccompute <> x:41 var
+R5540:5540 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5544:5546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5550:5550 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5573:5582 PL.Ccompute <> Cmult_comm thm
+R5584:5584 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5588:5589 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5593:5593 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5573:5582 PL.Ccompute <> Cmult_comm thm
+R5584:5584 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5588:5589 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5593:5593 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5611:5619 PL.Ccompute <> Cmult_0_r thm
+R5611:5619 PL.Ccompute <> Cmult_0_r thm
+prf 5667:5675 <> Cmult_1_r
+R5682:5682 PL.Ccompute <> C def
+binder 5678:5678 <> x:42
+R5702:5704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5688:5690 PL.Ccompute <> ::C_scope:x_'*'_x not
+R5687:5687 PL.Ccompute <> x:42 var
+R5691:5691 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5695:5697 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5701:5701 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5705:5705 PL.Ccompute <> x:42 var
+R5738:5742 PL.Ccompute <> Cmult def
+R5767:5775 Coq.Reals.RIneq <> Rmult_0_r thm
+R5767:5775 Coq.Reals.RIneq <> Rmult_0_r thm
+R5793:5801 Coq.Reals.RIneq <> Rmult_0_r thm
+R5793:5801 Coq.Reals.RIneq <> Rmult_0_r thm
+R5820:5828 Coq.Reals.RIneq <> Rmult_1_r thm
+R5820:5828 Coq.Reals.RIneq <> Rmult_1_r thm
+R5846:5854 Coq.Reals.RIneq <> Rmult_1_r thm
+R5846:5854 Coq.Reals.RIneq <> Rmult_1_r thm
+R5873:5882 Coq.Reals.RIneq <> Rminus_0_r thm
+R5873:5882 Coq.Reals.RIneq <> Rminus_0_r thm
+R5900:5908 Coq.Reals.Raxioms <> Rplus_0_l thm
+R5900:5908 Coq.Reals.Raxioms <> Rplus_0_l thm
+prf 5969:5977 <> Cmult_1_l
+R5984:5984 PL.Ccompute <> C def
+binder 5980:5980 <> x:43
+R6004:6006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6000:6002 PL.Ccompute <> ::C_scope:x_'*'_x not
+R5989:5989 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5993:5995 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5999:5999 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6003:6003 PL.Ccompute <> x:43 var
+R6007:6007 PL.Ccompute <> x:43 var
+R6030:6039 PL.Ccompute <> Cmult_comm thm
+R6041:6041 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6045:6046 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6050:6050 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6030:6039 PL.Ccompute <> Cmult_comm thm
+R6041:6041 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6045:6046 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6050:6050 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6068:6076 PL.Ccompute <> Cmult_1_r thm
+R6068:6076 PL.Ccompute <> Cmult_1_r thm
+prf 6125:6142 <> Cmult_plus_distr_l
+R6153:6153 PL.Ccompute <> C def
+binder 6145:6145 <> x:44
+binder 6147:6147 <> y:45
+binder 6149:6149 <> z:46
+R6169:6171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6159:6162 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6168:6168 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6158:6158 PL.Ccompute <> x:44 var
+R6164:6166 PL.Ccompute <> ::C_scope:x_'+'_x not
+R6163:6163 PL.Ccompute <> y:45 var
+R6167:6167 PL.Ccompute <> z:46 var
+R6177:6179 PL.Ccompute <> ::C_scope:x_'+'_x not
+R6173:6175 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6172:6172 PL.Ccompute <> x:44 var
+R6176:6176 PL.Ccompute <> y:45 var
+R6181:6183 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6180:6180 PL.Ccompute <> x:44 var
+R6184:6184 PL.Ccompute <> z:46 var
+R6203:6207 PL.Ccompute <> Cmult def
+R6210:6214 PL.Ccompute <> Cplus def
+R6239:6263 PL.Rcompute <> UseByCmult_plus_distr_l_1 thm
+R6308:6310 Coq.Init.Datatypes <> snd def
+R6299:6301 Coq.Init.Datatypes <> snd def
+R6291:6293 Coq.Init.Datatypes <> snd def
+R6283:6285 Coq.Init.Datatypes <> fst def
+R6274:6276 Coq.Init.Datatypes <> fst def
+R6266:6268 Coq.Init.Datatypes <> fst def
+R6239:6263 PL.Rcompute <> UseByCmult_plus_distr_l_1 thm
+R6308:6310 Coq.Init.Datatypes <> snd def
+R6299:6301 Coq.Init.Datatypes <> snd def
+R6291:6293 Coq.Init.Datatypes <> snd def
+R6283:6285 Coq.Init.Datatypes <> fst def
+R6274:6276 Coq.Init.Datatypes <> fst def
+R6266:6268 Coq.Init.Datatypes <> fst def
+R6329:6353 PL.Rcompute <> UseByCmult_plus_distr_l_2 thm
+R6398:6400 Coq.Init.Datatypes <> snd def
+R6389:6391 Coq.Init.Datatypes <> snd def
+R6381:6383 Coq.Init.Datatypes <> snd def
+R6373:6375 Coq.Init.Datatypes <> fst def
+R6364:6366 Coq.Init.Datatypes <> fst def
+R6356:6358 Coq.Init.Datatypes <> fst def
+R6329:6353 PL.Rcompute <> UseByCmult_plus_distr_l_2 thm
+R6398:6400 Coq.Init.Datatypes <> snd def
+R6389:6391 Coq.Init.Datatypes <> snd def
+R6381:6383 Coq.Init.Datatypes <> snd def
+R6373:6375 Coq.Init.Datatypes <> fst def
+R6364:6366 Coq.Init.Datatypes <> fst def
+R6356:6358 Coq.Init.Datatypes <> fst def
+prf 6449:6466 <> Cmult_plus_distr_r
+R6477:6477 PL.Ccompute <> C def
+binder 6469:6469 <> x:47
+binder 6471:6471 <> y:48
+binder 6473:6473 <> z:49
+R6494:6496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6482:6482 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6488:6492 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6484:6486 PL.Ccompute <> ::C_scope:x_'+'_x not
+R6483:6483 PL.Ccompute <> x:47 var
+R6487:6487 PL.Ccompute <> y:48 var
+R6493:6493 PL.Ccompute <> z:49 var
+R6502:6504 PL.Ccompute <> ::C_scope:x_'+'_x not
+R6498:6500 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6497:6497 PL.Ccompute <> x:47 var
+R6501:6501 PL.Ccompute <> z:49 var
+R6506:6508 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6505:6505 PL.Ccompute <> y:48 var
+R6509:6509 PL.Ccompute <> z:49 var
+R6528:6532 PL.Ccompute <> Cmult def
+R6535:6539 PL.Ccompute <> Cplus def
+R6564:6588 PL.Rcompute <> UseByCmult_plus_distr_r_1 thm
+R6633:6635 Coq.Init.Datatypes <> snd def
+R6624:6626 Coq.Init.Datatypes <> snd def
+R6616:6618 Coq.Init.Datatypes <> snd def
+R6608:6610 Coq.Init.Datatypes <> fst def
+R6599:6601 Coq.Init.Datatypes <> fst def
+R6591:6593 Coq.Init.Datatypes <> fst def
+R6564:6588 PL.Rcompute <> UseByCmult_plus_distr_r_1 thm
+R6633:6635 Coq.Init.Datatypes <> snd def
+R6624:6626 Coq.Init.Datatypes <> snd def
+R6616:6618 Coq.Init.Datatypes <> snd def
+R6608:6610 Coq.Init.Datatypes <> fst def
+R6599:6601 Coq.Init.Datatypes <> fst def
+R6591:6593 Coq.Init.Datatypes <> fst def
+R6654:6678 PL.Rcompute <> UseByCmult_plus_distr_r_2 thm
+R6723:6725 Coq.Init.Datatypes <> snd def
+R6714:6716 Coq.Init.Datatypes <> snd def
+R6706:6708 Coq.Init.Datatypes <> snd def
+R6698:6700 Coq.Init.Datatypes <> fst def
+R6689:6691 Coq.Init.Datatypes <> fst def
+R6681:6683 Coq.Init.Datatypes <> fst def
+R6654:6678 PL.Rcompute <> UseByCmult_plus_distr_r_2 thm
+R6723:6725 Coq.Init.Datatypes <> snd def
+R6714:6716 Coq.Init.Datatypes <> snd def
+R6706:6708 Coq.Init.Datatypes <> snd def
+R6698:6700 Coq.Init.Datatypes <> fst def
+R6689:6691 Coq.Init.Datatypes <> fst def
+R6681:6683 Coq.Init.Datatypes <> fst def
+prf 6774:6790 <> Cmult_eq_compat_l
+R6810:6810 PL.Ccompute <> C def
+binder 6800:6800 <> r:50
+binder 6802:6803 <> r1:51
+binder 6805:6806 <> r2:52
+R6823:6826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6833:6835 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6828:6830 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6827:6827 PL.Ccompute <> r:50 var
+R6831:6832 PL.Ccompute <> r1:51 var
+R6837:6839 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6836:6836 PL.Ccompute <> r:50 var
+R6840:6841 PL.Ccompute <> r2:52 var
+R6818:6820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6816:6817 PL.Ccompute <> r1:51 var
+R6821:6822 PL.Ccompute <> r2:52 var
+prf 6901:6917 <> Cmult_eq_compat_r
+R6937:6937 PL.Ccompute <> C def
+binder 6927:6927 <> r:53
+binder 6929:6930 <> r1:54
+binder 6932:6933 <> r2:55
+R6950:6953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6960:6962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6956:6958 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6954:6955 PL.Ccompute <> r1:54 var
+R6959:6959 PL.Ccompute <> r:53 var
+R6965:6967 PL.Ccompute <> ::C_scope:x_'*'_x not
+R6963:6964 PL.Ccompute <> r2:55 var
+R6968:6968 PL.Ccompute <> r:53 var
+R6945:6947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6943:6944 PL.Ccompute <> r1:54 var
+R6948:6949 PL.Ccompute <> r2:55 var

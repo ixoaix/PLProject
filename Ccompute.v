@@ -213,8 +213,8 @@ Lemma Cmult_assoc_r (x y z : C) : x * y * z = x * (y * z).
 Proof.
   unfold Cmult, Copp.
   simpl.
-  pose proof Rsimpl.UseByCmult_assoc_r_1 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
-  pose proof Rsimpl.UseByCmult_assoc_r_2 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
+  pose proof UseByCmult_assoc_r_1 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
+  pose proof UseByCmult_assoc_r_2 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
   rewrite H H0.
   reflexivity.
 Qed.
@@ -269,8 +269,8 @@ Lemma Cmult_plus_distr_l (x y z : C) : x * (y + z) = x * y + x * z.
 Proof.
   unfold Cmult, Cplus.
   simpl.
-  pose proof Rsimpl.UseByCmult_plus_distr_l_1 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
-  pose proof Rsimpl.UseByCmult_plus_distr_l_2 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
+  pose proof UseByCmult_plus_distr_l_1 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
+  pose proof UseByCmult_plus_distr_l_2 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
   rewrite H H0.
   reflexivity.
 Qed.
@@ -279,8 +279,8 @@ Lemma Cmult_plus_distr_r (x y z : C) : (x + y ) * z = x * z + y * z.
 Proof.
   unfold Cmult, Cplus.
   simpl.
-  pose proof Rsimpl.UseByCmult_plus_distr_r_1 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
-  pose proof Rsimpl.UseByCmult_plus_distr_r_2 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
+  pose proof UseByCmult_plus_distr_r_1 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
+  pose proof UseByCmult_plus_distr_r_2 (fst x) (fst y ) (fst z) (snd x) (snd y ) (snd z).
   rewrite H H0.
   reflexivity.
 Qed.
