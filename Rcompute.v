@@ -251,3 +251,37 @@ Proof.
   rewrite <- H5.
   reflexivity.
 Qed.
+
+Lemma UseByFourier_split1_1:forall (p q : R),
+  q <> 0 -> p * / (2 * q) + p * / (2 * q) = p * / q.
+Proof.
+  intros.
+  pose proof Rmult_plus_distr_l p (/ (2 * q)) (/ (2 * q)).
+  rewrite <- H0; clear H0.
+  assert (/ (2 * q) + / (2 * q) = / q).
+  {
+  pose proof Rinv_mult_distr 2 q.
+  pose proof not_0_IZR 2.
+  assert ( 2%Z <> 0%Z ).
+  congruence.
+  specialize (H1 H2).
+  specialize (H0 H1 H).
+  rewrite H0.
+  pose proof Rmult_plus_distr_r (/ 2) (/ 2) (/ q).
+  rewrite <- H3.
+  pose proof Rinv_r 2.
+  specialize (H4 H1).
+  assert (1 + 1 = 2).
+  constructor.
+  rewrite <- H5 in H4 at 1.
+  pose proof Rmult_plus_distr_r 1 1 (/ 2).
+  rewrite H6 in H4.
+  pose proof Rmult_1_l (/ 2).
+  rewrite H7 in H4.
+  rewrite H4.
+  pose proof Rmult_1_l (/ q).
+  exact H8.
+  }
+  rewrite H0.
+  reflexivity.
+Qed.

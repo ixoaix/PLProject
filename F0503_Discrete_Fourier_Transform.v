@@ -248,35 +248,7 @@ exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len)) = exp_complex (-2 * PI * (
   reflexivity.
 Qed.
 
-(** Split Fourier transform into odd and even when k < N / 2*)
-Lemma Fourier_split1: forall (X : list C) (k len : R),
-  len <> 0%R -> Fourier X 0 k (2 * len) = Fourier_even (EvenList X) 0 k len + Fourier_odd (OddList X) 0 k len.
-Proof.
-  intros.
-  induction X.
-  {
-  simpl.
-  unfold Cplus.
-  simpl.
-  pose proof Rplus_0_l 0.
-  rewrite H0.
-  reflexivity.
-  }
-  {
-  simpl.
-  pose proof compute_1 (-2 * PI)%R k (2 * len).
-  pose proof compute_1 (-2 * PI * 2)%R k (2 * len).
-  rewrite H0 H1.
-  clear H0 H1.
-  pose proof Rplus_0_l 1.
-  rewrite H0.
-Admitted.
-
-Lemma Fourier_split1_0 : forall (X : list C) (k len : R),
-  len <> 0%R -> Fourier X 0 k (2 * len) = Fourier_even (EvenList X) 0 k len + Fourier_odd (OddList X) 0 k len.
-Proof.
-Admitted.
-
+(* Fourier_split2_1 *)
 Lemma Fourier_split2_1: forall (X : list C) (k len : R),
   len <> 0%R -> Fourier_even X 0 k len = Fourier X 0 k len.
 Proof.
@@ -306,12 +278,132 @@ Proof.
   reflexivity.
 Qed.
 
+(* Fourier_split2_2 *)
 Lemma Fourier_split2_2: forall (X : list C) (k len : R),
-  len <> 0%R -> X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (k ) * / (2 * len) )) * Fourier X 0 k len.
+  len <> 0%R -> Fourier_odd X 0 k len = (exp_complex (-2 * PI * (k ) * / (2 * len) )) * Fourier X 0 k len.
 Proof.
-Admitted.
+  intros.
+  induction X.
+  {
+  simpl.
+  pose proof exp_mult_0_1 (-2 * PI * k * / (2 * len)).
+  rewrite H0.
+  reflexivity.
+  }
+  simpl.
+  pose proof compute_1 (-2 * PI) k len.
+  rewrite H0.
+  pose proof Rmult_0_r 2.
+  rewrite H1.
+  pose proof Rplus_0_l 1.
+  rewrite H2.
+  pose proof Rmult_1_r (-2 * PI).
+  rewrite H3.
+  clear H0 H1 H2 H3.
+  pose proof Fourier_odd_nMinus1 X 0 k len.
+  specialize (H0 H).
+  rewrite IHX in H0.
+  pose proof Rplus_0_l 1.
+  rewrite H1 in H0.
+  rewrite H0.
+  pose proof Fourier_nMinus1 X 0 k len.
+  specialize (H2 H).
+  rewrite H1 in H2.
+  rewrite H2.
+  pose proof exp_0_mult_r a.
+  rewrite H3.
+  clear.
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / (2 * len))) a (exp_complex (-2 * PI * k * / len) * Fourier X 0 k len).
+  rewrite H; clear.
+  pose proof Cmult_comm a (exp_complex (-2 * PI * k * / (2 * len))).
+  rewrite H; clear.
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / (2 * len))) (exp_complex (-2 * PI * k * / len)) (Fourier X 0 k len).
+  rewrite <- H; clear.
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * k * / (2 * len))) (Fourier X 0 k len).
+  rewrite <- H; clear.
+  pose proof Cmult_comm (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * k * / (2 * len))).
+  rewrite H; clear.
+  reflexivity.
+Qed.
 
 (** Split Fourier transform into odd and even when k < N / 2*)
+Lemma Fourier_split1: forall (X : list C) (k len : R),
+  len <> 0%R -> Fourier X 0 k (2 * len) = Fourier_even (EvenList X) 0 k len + Fourier_odd (OddList X) 0 k len.
+Proof.
+  intros.
+  induction X.
+  {
+  simpl.
+  unfold Cplus.
+  simpl.
+  pose proof Rplus_0_l 0.
+  rewrite H0.
+  reflexivity.
+  }
+  {
+  simpl.
+  pose proof compute_1 (-2 * PI)%R k (2 * len).
+  pose proof compute_1 (-2 * PI * 2)%R k (2 * len).
+  rewrite H0 H1.
+  clear H0 H1.
+  pose proof Rplus_0_l 1.
+  rewrite H0; clear H0.
+  pose proof Fourier_nMinus1 X 0 k (2 * len).
+  assert (2%Z <> 0%Z).
+  congruence.
+  pose proof not_0_IZR 2.
+  specialize (H2 H1).
+  pose proof Rmult_integral_contrapositive_currified 2 len.
+  specialize (H3 H2 H).
+  specialize (H0 H3).
+  clear H1 H2 H3.
+  pose proof Rplus_0_l 1.
+  rewrite H1 in H0; clear H1.
+  assert (Fourier X 1 k (2 * len) = Fourier_even (OddList X) 1 k len + Fourier_odd (EvenList X) 0 k len).
+  2: {
+  rewrite H1.
+  pose proof Cplus_assoc_r (a * exp_complex 0) (Fourier_even (OddList X) 1 k len) (Fourier_odd (EvenList X) 0 k len).
+  rewrite H2.
+  reflexivity.
+  }
+  rewrite H0; clear H0.
+  pose proof Fourier_even_nMinus1 (OddList X) 0 k len.
+  specialize (H0 H).
+  pose proof Fourier_split2_1 (OddList X) k len.
+  specialize (H1 H).
+  rewrite H1 in H0; clear H1.
+  pose proof Fourier_split2_2 (EvenList X) k len.
+  specialize (H1 H).
+  pose proof Fourier_split2_1 (EvenList X) k len.
+  specialize (H2 H).
+  rewrite H2 in IHX; clear H2.
+  pose proof Fourier_split2_2 (OddList X) k len.
+  specialize (H2 H).
+  rewrite H2 in IHX; clear H2.
+  pose proof Rplus_0_l 1.
+  rewrite H2 in H0.
+  clear H2.
+  rewrite IHX; clear IHX.
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / (2 * len))) (Fourier (EvenList X) 0 k len) (exp_complex (-2 * PI * k * / (2 * len)) * Fourier (OddList X) 0 k len).
+  rewrite H2; clear H2.
+  rewrite <- H1; clear H1.
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / (2 * len))) (exp_complex (-2 * PI * k * / (2 * len))) (Fourier (OddList X) 0 k len).
+  rewrite <- H1; clear H1.
+  assert (exp_complex (-2 * PI * k * / (2 * len)) * exp_complex (-2 * PI * k * / (2 * len)) = exp_complex (-2 * PI * k * / len)).
+  {
+  pose proof exp_mult (-2 * PI * k * / (2 * len)) (-2 * PI * k * / (2 * len)).
+  pose proof UseByFourier_split1_1 (-2 * PI * k) len.
+  specialize (H2 H).
+  rewrite H2 in H1.
+  apply H1.
+  }
+  rewrite H1.
+  rewrite <- H0.
+  apply Cplus_comm.
+  }
+Qed.
+
+(** Split Fourier transform into odd and even when k > N / 2*)
 Lemma Fourier_split3_1: forall (X : list C) (k len : R),
   len <> 0%R -> Fourier_even X 0 k len = Fourier X 0 (k - len) len.
 Proof.
