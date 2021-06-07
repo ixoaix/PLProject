@@ -204,6 +204,37 @@ Proof.
   reflexivity.
 Qed.
 
+Lemma exp_0_mult_l: forall (x : C),
+  exp_complex 0 * x = x.
+Proof.
+  intros.
+  unfold exp_complex.
+  destruct x.
+  pose proof cos_0.
+  pose proof sin_0.
+  rewrite H H0.
+  unfold Cmult.
+  simpl.
+  pose proof Rmult_1_l r.
+  pose proof Rmult_0_l r0.
+  pose proof Rmult_1_l r0.
+  pose proof Rmult_0_l r.
+  rewrite H1 H2 H3 H4.
+  pose proof Rminus_0_r r.
+  pose proof Rplus_0_r r0.
+  rewrite H5 H6.
+  reflexivity.
+Qed.
+
+Lemma exp_0_mult_r: forall (x : C),
+  x * exp_complex 0 = x.
+Proof.
+  intros.
+  pose proof exp_0_mult_l x.
+  rewrite <- H at 2.
+  apply Cmult_comm.
+Qed.
+
 Lemma Cmult_assoc_l (x y z : C) : x * y * z = (x * y ) * z.
 Proof.
   reflexivity.
