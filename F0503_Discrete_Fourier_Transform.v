@@ -28,10 +28,10 @@ Infix "++" := app (right associativity, at level 60) : list_scope.
 
 (** The function below computes the kth element of Discrete Fourier Transform of a list of complex numbers 
 by DEFINITION, not FFT. *)
-Fixpoint Fourier (X : list C) (n k len : R) : C :=
+Fixpoint Fourier (X : list C) (n : R) (k len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * n * k * / len)) + (Fourier X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * n * (INR k) * / (INR len))) + (Fourier X' (n + 1) k len)
   end.
 
 
@@ -84,62 +84,62 @@ Fixpoint FFT (x:list C) (M:nat): list C :=
 (**  Below are some useful intermediate results for the proof. These come from the derivation of the algorithm of FFT.*)
 
 (** This is the even term of the Fourier transform *)
-Fixpoint Fourier_even (X : list C) (n k len :R) : C :=
+Fixpoint Fourier_even (X : list C) (n : R) (k len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * k * / (2 * len ))) + (Fourier_even X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * 2 * n * (INR k) * / (2 * (INR len) ))) + (Fourier_even X' (n + 1) k len)
   end.
 
 (** This is the odd term of the Fourier transform *)
-Fixpoint Fourier_odd (X : list C) (n k len : R) : C :=
+Fixpoint Fourier_odd (X : list C) (n : R) (k len : nat) : C :=
   match X with
     | nil => (0%R , 0%R)
-    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len ))) + (Fourier_odd X' (n + 1) k len)
+    | (x :: X')%list => x * (exp_complex (-2 * PI * (2 * n + 1) * (INR k) * / (2 * (INR len) ))) + (Fourier_odd X' (n + 1) k len)
   end.
 
-Lemma Fourier_nMinus1: forall (X : list C) (n k len : R),
-  len <> 0%R -> Fourier X (n + 1) k len = exp_complex (-2 * PI * k * / len) * Fourier X n k len.
+Lemma Fourier_nMinus1: forall (X : list C) (n : R) (k len : nat),
+  len <> 0%nat -> Fourier X (n + 1) k len = exp_complex (-2 * PI * (INR k) * / (INR len)) * Fourier X n k len.
 Proof.
   intros.
   revert n; induction X.
   {
   intros.
   simpl.
-  pose proof exp_mult_0_1 (-2 * PI * k * / len).
+  pose proof exp_mult_0_1 (-2 * PI * INR k * / INR len).
   rewrite H0.
   reflexivity.
   }
   intros.
   specialize (IHX (n + 1)%R).
   simpl.
-  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / len)) (a * exp_complex (-2 * PI * n * k * / len)) (Fourier X (n + 1) k len).
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * INR k * / INR len)) (a * exp_complex (-2 * PI * n * INR k * / INR len)) (Fourier X (n + 1) k len).
   rewrite H0.
   clear H0 H.
   rewrite <- IHX.
-  assert (exp_complex (-2 * PI * k * / len) *
-(a * exp_complex (-2 * PI * n * k * / len)) = a * exp_complex (-2 * PI * (n + 1) * k * / len)).
+  assert (exp_complex (-2 * PI * INR k * / INR len) *
+(a * exp_complex (-2 * PI * n * INR k * / INR len)) = a * exp_complex (-2 * PI * (n + 1) * INR k * / INR len)).
   {
-  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / len)) a (exp_complex (-2 * PI * n * k * / len)).
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * INR k * / INR len)) a (exp_complex (-2 * PI * n * INR k * / INR len)).
   rewrite <- H.
-  pose proof Cmult_comm (exp_complex (-2 * PI * k * / len)) a.
+  pose proof Cmult_comm (exp_complex (-2 * PI * INR k * / INR len)) a.
   rewrite H0.
-  assert (exp_complex (-2 * PI * k * / len) *
-exp_complex (-2 * PI * n * k * / len) = exp_complex (-2 * PI * (n + 1) * k * / len)).
+  assert (exp_complex (-2 * PI * INR k * / INR len) *
+exp_complex (-2 * PI * n * INR k * / INR len) = exp_complex (-2 * PI * (n + 1) * INR k * / INR len)).
   {
   clear.
-  pose proof exp_mult (-2 * PI * k * / len) (-2 * PI * n * k * / len).
-  pose proof UseByFourier_nMinus1_1 (-2 * PI)%R (k * / len) n.
+  pose proof exp_mult (-2 * PI * INR k * / INR len) (-2 * PI * n * INR k * / INR len).
+  pose proof UseByFourier_nMinus1_1 (-2 * PI)%R (INR k * / INR len) n.
   rewrite H.
-  pose proof Rmult_assoc (-2 * PI)%R k (/ len).
+  pose proof Rmult_assoc (-2 * PI)%R (INR k) (/ INR len).
   rewrite <- H1 in H0.
-  pose proof Rmult_assoc (-2 * PI * n) k (/ len).
+  pose proof Rmult_assoc (-2 * PI * n) (INR k) (/ INR len).
   rewrite <- H2 in H0.
   rewrite H0.
-  pose proof Rmult_assoc (-2 * PI * (n + 1)) k (/ len).
+  pose proof Rmult_assoc (-2 * PI * (n + 1)) (INR k) (/ INR len).
   rewrite <- H3.
   reflexivity.
   }
-  pose proof Cmult_assoc_r a (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * n * k * / len)).
+  pose proof Cmult_assoc_r a (exp_complex (-2 * PI * INR k * / INR len)) (exp_complex (-2 * PI * n * INR k * / INR len)).
   rewrite H1 in H2.
   exact H2.
   }
@@ -147,52 +147,54 @@ exp_complex (-2 * PI * n * k * / len) = exp_complex (-2 * PI * (n + 1) * k * / l
   reflexivity.
 Qed.
 
-Lemma Fourier_even_nMinus1: forall (X : list C) (n k len : R),
-  len <> 0%R -> Fourier_even X (n + 1) k len = exp_complex (-2 * PI * k * / len) * Fourier_even X n k len.
+Lemma Fourier_even_nMinus1: forall (X : list C) (n : R) (k len : nat),
+  len <> 0%nat -> Fourier_even X (n + 1) k len = exp_complex (-2 * PI * (INR k) * / (INR len)) * Fourier_even X n k len.
 Proof.
   intros.
   revert n; induction X.
   {
   intros.
   simpl.
-  pose proof exp_mult_0_1 (-2 * PI * k * / len).
+  pose proof exp_mult_0_1 (-2 * PI * INR k * / INR len).
   rewrite H0.
   reflexivity.
   }
   intros.
   specialize (IHX (n + 1)%R).
   simpl.
-  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / len)) (a * exp_complex (-2 * PI * 2 * n * k * / (2 * len))) (Fourier_even X (n + 1) k len).
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * INR k * / INR len)) (a * exp_complex (-2 * PI * 2 * n * INR k * / (2 * INR len))) (Fourier_even X (n + 1) k len).
   rewrite H0.
   clear H0.
   rewrite <- IHX.
-  assert (exp_complex (-2 * PI * k * / len) *
-(a * exp_complex (-2 * PI * 2 * n * k * / (2 * len))) = a * exp_complex (-2 * PI * 2 * (n + 1) * k * / (2 * len))).
+  assert (exp_complex (-2 * PI * INR k * / INR len) *
+(a * exp_complex (-2 * PI * 2 * n * INR k * / (2 * INR len))) = a * exp_complex (-2 * PI * 2 * (n + 1) * INR k * / (2 * INR len))).
   {
-  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / len)) a (exp_complex (-2 * PI * 2 * n * k * / (2 * len))).
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * INR k * / INR len)) a (exp_complex (-2 * PI * 2 * n * INR k * / (2 * INR len))).
   rewrite <- H0.
-  pose proof Cmult_comm (exp_complex (-2 * PI * k * / len)) a.
+  pose proof Cmult_comm (exp_complex (-2 * PI * INR k * / INR len)) a.
   rewrite H1.
-  assert (exp_complex (-2 * PI * k * / len) *
-exp_complex (-2 * PI * 2 * n * k * / (2 * len)) = exp_complex (-2 * PI * 2 * (n + 1) * k * / (2 * len))).
+  assert (exp_complex (-2 * PI * INR k * / INR len) *
+exp_complex (-2 * PI * 2 * n * INR k * / (2 * INR len)) = exp_complex (-2 * PI * 2 * (n + 1) * INR k * / (2 * INR len))).
   {
-  pose proof UseByFourier_even_nMinus1_1 (-2 * PI)%R k len.
-  specialize (H2 H).
-  rewrite H2.
+  pose proof not_0_INR.
+  specialize (H2 len H).
+  pose proof UseByFourier_even_nMinus1_1 (-2 * PI)%R (INR k) (INR len).
+  specialize (H3 H2).
+  rewrite H3.
   clear.
-  pose proof exp_mult (-2 * PI * 2 * k * / (2 * len)) (-2 * PI * 2 * n * k * / (2 * len)).
-  pose proof UseByFourier_nMinus1_1 (-2 * PI * 2)%R (k * / (2 * len)) n.
+  pose proof exp_mult (-2 * PI * 2 * INR k * / (2 * INR len)) (-2 * PI * 2 * n * INR k * / (2 * INR len)).
+  pose proof UseByFourier_nMinus1_1 (-2 * PI * 2)%R (INR k * / (2 * INR len)) n.
   rewrite H.
-  pose proof Rmult_assoc (-2 * PI * 2)%R k (/ (2 * len)).
+  pose proof Rmult_assoc (-2 * PI * 2)%R (INR k) (/ (2 * INR len)).
   rewrite <- H1 in H0.
-  pose proof Rmult_assoc (-2 * PI * 2 * n) k (/ (2 * len)).
+  pose proof Rmult_assoc (-2 * PI * 2 * n) (INR k) (/ (2 * INR len)).
   rewrite <- H2 in H0.
   rewrite H0.
-  pose proof Rmult_assoc (-2 * PI * 2 * (n + 1)) k (/ (2 * len)).
+  pose proof Rmult_assoc (-2 * PI * 2 * (n + 1)) (INR k) (/ (2 * INR len)).
   rewrite <- H3.
   reflexivity.
   }
-  pose proof Cmult_assoc_r a (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * 2 * n * k * / (2 * len))).
+  pose proof Cmult_assoc_r a (exp_complex (-2 * PI * INR k * / INR len)) (exp_complex (-2 * PI * 2 * n * INR k * / (2 * INR len))).
   rewrite H2 in H3.
   exact H3.
   }
@@ -200,46 +202,48 @@ exp_complex (-2 * PI * 2 * n * k * / (2 * len)) = exp_complex (-2 * PI * 2 * (n 
   reflexivity.
 Qed.
 
-Lemma Fourier_odd_nMinus1: forall (X : list C) (n k len : R),
-  len <> 0%R -> Fourier_odd X (n + 1) k len = exp_complex (-2 * PI * k * / len) * Fourier_odd X n k len.
+Lemma Fourier_odd_nMinus1: forall (X : list C) (n : R) (k len : nat),
+  len <> 0%nat -> Fourier_odd X (n + 1) k len = exp_complex (-2 * PI * (INR k) * / (INR len)) * Fourier_odd X n k len.
 Proof.
   intros.
   revert n; induction X.
   {
   intros.
   simpl.
-  pose proof exp_mult_0_1 (-2 * PI * k * / len).
+  pose proof exp_mult_0_1 (-2 * PI * INR k * / INR len).
   rewrite H0.
   reflexivity.
   }
   intros.
   specialize (IHX (n + 1)%R).
   simpl.
-  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / len)) (a * exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len))) (Fourier_odd X (n + 1) k len).
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * INR k * / INR len)) (a * exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len))) (Fourier_odd X (n + 1) k len).
   rewrite H0.
   clear H0.
   rewrite <- IHX.
-  assert (exp_complex (-2 * PI * k * / len) *
-(a * exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len))) = a * exp_complex (-2 * PI * (2 * (n + 1) + 1) * k * / (2 * len))).
+  assert (exp_complex (-2 * PI * INR k * / INR len) *
+(a * exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len))) = a * exp_complex (-2 * PI * (2 * (n + 1) + 1) * INR k * / (2 * INR len))).
   {
-  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / len)) a (exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len))).
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * INR k * / INR len)) a (exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len))).
   rewrite <- H0.
-  pose proof Cmult_comm (exp_complex (-2 * PI * k * / len)) a.
+  pose proof Cmult_comm (exp_complex (-2 * PI * INR k * / INR len)) a.
   rewrite H1.
-  assert (exp_complex (-2 * PI * k * / len) *
-exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len)) = exp_complex (-2 * PI * (2 * (n + 1) + 1) * k * / (2 * len))).
+  assert (exp_complex (-2 * PI * INR k * / INR len) *
+exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len)) = exp_complex (-2 * PI * (2 * (n + 1) + 1) * INR k * / (2 * INR len))).
   {
-  pose proof UseByFourier_odd_nMinus1_1 (-2 * PI)%R k n len.
-  specialize (H2 H).
-  pose proof exp_mult (-2 * PI * k * / len) (-2 * PI * (2 * n + 1) * k * / (2 * len)).
-  rewrite H3 H2.
+  pose proof not_0_INR.
+  specialize (H2 len H).
+  pose proof UseByFourier_odd_nMinus1_1 (-2 * PI)%R (INR k) n (INR len).
+  specialize (H3 H2).
+  pose proof exp_mult (-2 * PI * INR k * / INR len) (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len)).
+  rewrite H4 H3.
   reflexivity.
   }
   clear IHX H0 H1.
   pose proof Cmult_eq_compat_l.
-  specialize (H0 a (exp_complex (-2 * PI * k * / len) *
-     exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len))) (exp_complex (-2 * PI * (2 * (n + 1) + 1) * k * / (2 * len))) H2).
-  pose proof Cmult_assoc_r a (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len))).
+  specialize (H0 a (exp_complex (-2 * PI * INR k * / INR len) *
+     exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len))) (exp_complex (-2 * PI * (2 * (n + 1) + 1) * INR k * / (2 * INR len))) H2).
+  pose proof Cmult_assoc_r a (exp_complex (-2 * PI * INR k * / INR len)) (exp_complex (-2 * PI * (2 * n + 1) * INR k * / (2 * INR len))).
   rewrite <- H1 in H0.
   rewrite H0.
   reflexivity.
@@ -249,8 +253,8 @@ exp_complex (-2 * PI * (2 * n + 1) * k * / (2 * len)) = exp_complex (-2 * PI * (
 Qed.
 
 (* Fourier_split2_1 *)
-Lemma Fourier_split2_1: forall (X : list C) (k len : R),
-  len <> 0%R -> Fourier_even X 0 k len = Fourier X 0 k len.
+Lemma Fourier_split2_1: forall (X : list C) (k len : nat),
+  len <> 0%nat -> Fourier_even X 0 k len = Fourier X 0 k len.
 Proof.
   intros.
   induction X.
@@ -259,9 +263,9 @@ Proof.
   reflexivity.
   }
   simpl.
-  pose proof compute_1 (-2 * PI * 2) k (2 * len).
+  pose proof compute_1 (-2 * PI * 2) (INR k) (2 * (INR len)).
   rewrite H0.
-  pose proof compute_1 (-2 * PI) k len.
+  pose proof compute_1 (-2 * PI) (INR k) (INR len).
   rewrite H1.
   clear H0 H1.
   pose proof Rplus_0_l 1.
@@ -279,19 +283,19 @@ Proof.
 Qed.
 
 (* Fourier_split2_2 *)
-Lemma Fourier_split2_2: forall (X : list C) (k len : R),
-  len <> 0%R -> Fourier_odd X 0 k len = (exp_complex (-2 * PI * (k ) * / (2 * len) )) * Fourier X 0 k len.
+Lemma Fourier_split2_2: forall (X : list C) (k len : nat),
+  len <> 0%nat -> Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k ) * / (2 * INR len) )) * Fourier X 0 k len.
 Proof.
   intros.
   induction X.
   {
   simpl.
-  pose proof exp_mult_0_1 (-2 * PI * k * / (2 * len)).
+  pose proof exp_mult_0_1 (-2 * PI * (INR k) * / (2 * INR len)).
   rewrite H0.
   reflexivity.
   }
   simpl.
-  pose proof compute_1 (-2 * PI) k len.
+  pose proof compute_1 (-2 * PI) (INR k) (INR len).
   rewrite H0.
   pose proof Rmult_0_r 2.
   rewrite H1.
@@ -313,22 +317,22 @@ Proof.
   pose proof exp_0_mult_r a.
   rewrite H3.
   clear.
-  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / (2 * len))) a (exp_complex (-2 * PI * k * / len) * Fourier X 0 k len).
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * (INR k) * / (2 * (INR len)))) a (exp_complex (-2 * PI * (INR k) * / (INR len)) * Fourier X 0 k len).
   rewrite H; clear.
-  pose proof Cmult_comm a (exp_complex (-2 * PI * k * / (2 * len))).
+  pose proof Cmult_comm a (exp_complex (-2 * PI * (INR k) * / (2 * (INR len)))).
   rewrite H; clear.
-  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / (2 * len))) (exp_complex (-2 * PI * k * / len)) (Fourier X 0 k len).
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * (INR k) * / (2 * (INR len)))) (exp_complex (-2 * PI * (INR k) * / (INR len))) (Fourier X 0 k len).
   rewrite <- H; clear.
-  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * k * / (2 * len))) (Fourier X 0 k len).
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * (INR k) * / (INR len))) (exp_complex (-2 * PI * (INR k) * / (2 * (INR len)))) (Fourier X 0 k len).
   rewrite <- H; clear.
-  pose proof Cmult_comm (exp_complex (-2 * PI * k * / len)) (exp_complex (-2 * PI * k * / (2 * len))).
+  pose proof Cmult_comm (exp_complex (-2 * PI * (INR k) * / (INR len))) (exp_complex (-2 * PI * (INR k) * / (2 * (INR len)))).
   rewrite H; clear.
   reflexivity.
 Qed.
 
 (** Split Fourier transform into odd and even when k < N / 2*)
-Lemma Fourier_split1: forall (X : list C) (k len : R),
-  len <> 0%R -> Fourier X 0 k (2 * len) = Fourier_even (EvenList X) 0 k len + Fourier_odd (OddList X) 0 k len.
+Lemma Fourier_split1: forall (X : list C) (k len : nat),
+  len <> 0%nat -> Fourier X 0 k (2 * len) = Fourier_even (EvenList X) 0 k len + Fourier_odd (OddList X) 0 k len.
 Proof.
   intros.
   induction X.
@@ -342,20 +346,21 @@ Proof.
   }
   {
   simpl.
-  pose proof compute_1 (-2 * PI)%R k (2 * len).
-  pose proof compute_1 (-2 * PI * 2)%R k (2 * len).
+  pose proof compute_1 (-2 * PI)%R (INR k) (INR (2 * len)).
+  pose proof compute_1 (-2 * PI * 2)%R (INR k) (2 * (INR len)).
   rewrite H0 H1.
   clear H0 H1.
   pose proof Rplus_0_l 1.
   rewrite H0; clear H0.
   pose proof Fourier_nMinus1 X 0 k (2 * len).
-  assert (2%Z <> 0%Z).
+  assert (2 <> 0)%nat.
   congruence.
-  pose proof not_0_IZR 2.
-  specialize (H2 H1).
-  pose proof Rmult_integral_contrapositive_currified 2 len.
-  specialize (H3 H2 H).
-  specialize (H0 H3).
+  pose proof Nat.neq_mul_0 2 len.
+  destruct H2; clear H3.
+  assert (2 <> 0 /\ len <> 0).
+  split; [exact H1 | exact H].
+  specialize (H2 H3).
+  specialize (H0 H2).
   clear H1 H2 H3.
   pose proof Rplus_0_l 1.
   rewrite H1 in H0; clear H1.
@@ -384,17 +389,33 @@ Proof.
   rewrite H2 in H0.
   clear H2.
   rewrite IHX; clear IHX.
-  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * k * / (2 * len))) (Fourier (EvenList X) 0 k len) (exp_complex (-2 * PI * k * / (2 * len)) * Fourier (OddList X) 0 k len).
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * (INR k) * / (INR (2 * len)))) (Fourier (EvenList X) 0 k len) (exp_complex (-2 * PI * (INR k) * / (2 * (INR len))) * Fourier (OddList X) 0 k len).
   rewrite H2; clear H2.
-  rewrite <- H1; clear H1.
-  pose proof Cmult_assoc_r (exp_complex (-2 * PI * k * / (2 * len))) (exp_complex (-2 * PI * k * / (2 * len))) (Fourier (OddList X) 0 k len).
-  rewrite <- H1; clear H1.
-  assert (exp_complex (-2 * PI * k * / (2 * len)) * exp_complex (-2 * PI * k * / (2 * len)) = exp_complex (-2 * PI * k * / len)).
+  assert (2 * INR len = INR (2 * len))%R.
   {
-  pose proof exp_mult (-2 * PI * k * / (2 * len)) (-2 * PI * k * / (2 * len)).
-  pose proof UseByFourier_split1_1 (-2 * PI * k) len.
-  specialize (H2 H).
+  clear.
+  pose proof mult_INR 2 len.
+  rewrite H.
+  assert (2 = INR 2)%R.
+  constructor.
+  rewrite H0.
+  reflexivity.
+  }
   rewrite H2 in H1.
+  rewrite <- H1; clear H1.
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * (INR k) * / (INR (2 * len)))) (exp_complex (-2 * PI * (INR k) * / (INR (2 * len)))) (Fourier (OddList X) 0 k len).
+  rewrite H2.
+  rewrite <- H1; clear H1.
+  assert (exp_complex (-2 * PI * (INR k) * / (INR (2 * len))) * exp_complex (-2 * PI * (INR k) * / (INR (2 * len))) = exp_complex (-2 * PI * (INR k) * / (INR len))).
+  {
+  pose proof exp_mult (-2 * PI * (INR k) * / (INR (2 * len))) (-2 * PI * (INR k) * / (INR (2 * len))).
+  pose proof UseByFourier_split1_1 (-2 * PI * (INR k)) (INR len).
+  pose proof not_INR len 0.
+  simpl in H4.
+  specialize (H4 H).
+  specialize (H3 H4).
+  rewrite H2 in H3.
+  rewrite H3 in H1.
   apply H1.
   }
   rewrite H1.
@@ -404,13 +425,13 @@ Proof.
 Qed.
 
 (** Split Fourier transform into odd and even when k > N / 2*)
-Lemma Fourier_split3_1: forall (X : list C) (k len : R),
-  len <> 0%R -> Fourier_even X 0 k len = Fourier X 0 (k - len) len.
+Lemma Fourier_split3_1: forall (X : list C) (k len : nat),
+  len <> 0 -> Fourier_even X 0 k len = Fourier X 0 (k - len) len.
 Proof.
 Admitted.
 
-Lemma Fourier_split3_2: forall (X : list C) (k len : R),
-  len <> 0%R -> X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * k * / (2 * len) )) * Fourier X 0 k len.
+Lemma Fourier_split3_2: forall (X : list C) (k len : nat),
+  len <> 0 -> X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) * / (INR (2 * len)) )) * Fourier X 0 k len.
 Proof.
 Admitted.
 
