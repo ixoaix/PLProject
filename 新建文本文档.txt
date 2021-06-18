@@ -1,0 +1,9 @@
+Fixpoint ListOp (l1: list C) (l2: list C) (Op: C->C->C) (default: list C): list C :=
+  match l1, l2 with
+     | nil, nil => nil
+     | (x1 :: l1' ), (x2 :: l2') => (Op x1 x2) :: ListOp l1' l2' Op default
+     | nil, _ => default
+     | _, nil => default 
+  end.
+
+Fixpoint EvenList (l:list C) : list C := 
