@@ -427,26 +427,113 @@ Qed.
 
 (** Split Fourier transform into odd and even when k > N / 2*)
 Lemma Fourier_split3_1: forall (X : list C) (k len : nat),
-  len <> 0 -> Fourier_even X 0 k len = Fourier X 0 (k - len) len.
+  len <> 0 -> len <= k -> Fourier_even X 0 k len = Fourier X 0 (k - len) len.
 Proof.
-Admitted.
+  intros.
+  induction X.
+  {
+  simpl.
+  reflexivity.
+  }
+  simpl.
+  pose proof compute_1 (-2 * PI * 2)%R (INR k) (2 * INR len).
+  pose proof compute_1 (-2 * PI)%R (INR (k - len)) (INR len).
+  rewrite H1 H2; clear H1 H2.
+  pose proof Fourier_nMinus1 X 0 (k - len) len.
+  pose proof Fourier_even_nMinus1 X 0 k len.
+  pose proof Rplus_0_l 1.
+  rewrite H3.
+  rewrite H3 in H1 H2; clear H3.
+  specialize (H1 H).
+  specialize (H2 H).
+  rewrite H1 H2 IHX; clear H1 H2.
+  pose proof Use_by_kMinuslen_1 k len.
+  specialize (H1 H H0).
+  rewrite H1.
+  reflexivity.
+Qed.
 
 Lemma Fourier_split3_2: forall (X : list C) (k len : nat),
-  len <> 0 -> X = nil \/ Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) * / (INR (2 * len)) )) * Fourier X 0 k len.
+  len <> 0 -> len <= k -> Fourier_odd X 0 k len = (exp_complex (-2 * PI * (INR k) * / (2 * INR len)) ) * Fourier X 0 (k - len) len.
 Proof.
-Admitted.
+  intros.
+  induction X.
+  {
+  simpl.
+  pose proof exp_mult_0_1 (-2 * PI * INR k * / (2 * INR len)).
+  rewrite H1.
+  reflexivity.
+  }
+  simpl.
+  pose proof Rplus_0_l 1.
+  rewrite H1.
+  assert (2 * 0 + 1 = 1)%R.
+  ring.
+  rewrite H2; clear H2.
+  pose proof Rmult_1_r (-2 * PI)%R.
+  rewrite H2; clear H2.
+  pose proof compute_1 (-2 * PI)%R (INR (k - len)) (INR len).
+  rewrite H2; clear H2.
+  pose proof exp_0_mult_r a.
+  rewrite H2; clear H2.
+  pose proof Cmult_plus_distr_l (exp_complex (-2 * PI * INR k * / (2 * INR len))) a (Fourier X 1 (k - len) len).
+  rewrite H2; clear H2.
+  pose proof Cmult_comm (exp_complex (-2 * PI * INR k * / (2 * INR len))) a.
+  rewrite H2; clear H2.
+  pose proof Fourier_nMinus1 X 0 (k - len) len.
+  pose proof Fourier_odd_nMinus1 X 0 k len.
+  specialize (H2 H).
+  specialize (H3 H).
+  rewrite H1 in H2 H3; clear H1.
+  rewrite H2 H3 IHX; clear H2 H3 IHX.
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * INR k * / INR len)) (exp_complex (-2 * PI * INR k * / (2 * INR len))) (Fourier X 0 (k - len) len).
+  pose proof Cmult_assoc_r (exp_complex (-2 * PI * INR k * / (2 * INR len))) (exp_complex (-2 * PI * INR (k - len) * / INR len)) (Fourier X 0 (k - len) len).
+  rewrite <- H1; clear H1.
+  rewrite <- H2; clear H2.
+  pose proof Use_by_kMinuslen_1 k len.
+  specialize (H1 H H0).
+  rewrite H1.
+  pose proof Cmult_comm (exp_complex (-2 * PI * INR k * / (2 * INR len))) (exp_complex (-2 * PI * INR k * / INR len)).
+  rewrite H2.
+  reflexivity.
+Qed.
 
 Lemma FstHalf: forall (X: list C) (k: nat) (len: nat),
-k <= len - 1 ->
-Fourier X 0 k (2 * len) = Fourier (EvenList X) 0 k len + (exp_complex (-2 * PI * (INR k) * / (2 * INR len) )) * Fourier (OddList X) 0 k len.
+  len <> 0 -> Fourier X 0 k (2 * len) = Fourier (EvenList X) 0 k len + (exp_complex (-2 * PI * (INR k) * / (2 * INR len) )) * Fourier (OddList X) 0 k len.
 Proof.
-Admitted.
+  intros.
+  pose proof Fourier_split1 X k len.
+  specialize (H0 H).
+  pose proof Fourier_split2_1 (EvenList X) k len.
+  specialize (H1 H).
+  pose proof Fourier_split2_2 (OddList X) k len.
+  specialize (H2 H).
+  rewrite <- H2.
+  rewrite <- H1.
+  rewrite <- H0.
+  reflexivity.
+Qed.
 
 Lemma SndHalf: forall (X: list C) (k: nat) (len: nat),
-len - 1 < k->
-Fourier X 0 k (2 * len) = Fourier (EvenList X) 0 (k - len) len - (exp_complex (-2 * PI * (INR (k - len)) * / (2 * INR len) )) * Fourier (OddList X) 0 (k - len) len.
+  len <> 0 -> len <= k ->  Fourier X 0 k (2 * len) = Fourier (EvenList X) 0 (k - len) len - (exp_complex (-2 * PI * (INR (k - len)) * / (2 * INR len) )) * Fourier (OddList X) 0 (k - len) len.
 Proof.
-Admitted.
+  intros.
+  pose proof Fourier_split1 X k len.
+  specialize (H1 H).
+  pose proof Fourier_split3_1 (EvenList X) k len.
+  specialize (H2 H H0).
+  pose proof Fourier_split3_2 (OddList X) k len.
+  specialize (H3 H H0).
+  pose proof Use_by_kMinuslen_2 k len.
+  specialize (H4 H H0).
+  rewrite H4; clear H4.
+  pose proof Use_By_SndHalf (Fourier (EvenList X) 0 (k - len) len) (exp_complex (-2 * PI * INR k * / (2 * INR len))) (Fourier (OddList X) 0 (k - len) len).
+  rewrite H4; clear H4.
+  rewrite <- H3.
+  rewrite <- H2.
+  rewrite <- H1.
+  reflexivity.
+Qed.
 
 Lemma ListOpLength:forall (l1 l2 : list C)(Op : C->C->C) (default: list C),
 length l1 = length l2 -> length (ListOp l1 l2 Op default) = length l1.
@@ -507,15 +594,68 @@ Qed.
 Lemma ineq2: forall(k0 M: nat),
 k0 <= 2 ^ M - 1 -> k0 < 2^M.
 Proof.
-Admitted.
+  intros.
+  assert (2 ^ M - 1 < 2 ^ M).
+  2: {
+  pose proof Nat.le_lt_trans _ _ _ H H0.
+  exact H1.
+  }
+  eapply Nat.sub_lt.
+  {
+  pose proof Nat.eq_0_gt_0_cases M.
+  apply Nat.lt_eq_cases.
+  destruct H0.
+  {
+  right.
+  rewrite H0.
+  simpl.
+  reflexivity.
+  }
+  pose proof Nat.pow_gt_1 2 M.
+  left.
+  apply H1.
+  auto.
+  apply Nat.neq_0_lt_0.
+  exact H0.
+  }
+  auto.
+Qed.
+
 Lemma ineq3: forall(k0 M: nat),
  2 ^ M - 1 < k0 ->  2^M <= k0.
 Proof.
-Admitted.
+  intros.
+  lia.
+Qed.
+
 Lemma ineq4:  forall(k M: nat),
  k <= 2 ^ S M - 1 -> k - 2 ^ M <= 2 ^ M - 1.
 Proof.
-Admitted.
+  intros.
+  assert (2 ^ S M - 1 - 2 ^ M = 2 ^ M - 1)%nat.
+  {
+  simpl.
+  lia.
+  }
+  rewrite <- H0.
+  lia.
+Qed.
+
+Lemma ineq5: forall (k : nat),
+  2 ^ k <> 0.
+Proof.
+  intros.
+  apply Nat.pow_nonzero.
+  congruence.
+Qed.
+
+Lemma ineq6: forall (k0 M : nat),
+  2 ^ M <= 2 ^ M + k0.
+Proof.
+  intros.
+  lia.
+Qed.
+
 Lemma FFTSplit: forall (x:list C)(M: nat)(a: list C)(b: list C),
 (length a = 2^M /\ length b = 2^M /\ 
 forall (k: nat), (k <= 2^M - 1) -> Fourier x 0 k (length x) = nth k a (0%R, 0%R)
@@ -577,8 +717,6 @@ Proof.
   intros.
   apply PhaseGenLength.
 Qed.
-
-
 
 Lemma FFTLength: forall(M: nat)(x: list C),
 length x = 2 ^ M -> length (FFT x M) = 2 ^ M.
@@ -670,13 +808,44 @@ Qed.
 Lemma ineq: forall(k0: nat) (M: nat),
 2^(S M - 1) - 1 < (k0 + 2 ^ (S M - 1)).
 Proof.
-Admitted.
-
+  intros.
+  eapply Nat.lt_le_trans.
+  {
+  eapply Nat.sub_lt.
+  {
+  pose proof Nat.eq_0_gt_0_cases M.
+  apply Nat.lt_eq_cases.
+  destruct H.
+  {
+  right.
+  rewrite H.
+  simpl.
+  reflexivity.
+  }
+  pose proof Nat.pow_gt_1 2 (S M - 1).
+  left.
+  apply H0.
+  auto.
+  apply Nat.neq_0_lt_0.
+  simpl.
+  lia.
+  }
+  auto.
+  }
+  apply le_plus_r.
+Qed.
 
 Lemma eq0: forall M,
 (2 * INR (2 ^ M))%R = (INR (2 * 2 ^ M)).
 Proof.
-Admitted.
+  intros.
+  pose proof mult_INR 2 (2 ^ M).
+  assert (INR 2 = 2)%R.
+  constructor.
+  rewrite H0 in H.
+  rewrite H.
+  reflexivity.
+Qed.
 
 (**  This is our ultimate goal.*)
 Definition FFTCorrect : forall (M:nat) (x:list C) (k:nat),
@@ -702,20 +871,22 @@ Proof.
           split.
     +++ repeat rewrite nthListOp. 
           assert (M = (S M - 1)%nat). { simpl. rewrite <- minus_n_O. reflexivity. } rewrite H1 in H0. clear H1.
-          pose proof FstHalf x k0 (2^(S M - 1)) H0.
-          rewrite H. simpl; rewrite Nat.add_0_r. 
-          simpl in H1; rewrite Nat.sub_0_r in H1. rewrite Nat.add_0_r in H1. 
+          pose proof ineq5 (S M - 1).
+          pose proof FstHalf x k0 (2^(S M - 1)) H1.
+          clear H1.
+          rewrite H. simpl; rewrite Nat.add_0_r.
+          simpl in H2; rewrite Nat.sub_0_r in H2. rewrite Nat.add_0_r in H2. 
           pose proof IHM (EvenList x) k0. pose proof IHM (OddList x) k0.
           pose proof EOListLength _ _ H. fold Nat.pow in H4. destruct H4.
           simpl in H0; rewrite Nat.sub_0_r in H0. 
           assert(Fourier (EvenList x) 0 k0 (length (EvenList x)) = nth k0 (FFT (EvenList x) M) (0%R, 0%R)).
-          apply H2. split. exact H4. exact H0.
+          apply H1. split. exact H4. exact H0.
           assert(Fourier (OddList x) 0 k0 (length (OddList x)) = nth k0 (FFT (OddList x) M) (0%R, 0%R)).
           apply H3. split. exact H5. exact H0.
           pose proof ineq2 k0 M H0.
           pose proof Phase_k k0 M.
           pose proof H9 H8.
-          rewrite H10. rewrite H1. rewrite <- H6. rewrite <- H7. rewrite H4 H5. rewrite eq0. 
+          rewrite H10. rewrite H2. rewrite <- H6. rewrite <- H7. rewrite H4 H5. rewrite eq0. 
           reflexivity.
     +++ repeat rewrite nthListOp. 
           pose proof ineq k0 M.
@@ -731,10 +902,12 @@ Proof.
           assert(Fourier (OddList x) 0 k0 (length (OddList x)) = nth k0 (FFT (OddList x) M) (0%R, 0%R)).
           apply H4. split. exact H6. exact H0.
           pose proof Phase_k k0 M.
-          pose proof H2 H1.
-          rewrite H5 in H7; rewrite H6 in H8; rewrite H7 H8 in H10; rewrite H9.
+          pose proof ineq5 M.
+          pose proof ineq6 k0 M.
+          pose proof H2 H10 H11.
+          rewrite H5 in H7; rewrite H6 in H8; rewrite H7 H8 in H12; rewrite H9.
           apply ineq2. exact H0.
           simpl; rewrite Nat.add_0_r. rewrite plus_comm.
-          rewrite H10. rewrite eq0. simpl. rewrite Nat.add_0_r.
+          rewrite H12. rewrite eq0. simpl. rewrite Nat.add_0_r.
           reflexivity. 
 Qed.
