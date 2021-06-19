@@ -285,3 +285,10 @@ Proof.
   rewrite H0.
   reflexivity.
 Qed.
+
+Lemma Use_By_Fourier_split3_1_1:forall (a b c d : R),
+  d <> 0 -> a * (b - c) * / d = a * b * / d + - a * c * / d.
+Proof.
+  intros.
+  ring.
+Qed.

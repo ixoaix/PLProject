@@ -331,3 +331,131 @@ Proof.
   rewrite H.
   reflexivity.
 Qed.
+
+Lemma Use_By_Fourier_split3_1_2:forall (a b c d : R),
+  d <> 0%R -> exp_complex (a * (b - c) * / d) = exp_complex (a * b * / d) * exp_complex (- a * c * / d).
+Proof.
+  intros.
+  pose proof Use_By_Fourier_split3_1_1 a b c d.
+  specialize (H0 H).
+  rewrite H0.
+  pose proof exp_mult (a * b * / d) (- a * c * / d).
+  rewrite H1.
+  reflexivity.
+Qed.
+
+Lemma Cmult_1R: forall (x : C),
+  x * (1%R, 0%R) = x.
+Proof.
+  intros.
+  destruct x.
+  unfold Cmult.
+  simpl.
+  pose proof Rmult_1_r r.
+  pose proof Rmult_1_r r0.
+  pose proof Rmult_0_r r.
+  pose proof Rmult_0_r r0.
+  pose proof Rplus_0_l r0.
+  pose proof Rminus_0_r r.
+  rewrite H H0 H1 H2 H3 H4.
+  reflexivity.
+Qed.
+
+Lemma Cmult_minus1R: forall (x : C),
+  x * ((-1)%R, 0%R) = - x.
+Proof.
+  intros.
+  destruct x.
+  unfold Cmult.
+  simpl.
+  assert (r * -1 = -r)%R. ring.
+  assert (r0 * -1 = -r0)%R. ring.
+  assert (- r - r0 * 0 = -r)%R. ring.
+  assert (r * 0 + - r0 = -r0)%R. ring.
+  rewrite H H0 H1 H2.
+  clear.
+  constructor.
+Qed.
+
+Lemma Use_by_kMinuslen_1: forall (k len : nat),
+  len <> 0 -> len <= k -> exp_complex (-2 * PI * INR (k - len) * / (INR len)) = exp_complex (-2 * PI * INR k * / (INR len)).
+Proof.
+  intros.
+  pose proof minus_INR k len.
+  specialize (H1 H0).
+  rewrite H1; clear H1.
+  pose proof Use_By_Fourier_split3_1_2 (-2 * PI)%R (INR k) (INR len) (INR len).
+  pose proof not_INR len 0.
+  specialize (H2 H); simpl in H2.
+  specialize (H1 H2).
+  rewrite H1.
+  pose proof Rinv_r_simpl_l (INR len) (- (-2 * PI))%R.
+  specialize (H3 H2); clear H2.
+  rewrite H3.
+  assert (exp_complex (- (-2 * PI)) = (1%R , 0%R)).
+  {
+  assert (- (-2 * PI) = 2 * PI)%R.
+  ring.
+  rewrite H2.
+  unfold exp_complex.
+  pose proof cos_2PI.
+  pose proof sin_2PI.
+  rewrite H4 H5.
+  reflexivity.
+  }
+  rewrite H2.
+  pose proof Cmult_1R (exp_complex (-2 * PI * INR k * / INR len)).
+  rewrite H4.
+  reflexivity.
+Qed.
+
+Lemma Use_by_kMinuslen_2: forall (k len : nat),
+  len <> 0 -> len <= k -> exp_complex (-2 * PI * INR (k - len) * / (2 * INR len)) = - exp_complex (-2 * PI * INR k * / (2 * INR len)).
+Proof.
+  intros.
+  pose proof minus_INR k len.
+  specialize (H1 H0).
+  rewrite H1; clear H1.
+  pose proof Use_By_Fourier_split3_1_2 (-2 * PI)%R (INR k) (INR len) (2 * INR len).
+  pose proof not_INR len 0.
+  specialize (H2 H); simpl in H2.
+  pose proof Rmult_integral_contrapositive_currified 2 (INR len).
+  assert ( 2%Z <> 0%Z ).
+  congruence.
+  pose proof not_0_IZR 2.
+  specialize (H5 H4).
+  specialize (H3 H5 H2).
+  specialize (H1 H3).
+  rewrite H1.
+  assert (- (-2 * PI) * INR len * / (2 * INR len) = PI)%R.
+  field.
+  exact H2.
+  rewrite H6.
+  clear.
+  unfold exp_complex at 2.
+  pose proof cos_PI.
+  pose proof sin_PI.
+  rewrite H H0; clear.
+  apply Cmult_minus1R.
+Qed.
+
+Lemma Use_By_SndHalf: forall (a b c : C),
+  a - - b * c = a + b * c.
+Proof.
+  intros.
+  unfold Cminus.
+  assert (- b * c = - (b * c)).
+  {
+  destruct b, c.
+  unfold Cmult.
+  simpl.
+  assert (- r * r1 - - r0 * r2 = - (r * r1 - r0 * r2))%R. ring.
+  assert (- r * r2 + - r0 * r1 = - (r * r2 + r0 * r1))%R. ring.
+  rewrite H H0.
+  constructor.
+  }
+  rewrite H.
+  pose proof Cminus_minus (b * c).
+  rewrite H0.
+  reflexivity.
+Qed.
