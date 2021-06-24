@@ -13,9 +13,9 @@
 
 (* 2021-05-07 20:39 *)
 From Coq Require Import Reals ssreflect.
-Require Import PL.Rcompute PL.Ccompute.
+Require Import PL.Rcompute PL.Ccompute PL.Inequalities.
 Require Import Coq.Lists.List.
-Require Import Coq.micromega.Lia.
+
 
 Local Open Scope C_scope.
 Delimit Scope C_scope with C.
@@ -591,70 +591,6 @@ Proof.
       exact H1. exact H2.
 Qed.
 
-Lemma ineq2: forall(k0 M: nat),
-k0 <= 2 ^ M - 1 -> k0 < 2^M.
-Proof.
-  intros.
-  assert (2 ^ M - 1 < 2 ^ M).
-  2: {
-  pose proof Nat.le_lt_trans _ _ _ H H0.
-  exact H1.
-  }
-  eapply Nat.sub_lt.
-  {
-  pose proof Nat.eq_0_gt_0_cases M.
-  apply Nat.lt_eq_cases.
-  destruct H0.
-  {
-  right.
-  rewrite H0.
-  simpl.
-  reflexivity.
-  }
-  pose proof Nat.pow_gt_1 2 M.
-  left.
-  apply H1.
-  auto.
-  apply Nat.neq_0_lt_0.
-  exact H0.
-  }
-  auto.
-Qed.
-
-Lemma ineq3: forall(k0 M: nat),
- 2 ^ M - 1 < k0 ->  2^M <= k0.
-Proof.
-  intros.
-  lia.
-Qed.
-
-Lemma ineq4:  forall(k M: nat),
- k <= 2 ^ S M - 1 -> k - 2 ^ M <= 2 ^ M - 1.
-Proof.
-  intros.
-  assert (2 ^ S M - 1 - 2 ^ M = 2 ^ M - 1)%nat.
-  {
-  simpl.
-  lia.
-  }
-  rewrite <- H0.
-  lia.
-Qed.
-
-Lemma ineq5: forall (k : nat),
-  2 ^ k <> 0.
-Proof.
-  intros.
-  apply Nat.pow_nonzero.
-  congruence.
-Qed.
-
-Lemma ineq6: forall (k0 M : nat),
-  2 ^ M <= 2 ^ M + k0.
-Proof.
-  intros.
-  lia.
-Qed.
 
 Lemma FFTSplit: forall (x:list C)(M: nat)(a: list C)(b: list C),
 (length a = 2^M /\ length b = 2^M /\ 
@@ -689,13 +625,26 @@ Proof.
     exact H9. exact H4.
 Qed.
 
-Lemma nthListOp: forall (l1: list C) (l2: list C) (Op: C->C->C) (default: list C) (k: nat) (default0: C),
+Lemma nthListOp: forall (l1: list C) (l2: list C) (Op: C->C->C) (default: list C) (default0: C) (k: nat),
+length l1 = length l2 -> 
+default0 = Op default0 default0 ->
 nth k (ListOp l1 l2 Op default) default0 = Op (nth k l1 default0) (nth k l2 default0).
 Proof.
-  intros.
-  
-Admitted.
+  induction l1, l2. intros.
+  + intros. simpl. induction k; exact H0.
+  + intros. simpl in H. discriminate H.
+  + intros. simpl in H. discriminate H.
+  + intros. induction k.
+    ++ simpl. reflexivity.
+    ++ simpl. apply IHl1. simpl in H.
+          rewrite <- Nat.compare_eq_iff in H;
+          rewrite Nat.compare_succ in H;
+          apply Nat.compare_eq_iff in H.
+          exact H. exact H0.
+Qed.
 
+
+(** Some equalities about lengths*)
 Lemma PhaseGenLength: forall (n m: nat),
 length (PhaseGen n m) = n.
 Proof.
@@ -750,29 +699,60 @@ Proof.
     rewrite H2 H0. rewrite plus_0_r. reflexivity.
 Qed.
 
-Lemma Length: forall (M: nat)(x: list C)(Op : C -> C -> C),
+Lemma Length1: forall (M: nat)(x: list C),
+length x = 2 ^ (S M) ->
+length (FFT (EvenList x) M)  = 2 ^ M /\ length (FFT (OddList x) M) = 2 ^ M.
+Proof.
+    intros.
+    pose proof EOListLength (2^M) x.
+    assert( length x = (2 * 2 ^ M)%nat  ).
+    { simpl. simpl in H. rewrite H. reflexivity. }
+    specialize (H0 H1); clear H1.
+    destruct H0.
+    pose proof FFTLength M (EvenList x) H0.
+    pose proof FFTLength M (OddList x) H1.
+    split. exact H2. exact H3.
+Qed.
+
+Lemma Length2: forall (M: nat)(x: list C),
+length x = 2 ^ (S M) -> length (Phase (2 ^ M)) = 2 ^ M.
+Proof.
+  intros.
+  pose proof PhaseLength (2 ^ M).
+  exact H0.
+Qed.
+
+Lemma Length3: forall (M: nat)(x: list C)(Op : C -> C -> C),
+length x = 2 ^ (S M) ->
+length (ListOp (Phase (2 ^ M)) (FFT (OddList x) M) Op []) = 2 ^ M.
+Proof.
+  intros.
+  pose proof Length2 _ _ H.
+  pose proof Length1 _ _ H.
+  destruct H1.
+  pose proof ListOpLength (Phase (2 ^ M)) (FFT (OddList x) M) Op [].
+  rewrite H0 H2 in H3.
+  assert (2 ^ M = 2 ^ M). reflexivity.
+  specialize (H3 H4).
+  exact H3.
+Qed.
+
+Lemma Length4: forall (M: nat)(x: list C)(Op : C -> C -> C),
 length x = 2 ^ (S M) ->
 length
   (ListOp (FFT (EvenList x) M) (ListOp (Phase (2 ^ M)) (FFT (OddList x) M) Cmult []) Op []) =
 2 ^ M.
 Proof.
-    intros.
-    pose proof PhaseLength (2 ^ M).
-    pose proof EOListLength (2^M) x.
-    assert( length x = (2 * 2 ^ M)%nat  ).
-    { simpl. simpl in H. rewrite H. reflexivity. }
-    specialize (H1 H2); clear H2.
-    destruct H1.
-    pose proof FFTLength M (EvenList x) H1.
-    pose proof FFTLength M (OddList x) H2.
-    pose proof ListOpLength (Phase (2 ^ M)) (FFT (OddList x) M) Cmult [].
-    assert (length (Phase (2 ^ M)) = length (FFT (OddList x) M) ). rewrite H4 H0. reflexivity.
-    specialize(H5 H6).
-    pose proof ListOpLength (FFT (EvenList x) M) (ListOp (Phase (2 ^ M)) (FFT (OddList x) M) Cmult []) Op [].
-    rewrite H5 H3 H0 in H7.
-    assert (2 ^ M = 2 ^ M). reflexivity.
-    specialize (H7 H8). rewrite H7.
-    reflexivity.
+  intros.
+  pose proof Length2 _ _ H.
+  pose proof Length1 _ _ H.
+  pose proof Length3 _ _ Cmult H.
+  destruct H1.
+  pose proof ListOpLength (FFT (EvenList x) M) (ListOp (Phase (2 ^ M)) (FFT (OddList x) M) Cmult []) Op [].
+  assert (length (FFT (EvenList x) M) =
+  length (ListOp (Phase (2 ^ M)) (FFT (OddList x) M) Cmult [])). rewrite H2 H1. reflexivity.
+  specialize (H4 H5).
+  rewrite H4. rewrite H1. reflexivity.
 Qed.
 
 Lemma PhaseGen_k: forall(n k m: nat),
@@ -805,48 +785,6 @@ Proof.
   exact H.
 Qed.
 
-Lemma ineq: forall(k0: nat) (M: nat),
-2^(S M - 1) - 1 < (k0 + 2 ^ (S M - 1)).
-Proof.
-  intros.
-  eapply Nat.lt_le_trans.
-  {
-  eapply Nat.sub_lt.
-  {
-  pose proof Nat.eq_0_gt_0_cases M.
-  apply Nat.lt_eq_cases.
-  destruct H.
-  {
-  right.
-  rewrite H.
-  simpl.
-  reflexivity.
-  }
-  pose proof Nat.pow_gt_1 2 (S M - 1).
-  left.
-  apply H0.
-  auto.
-  apply Nat.neq_0_lt_0.
-  simpl.
-  lia.
-  }
-  auto.
-  }
-  apply le_plus_r.
-Qed.
-
-Lemma eq0: forall M,
-(2 * INR (2 ^ M))%R = (INR (2 * 2 ^ M)).
-Proof.
-  intros.
-  pose proof mult_INR 2 (2 ^ M).
-  assert (INR 2 = 2)%R.
-  constructor.
-  rewrite H0 in H.
-  rewrite H.
-  reflexivity.
-Qed.
-
 (**  This is our ultimate goal.*)
 Definition FFTCorrect : forall (M:nat) (x:list C) (k:nat),
   (length x = 2 ^ M /\ k <= 2 ^ M - 1) -> 
@@ -866,10 +804,14 @@ Proof.
           repeat rewrite Rplus_0_l. reflexivity. 
           simpl in H0. apply le_n_0_eq in H0. discriminate H0.
   + intros. destruct H. simpl. revert H0. apply FFTSplit. split.
-    ++ simpl. rewrite Length. exact H. pose proof minus_n_O M. reflexivity.
-    ++ split. rewrite Length. exact H. pose proof minus_n_O M. simpl. reflexivity.
+    ++ simpl. rewrite Length4. exact H. pose proof minus_n_O M. reflexivity.
+    ++ split. rewrite Length4. exact H. pose proof minus_n_O M. simpl. reflexivity.
           split.
     +++ repeat rewrite nthListOp. 
+          { pose proof Length1 _ _ H. pose proof Length3 _ _ Cmult H. destruct H1. rewrite H2 H1. reflexivity. }
+          { rewrite Cplus_0_r. reflexivity. }          
+          { pose proof Length1 _ _ H. pose proof Length2 _ _ H. destruct H1. rewrite H2 H3. reflexivity. }
+          { rewrite Cmult_0_r. reflexivity. }
           assert (M = (S M - 1)%nat). { simpl. rewrite <- minus_n_O. reflexivity. } rewrite H1 in H0. clear H1.
           pose proof ineq5 (S M - 1).
           pose proof FstHalf x k0 (2^(S M - 1)) H1.
@@ -888,7 +830,11 @@ Proof.
           pose proof H9 H8.
           rewrite H10. rewrite H2. rewrite <- H6. rewrite <- H7. rewrite H4 H5. rewrite eq0. 
           reflexivity.
-    +++ repeat rewrite nthListOp. 
+    +++ repeat rewrite nthListOp.
+          { pose proof Length1 _ _ H. pose proof Length3 _ _ Cmult H. destruct H1. rewrite H2 H1. reflexivity. }
+          { unfold Cminus. rewrite Cplus_0_l. unfold Copp. simpl. assert(0%R = (-0)%R). ring. rewrite <- H1. reflexivity. }          
+          { pose proof Length1 _ _ H. pose proof Length2 _ _ H. destruct H1. rewrite H2 H3. reflexivity. }
+          { rewrite Cmult_0_r. reflexivity. }
           pose proof ineq k0 M.
           pose proof SndHalf x (k0 + 2 ^ (S M - 1)) (2^(S M - 1)) .
           rewrite H. simpl in H1; rewrite Nat.sub_0_r in H1; rewrite plus_comm in H1.
